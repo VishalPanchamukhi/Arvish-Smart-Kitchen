@@ -1,473 +1,483 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Arvish Smart Kitchen 🍳</title>
-  <meta name="theme-color" content="#fff8f0" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-  
-  <style>
-    :root{
-      --bg-body: #fffbf7; 
-      --bg-card: #ffffff;
-      --primary: #ff8c42; /* Soft appetizing orange */
-      --secondary: #4caf50; /* Fresh green */
-      --accent: #ff5e62; /* Salmon pink */
-      --text-dark: #2d2424;
-      --text-muted: #756a6a;
-      --border: #f0e6dd;
-      --shadow: 0 8px 24px rgba(149, 157, 165, 0.12);
-      --radius: 20px;
-      --font-head: 'Merienda', cursive;
-      --font-body: 'Poppins', sans-serif;
-    }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Arvish Smart Kitchen 🍳</title>
+<meta name="theme-color" content="#fff8f0" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merienda:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-    *{box-sizing:border-box}
+<style>
+:root{
+--bg-body: #fffbf7;
+--bg-card: #ffffff;
+--primary: #ff8c42; /* Soft appetizing orange */
+--secondary: #4caf50; /* Fresh green */
+--accent: #ff5e62; /* Salmon pink */
+--text-dark: #2d2424;
+--text-muted: #756a6a;
+--border: #f0e6dd;
+--shadow: 0 8px 24px rgba(149, 157, 165, 0.12);
+--radius: 20px;
+--font-head: 'Merienda', cursive;
+--font-body: 'Poppins', sans-serif;
+}
 
-    body{
-      margin:0; font-family: var(--font-body);
-      color: var(--text-dark);
-      background-color: var(--bg-body);
-      /* Subtle food pattern background */
-      background-image: radial-gradient(#ffe0b2 1.5px, transparent 1.5px), radial-gradient(#ffe0b2 1.5px, var(--bg-body) 1.5px);
-      background-size: 30px 30px;
-      background-position: 0 0, 15px 15px;
-      min-height: 100vh;
-      padding-bottom: 40px;
-    }
+*{box-sizing:border-box}
 
-    .wrap{
-      max-width: 1000px; margin: 0 auto; padding: 20px;
-    }
+body{
+margin:0; font-family: var(--font-body);
+color: var(--text-dark);
+background-color: var(--bg-body);
+/* Subtle food pattern background */
+background-image: radial-gradient(#ffe0b2 1.5px, transparent 1.5px), radial-gradient(#ffe0b2 1.5px, var(--bg-body) 1.5px);
+background-size: 30px 30px;
+background-position: 0 0, 15px 15px;
+min-height: 100vh;
+padding-bottom: 40px;
+}
 
-    /* --- HEADER --- */
-    header {
-      background: var(--bg-card);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 24px;
-      margin-bottom: 20px;
-      position: relative;
-      overflow: hidden;
-      border-bottom: 4px solid var(--primary);
-    }
-    
-    header::before {
-      content:""; position:absolute; top:0; left:0; width:100%; height:6px;
-      background: linear-gradient(90deg, var(--secondary), var(--primary), var(--accent));
-    }
+.wrap{
+max-width: 1000px; margin: 0 auto; padding: 20px;
+}
 
-    .brand-row {
-      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px;
-    }
+/* --- HEADER --- */
+header {
+background: var(--bg-card);
+border-radius: var(--radius);
+box-shadow: var(--shadow);
+padding: 24px;
+margin-bottom: 20px;
+position: relative;
+overflow: hidden;
+border-bottom: 4px solid var(--primary);
+}
 
-    .brand {
-      display: flex; align-items: center; gap: 15px;
-    }
-    
-    .logo-emoji {
-      font-size: 42px;
-      background: #fff0e6;
-      width: 70px; height: 70px;
-      display: flex; align-items: center; justify-content: center;
-      border-radius: 50%;
-      box-shadow: 0 4px 10px rgba(255,140,66,0.2);
-    }
+header::before {
+content:""; position:absolute; top:0; left:0; width:100%; height:6px;
+background: linear-gradient(90deg, var(--secondary), var(--primary), var(--accent));
+}
 
-    .brand h1 {
-      margin: 0; font-family: var(--font-head); color: var(--text-dark); font-size: 26px;
-    }
-    .brand p {
-      margin: 4px 0 0; color: var(--text-muted); font-size: 13px; font-weight: 400;
-    }
+.brand-row {
+display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px;
+}
 
-    .meta-tags {
-      display: flex; gap: 8px; flex-wrap: wrap;
-    }
-    .tag {
-      font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
-      padding: 6px 12px; border-radius: 50px;
-      background: #fdf2f8; color: var(--accent); border: 1px solid #fce7f3;
-    }
-    .tag.green { background: #f0fdf4; color: var(--secondary); border-color: #dcfce7; }
-    
-    /* --- CONTROLS BAR --- */
-    .controls-bar {
-      display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between;
-      margin-top: 18px; padding-top: 18px; border-top: 2px dashed var(--border);
-    }
-    
-    .status-info {
-      font-size: 13px; color: var(--text-muted); display: flex; gap: 12px; align-items: center; font-weight: 500;
-    }
-    
-    .clock-pill {
-      background: var(--text-dark); color: #fff; padding: 4px 10px; border-radius: 6px; font-family: monospace;
-    }
+.brand {
+display: flex; align-items: center; gap: 15px;
+}
 
-    .action-group {
-      display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
-    }
+.logo-emoji {
+font-size: 42px;
+background: #fff0e6;
+width: 70px; height: 70px;
+display: flex; align-items: center; justify-content: center;
+border-radius: 50%;
+box-shadow: 0 4px 10px rgba(255,140,66,0.2);
+}
 
-    .btn {
-      appearance: none; border: none; font-family: var(--font-body); font-weight: 600; font-size: 13px;
-      padding: 8px 16px; border-radius: 12px; cursor: pointer; transition: all 0.2s;
-      display: inline-flex; align-items: center; gap: 6px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    }
-    .btn:active { transform: translateY(1px); }
+.brand h1 {
+margin: 0; font-family: var(--font-head); color: var(--text-dark); font-size: 26px;
+}
+.brand p {
+margin: 4px 0 0; color: var(--text-muted); font-size: 13px; font-weight: 400;
+}
 
-    .btn-primary { background: var(--primary); color: white; }
-    .btn-outline { background: white; border: 1px solid var(--border); color: var(--text-muted); }
-    .btn-green { background: var(--secondary); color: white; }
-    .btn-red { background: #ffebee; color: var(--accent); }
+.meta-tags {
+display: flex; gap: 8px; flex-wrap: wrap;
+}
+.tag {
+font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+padding: 6px 12px; border-radius: 50px;
+background: #fdf2f8; color: var(--accent); border: 1px solid #fce7f3;
+}
+.tag.green { background: #f0fdf4; color: var(--secondary); border-color: #dcfce7; }
 
-    .servings-box {
-      background: white; border: 1px solid var(--border); padding: 4px 10px; border-radius: 50px;
-      display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-muted);
-    }
-    .servings-box b { color: var(--primary); font-size: 15px; }
-    input[type=range] { width: 80px; accent-color: var(--primary); cursor: pointer; }
+/* --- CONTROLS BAR --- */
+.controls-bar {
+display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between;
+margin-top: 18px; padding-top: 18px; border-top: 2px dashed var(--border);
+}
 
-    /* --- GRID --- */
-    .main-grid {
-      display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 20px;
-    }
-    @media(max-width: 850px){ .main-grid { grid-template-columns: 1fr; } }
+.status-info {
+font-size: 13px; color: var(--text-muted); display: flex; gap: 12px; align-items: center; font-weight: 500;
+}
 
-    /* --- CARDS --- */
-    .card {
-      background: var(--bg-card); border-radius: var(--radius); box-shadow: var(--shadow);
-      overflow: hidden; border: 1px solid white;
-    }
-    
-    .card-head {
-      padding: 18px 20px; background: #fffcf7; border-bottom: 1px solid var(--border);
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    .card-head h2 {
-      margin: 0; font-family: var(--font-head); font-size: 18px; color: var(--text-dark); display: flex; align-items: center; gap: 8px;
-    }
-    
-    .card-body { padding: 20px; }
+.clock-pill {
+background: var(--text-dark); color: #fff; padding: 4px 10px; border-radius: 6px; font-family: monospace;
+}
 
-    /* --- NOW WIDGET --- */
-    .now-widget {
-      text-align: center; padding: 10px 0;
-    }
-    .now-icon { font-size: 48px; margin-bottom: 10px; display: block; animation: bounce 2s infinite ease-in-out; }
-    @keyframes bounce { 0%, 100% {transform:translateY(0);} 50% {transform:translateY(-5px);} }
-    
-    .now-title { font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 5px; }
-    .now-dish { font-size: 22px; font-weight: 700; color: var(--primary); margin: 0; line-height: 1.3; font-family: var(--font-head); }
-    .now-qty { font-size: 15px; color: var(--text-dark); margin-top: 5px; font-weight: 500; }
-    .next-up { margin-top: 15px; font-size: 12px; color: var(--text-muted); background: #f9f9f9; display: inline-block; padding: 6px 12px; border-radius: 20px; }
-    
-    .prep-alert {
-      margin-top: 15px; background: #fff3cd; color: #856404; padding: 10px; border-radius: 12px;
-      font-size: 13px; text-align: left; border-left: 4px solid #ffc107; display: flex; gap: 8px;
-    }
+.action-group {
+display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+}
 
-    /* --- TABS --- */
-    .tabs-nav {
-      display: flex; gap: 5px; padding: 10px 20px; border-bottom: 1px solid var(--border); background: #fffcf9;
-      overflow-x: auto;
-    }
-    .tab-link {
-      background: transparent; border: none; padding: 8px 14px; font-family: var(--font-body);
-      font-weight: 600; color: var(--text-muted); cursor: pointer; border-radius: 8px; white-space: nowrap;
-      transition: all 0.2s;
-    }
-    .tab-link:hover { background: #f0f0f0; }
-    .tab-link[aria-selected="true"] { background: var(--primary); color: white; box-shadow: 0 4px 10px rgba(255,140,66,0.3); }
+.btn {
+appearance: none; border: none; font-family: var(--font-body); font-weight: 600; font-size: 13px;
+padding: 8px 16px; border-radius: 12px; cursor: pointer; transition: all 0.2s;
+display: inline-flex; align-items: center; gap: 6px;
+box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+.btn:active { transform: translateY(1px); }
 
-    .tab-content { display: none; padding: 20px; animation: fadeIn 0.3s ease; }
-    .tab-content.active { display: block; }
-    @keyframes fadeIn { from{opacity:0;transform:translateY(5px)} to{opacity:1;transform:translateY(0)} }
+.btn-primary { background: var(--primary); color: white; }
+.btn-outline { background: white; border: 1px solid var(--border); color: var(--text-muted); }
+.btn-green { background: var(--secondary); color: white; }
+.btn-red { background: #ffebee; color: var(--accent); }
 
-    /* --- MENU TABLE --- */
-    .menu-group { margin-bottom: 25px; }
-    .menu-group-title {
-      font-size: 14px; font-weight: 700; color: var(--secondary); text-transform: uppercase; letter-spacing: 0.5px;
-      margin-bottom: 10px; display: flex; align-items: center; gap: 8px;
-    }
-    .menu-group-title::after { content:""; flex:1; height:1px; background: var(--border); }
+.servings-box {
+background: white; border: 1px solid var(--border); padding: 4px 10px; border-radius: 50px;
+display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-muted);
+}
+.servings-box b { color: var(--primary); font-size: 15px; }
+input[type=range] { width: 80px; accent-color: var(--primary); cursor: pointer; }
 
-    .styled-table {
-      width: 100%; border-collapse: separate; border-spacing: 0; border: 1px solid var(--border);
-      border-radius: 12px; overflow: hidden;
-    }
-    .styled-table th {
-      background: #fbfbfb; color: var(--text-muted); font-size: 12px; text-align: left; padding: 10px 14px;
-      border-bottom: 1px solid var(--border);
-    }
-    .styled-table td {
-      padding: 12px 14px; border-bottom: 1px solid var(--border); font-size: 13.5px; vertical-align: top;
-    }
-    .styled-table tr:last-child td { border-bottom: none; }
-    .styled-table tr.highlight { background: #fff4e6 !important; }
-    .styled-table tr.highlight td:first-child { color: var(--primary); font-weight: 700; border-left: 3px solid var(--primary); }
+/* --- GRID --- */
+.main-grid {
+display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 20px;
+}
+@media(max-width: 850px){ .main-grid { grid-template-columns: 1fr; } }
 
-    .single-item {
-      display: flex; align-items: center; gap: 12px; padding: 12px; border: 1px dashed var(--border);
-      border-radius: 12px; background: #fff;
-    }
-    .icon-box { font-size: 20px; width: 32px; text-align: center; }
+/* --- CARDS --- */
+.card {
+background: var(--bg-card); border-radius: var(--radius); box-shadow: var(--shadow);
+overflow: hidden; border: 1px solid white;
+}
 
-    /* --- SHOPPING LIST --- */
-    .shop-item {
-      display: flex; align-items: flex-start; gap: 12px; padding: 10px; border-bottom: 1px solid var(--border);
-      transition: background 0.2s; cursor: pointer;
-    }
-    .shop-item:hover { background: #fafafa; }
-    .shop-item input { margin-top: 4px; width: 18px; height: 18px; accent-color: var(--secondary); }
-    .shop-txt b { display: block; font-size: 14px; color: var(--text-dark); }
-    .shop-txt span { display: block; font-size: 12px; color: var(--text-muted); margin-top: 2px; }
-    .shop-cat {
-      margin-top: 15px; padding: 5px 10px; background: #f4f4f4; border-radius: 6px; 
-      font-size: 12px; font-weight: 700; color: var(--text-muted); display: inline-block;
-    }
+.card-head {
+padding: 18px 20px; background: #fffcf7; border-bottom: 1px solid var(--border);
+display: flex; justify-content: space-between; align-items: center;
+}
+.card-head h2 {
+margin: 0; font-family: var(--font-head); font-size: 18px; color: var(--text-dark); display: flex; align-items: center; gap: 8px;
+}
 
-    /* --- ACCORDION --- */
-    details {
-      background: #fff; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 10px;
-      transition: all 0.2s;
-    }
-    details[open] { border-color: var(--primary); box-shadow: 0 4px 12px rgba(255,140,66,0.08); }
-    summary {
-      padding: 12px 15px; cursor: pointer; font-weight: 600; list-style: none; display: flex; justify-content: space-between; align-items: center;
-    }
-    summary::after { content: "+"; font-size: 18px; color: var(--primary); }
-    details[open] summary::after { content: "−"; }
-    details ul { margin: 0; padding: 10px 15px 15px 35px; color: var(--text-muted); font-size: 14px; line-height: 1.6; }
+.card-body { padding: 20px; }
 
-    /* --- PROFILE --- */
-    .profile-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
-    .chip-btn {
-      background: #f0f0f0; border: none; padding: 6px 12px; border-radius: 20px; font-size: 12px; cursor: pointer;
-    }
-    .chip-btn.active { background: var(--text-dark); color: white; }
+/* --- NOW WIDGET --- */
+.now-widget {
+text-align: center; padding: 10px 0;
+}
+.now-icon { font-size: 48px; margin-bottom: 10px; display: block; animation: bounce 2s infinite ease-in-out; }
+@keyframes bounce { 0%, 100% {transform:translateY(0);} 50% {transform:translateY(-5px);} }
 
-    /* --- UTILS --- */
-    .hidden { display: none !important; }
-    .badge-live { background: #e6fffa; color: #059669; padding: 2px 8px; border-radius: 4px; font-size: 10px; border: 1px solid #a7f3d0; font-weight: bold; }
-    
-  </style>
+.now-title { font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 5px; }
+.now-dish { font-size: 22px; font-weight: 700; color: var(--primary); margin: 0; line-height: 1.3; font-family: var(--font-head); }
+.now-qty { font-size: 15px; color: var(--text-dark); margin-top: 5px; font-weight: 500; }
+.next-up { margin-top: 15px; font-size: 12px; color: var(--text-muted); background: #f9f9f9; display: inline-block; padding: 6px 12px; border-radius: 20px; }
+
+.prep-alert {
+margin-top: 15px; background: #fff3cd; color: #856404; padding: 10px; border-radius: 12px;
+font-size: 13px; text-align: left; border-left: 4px solid #ffc107; display: flex; gap: 8px;
+}
+
+/* --- TABS --- */
+.tabs-nav {
+display: flex; gap: 5px; padding: 10px 20px; border-bottom: 1px solid var(--border); background: #fffcf9;
+overflow-x: auto;
+}
+.tab-link {
+background: transparent; border: none; padding: 8px 14px; font-family: var(--font-body);
+font-weight: 600; color: var(--text-muted); cursor: pointer; border-radius: 8px; white-space: nowrap;
+transition: all 0.2s;
+}
+.tab-link:hover { background: #f0f0f0; }
+.tab-link[aria-selected="true"] { background: var(--primary); color: white; box-shadow: 0 4px 10px rgba(255,140,66,0.3); }
+
+.tab-content { display: none; padding: 20px; animation: fadeIn 0.3s ease; }
+.tab-content.active { display: block; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(5px)} to{opacity:1;transform:translateY(0)} }
+
+/* --- MENU TABLE --- */
+.menu-group { margin-bottom: 25px; }
+.menu-group-title {
+font-size: 14px; font-weight: 700; color: var(--secondary); text-transform: uppercase; letter-spacing: 0.5px;
+margin-bottom: 10px; display: flex; align-items: center; gap: 8px;
+}
+.menu-group-title::after { content:""; flex:1; height:1px; background: var(--border); }
+
+.styled-table {
+width: 100%; border-collapse: separate; border-spacing: 0; border: 1px solid var(--border);
+border-radius: 12px; overflow: hidden;
+}
+.styled-table th {
+background: #fbfbfb; color: var(--text-muted); font-size: 12px; text-align: left; padding: 10px 14px;
+border-bottom: 1px solid var(--border);
+}
+.styled-table td {
+padding: 12px 14px; border-bottom: 1px solid var(--border); font-size: 13.5px; vertical-align: top;
+}
+.styled-table tr:last-child td { border-bottom: none; }
+.styled-table tr.highlight { background: #fff4e6 !important; }
+.styled-table tr.highlight td:first-child { color: var(--primary); font-weight: 700; border-left: 3px solid var(--primary); }
+
+.single-item {
+display: flex; align-items: center; gap: 12px; padding: 12px; border: 1px dashed var(--border);
+border-radius: 12px; background: #fff;
+}
+.icon-box { font-size: 20px; width: 32px; text-align: center; }
+
+/* --- SHOPPING LIST --- */
+.shop-item {
+display: flex; align-items: flex-start; gap: 12px; padding: 10px; border-bottom: 1px solid var(--border);
+transition: background 0.2s; cursor: pointer;
+}
+.shop-item:hover { background: #fafafa; }
+.shop-item input { margin-top: 4px; width: 18px; height: 18px; accent-color: var(--secondary); }
+.shop-txt b { display: block; font-size: 14px; color: var(--text-dark); }
+.shop-txt span { display: block; font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+.shop-cat {
+margin-top: 15px; padding: 5px 10px; background: #f4f4f4; border-radius: 6px;
+font-size: 12px; font-weight: 700; color: var(--text-muted); display: inline-block;
+}
+
+/* --- ACCORDION --- */
+details {
+background: #fff; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 10px;
+transition: all 0.2s;
+}
+details[open] { border-color: var(--primary); box-shadow: 0 4px 12px rgba(255,140,66,0.08); }
+summary {
+padding: 12px 15px; cursor: pointer; font-weight: 600; list-style: none; display: flex; justify-content: space-between; align-items: center;
+}
+summary::after { content: "+"; font-size: 18px; color: var(--primary); }
+details[open] summary::after { content: "−"; }
+details ul { margin: 0; padding: 10px 15px 15px 35px; color: var(--text-muted); font-size: 14px; line-height: 1.6; }
+
+/* --- PROFILE --- */
+.profile-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.chip-btn {
+background: #f0f0f0; border: none; padding: 6px 12px; border-radius: 20px; font-size: 12px; cursor: pointer;
+}
+.chip-btn.active { background: var(--text-dark); color: white; }
+
+/* --- UTILS --- */
+.hidden { display: none !important; }
+.badge-live { background: #e6fffa; color: #059669; padding: 2px 8px; border-radius: 4px; font-size: 10px; border: 1px solid #a7f3d0; font-weight: bold; }
+
+</style>
 </head>
 <body>
 
 <div class="wrap">
-  <!-- HEADER -->
-  <header>
-    <div class="brand-row">
-      <div class="brand">
-        <div class="logo-emoji">👨‍🍳</div>
-        <div>
-          <h1>Arvish Smart Kitchen 🍳</h1>
-          <p>Family Meal Planner • <span id="activeUserNameDisplay">Arvish</span></p>
-        </div>
-      </div>
-      <div class="meta-tags">
-        <div class="tag green">🥗 No Oil</div>
-        <div class="tag">🧈 Ghee Limit: 2.5 tsp</div>
-        <div class="tag">🕒 IST Live</div>
-      </div>
-    </div>
+<!-- HEADER -->
+<header>
+<div class="brand-row">
+<div class="brand">
+<div class="logo-emoji">👨‍🍳</div>
+<div>
+<h1>Arvish Smart Kitchen 🍳</h1>
+<p>Family Meal Planner • <span id="activeUserNameDisplay">Arvish</span></p>
+</div>
+</div>
+<div class="meta-tags">
+<div class="tag green">🥗 No Oil</div>
+<div class="tag">🧈 Ghee Limit: 2.5 tsp</div>
+<div class="tag">🕒 IST Live</div>
+</div>
+</div>
 
-    <div class="controls-bar">
-      <div class="status-info">
-        <span class="clock-pill" id="clock">--:--</span>
-        <span>Asia/Kolkata</span>
-      </div>
-      
-      <div class="action-group">
-        <div class="servings-box" title="Auto-adjust portions">
-          👥 Servings: <b id="servingsLabel">1</b>
-          <input type="range" id="servings" min="1" max="5" step="1" value="1">
-        </div>
-        
-        <button class="btn btn-outline" id="btnToday">📅 Today View</button>
-        <button class="btn btn-primary" id="btnNotif">🔔 Remind Me</button>
-      </div>
-    </div>
-  </header>
+<div class="controls-bar">
+<div class="status-info">
+<span class="clock-pill" id="clock">--:--</span>
+<span>Asia/Kolkata</span>
+</div>
 
-  <div class="main-grid">
-    
-    <!-- LEFT COLUMN: MAIN CONTENT -->
-    <main class="card">
-      <div class="tabs-nav" role="tablist">
-        <button class="tab-link" aria-selected="true" data-tab="menu">📜 Menu</button>
-        <button class="tab-link" aria-selected="false" data-tab="shopping">🛒 Shopping</button>
-        <button class="tab-link" aria-selected="false" data-tab="instructions">👩‍🍳 Cook</button>
-        <button class="tab-link" aria-selected="false" data-tab="settings">⚙️ Settings</button>
-      </div>
+<div class="action-group">
+<div class="servings-box" title="Auto-adjust portions">
+👥 Servings: <b id="servingsLabel">1</b>
+<input type="range" id="servings" min="1" max="5" step="1" value="1">
+</div>
 
-      <!-- TAB: MENU -->
-      <div id="menu" class="tab-content active">
-        <div class="menu-group">
-          <div class="menu-group-title">🌅 Breakfast (8:30–9:00)</div>
-          <table class="styled-table" id="tblBreakfast"></table>
-        </div>
+<button class="btn btn-outline" id="btnToday">📅 Today View</button>
+<button class="btn btn-outline" id="btnGym">🏋️ Gym Plan</button>
+<button class="btn btn-primary" id="btnNotif">🔔 Remind Me</button>
+</div>
+</div>
+</header>
 
-        <div class="menu-group">
-          <div class="menu-group-title">🍎 Mid-Morning (11:30)</div>
-          <div class="single-item">
-            <div class="icon-box">🥥</div>
-            <div><b id="midmorningQty">Fruit or Coconut Water</b></div>
-          </div>
-        </div>
+<div class="main-grid">
 
-        <div class="menu-group">
-          <div class="menu-group-title">🍛 Lunch (1:30–2:30) <span style="font-size:10px; color:var(--text-muted); margin-left:5px">(Max 1 tsp Ghee)</span></div>
-          <table class="styled-table" id="tblLunch"></table>
-        </div>
+<!-- LEFT COLUMN: MAIN CONTENT -->
+<main class="card">
+<div class="tabs-nav" role="tablist">
+<button class="tab-link" aria-selected="true" data-tab="menu">📜 Menu</button>
+<button class="tab-link" aria-selected="false" data-tab="shopping">🛒 Shopping</button>
+<button class="tab-link" aria-selected="false" data-tab="instructions">👩‍🍳 Cook</button>
+<button class="tab-link" aria-selected="false" data-tab="settings">⚙️ Settings</button>
+</div>
 
-        <div class="menu-group">
-          <div class="menu-group-title">🌽 Evening Snack (5:30–6:00)</div>
-          <div class="single-item">
-            <div class="icon-box">☕</div>
-            <div><b id="snackQty">Corn / Chana / Sprouts</b></div>
-          </div>
-        </div>
+<!-- TAB: MENU -->
+<div id="menu" class="tab-content active">
+<div class="menu-group">
+<div class="menu-group-title">🌅 Breakfast (8:30–9:00)</div>
+<table class="styled-table" id="tblBreakfast"></table>
+</div>
 
-        <div class="menu-group">
-          <div class="menu-group-title">🍽️ Dinner (9:00–9:30) <span style="font-size:10px; color:var(--text-muted); margin-left:5px">(Light • No Rice)</span></div>
-          <table class="styled-table" id="tblDinner"></table>
-        </div>
-      </div>
+<div class="menu-group">
+<div class="menu-group-title">🍎 Mid-Morning (11:30)</div>
+<div class="single-item">
+<div class="icon-box">🥥</div>
+<div><b id="midmorningQty">Fruit or Coconut Water</b></div>
+</div>
+</div>
 
-      <!-- TAB: SHOPPING -->
-      <div id="shopping" class="tab-content">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-          <h3 style="margin:0; font-family:var(--font-head)">Checklist</h3>
-          <button class="btn btn-outline" style="font-size:11px" id="btnClearShop">Clear All</button>
-        </div>
-        <div id="shoppingList"></div>
-      </div>
+<div class="menu-group">
+<div class="menu-group-title">🍛 Lunch (1:30–2:30) <span style="font-size:10px; color:var(--text-muted); margin-left:5px">(Max 1 tsp Ghee)</span></div>
+<table class="styled-table" id="tblLunch"></table>
+</div>
 
-      <!-- TAB: INSTRUCTIONS -->
-      <div id="instructions" class="tab-content">
-        <h3 style="font-family:var(--font-head); margin-top:0;">Quick Recipes</h3>
-        
-        <details open>
-          <summary>🥚 Perfect Omelette / Bhurji</summary>
-          <ul>
-            <li>Heat <b>½ tsp ghee</b> in a non-stick pan.</li>
-            <li>Sauté chopped onion & chili for 1 min.</li>
-            <li>Pour whisked eggs (salt added). Cook on low flame.</li>
-          </ul>
-        </details>
+<div class="menu-group">
+<div class="menu-group-title">🌽 Evening Snack (5:30–6:00)</div>
+<div class="single-item">
+<div class="icon-box">☕</div>
+<div><b id="snackQty">Corn / Chana / Sprouts</b></div>
+</div>
+</div>
 
-        <details>
-          <summary>🍗 Light Chicken Curry</summary>
-          <ul>
-            <li>Heat <b>1 tsp ghee</b>. Add jeera, onion, ginger-garlic paste.</li>
-            <li>Add chicken pieces + turmeric + masala. Sauté 2 mins.</li>
-            <li>Add water, cover and cook till tender. <b>No frying.</b></li>
-          </ul>
-        </details>
+<div class="menu-group">
+<div class="menu-group-title">🍽️ Dinner (9:00–9:30) <span style="font-size:10px; color:var(--text-muted); margin-left:5px">(Light • No Rice)</span></div>
+<table class="styled-table" id="tblDinner"></table>
+</div>
+</div>
 
-        <details>
-          <summary>🧀 Paneer Stir Fry</summary>
-          <ul>
-            <li>Heat <b>½ tsp ghee</b>.</li>
-            <li>Toss paneer cubes and capsicum slices on high heat for 2 mins.</li>
-            <li>Sprinkle salt & pepper. Serve warm.</li>
-          </ul>
-        </details>
+<!-- TAB: SHOPPING -->
+<div id="shopping" class="tab-content">
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+<h3 style="margin:0; font-family:var(--font-head)">Checklist</h3>
+<button class="btn btn-outline" style="font-size:11px" id="btnClearShop">Clear All</button>
+</div>
+<div id="shoppingList"></div>
+</div>
 
-        <details>
-          <summary>🌱 Sprouts (Steamed)</summary>
-          <ul>
-            <li>Soak moong/chana overnight.</li>
-            <li>Pressure cook for 1 whistle OR steam for 10 mins.</li>
-            <li>Toss with raw onion, lemon juice, and salt.</li>
-          </ul>
-        </details>
-      </div>
+<!-- TAB: INSTRUCTIONS -->
+<div id="instructions" class="tab-content">
+<h3 style="font-family:var(--font-head); margin-top:0;">Quick Recipes</h3>
 
-      <!-- TAB: SETTINGS -->
-      <div id="settings" class="tab-content">
-        <h3>User Profile</h3>
-        <p style="font-size:13px; color:var(--text-muted)">Switch profiles to keep separate shopping lists on this device.</p>
-        <div style="display:flex; gap:10px;">
-          <input type="text" id="newProfileName" placeholder="Name (e.g. Guest)" style="padding:8px; border:1px solid var(--border); border-radius:8px;">
-          <button class="btn btn-primary" id="btnAddProfile">Add</button>
-        </div>
-        <div class="profile-chips" id="profileChips"></div>
-      </div>
+<details open>
+<summary>🥚 Perfect Omelette / Bhurji</summary>
+<ul>
+<li>Heat <b>½ tsp ghee</b> in a non-stick pan.</li>
+<li>Sauté chopped onion & chili for 1 min.</li>
+<li>Pour whisked eggs (salt added). Cook on low flame.</li>
+</ul>
+</details>
 
-    </main>
+<details>
+<summary>🍗 Light Chicken Curry</summary>
+<ul>
+<li>Heat <b>1 tsp ghee</b>. Add jeera, onion, ginger-garlic paste.</li>
+<li>Add chicken pieces + turmeric + masala. Sauté 2 mins.</li>
+<li>Add water, cover and cook till tender. <b>No frying.</b></li>
+</ul>
+</details>
 
-    <!-- RIGHT COLUMN: SIDEBAR WIDGETS -->
-    <aside style="display:flex; flex-direction:column; gap:20px;">
-      
-      <!-- NOW CARD -->
-      <div class="card">
-        <div class="card-head">
-          <h2>🕑 Right Now <span class="badge-live">LIVE</span></h2>
-        </div>
-        <div class="card-body now-widget">
-          <span class="now-icon" id="nowIcon">🍽️</span>
-          <div class="now-title" id="nowTitle">Checking...</div>
-          <h3 class="now-dish" id="nowText">--</h3>
-          <div class="now-qty" id="nowQty"></div>
-          
-          <div id="prepAlert" class="hidden prep-alert">
-            <span>🔪</span> <span id="prepText"></span>
-          </div>
+<details>
+<summary>🧀 Paneer Stir Fry</summary>
+<ul>
+<li>Heat <b>½ tsp ghee</b>.</li>
+<li>Toss paneer cubes and capsicum slices on high heat for 2 mins.</li>
+<li>Sprinkle salt & pepper. Serve warm.</li>
+</ul>
+</details>
 
-          <div style="margin-top:20px; border-top:1px dashed var(--border); padding-top:10px;">
-             <span id="nextText"></span>
-          </div>
-        </div>
-      </div>
+<details>
+<summary>🌱 Sprouts (Steamed)</summary>
+<ul>
+<li>Soak moong/chana overnight.</li>
+<li>Pressure cook for 1 whistle OR steam for 10 mins.</li>
+<li>Toss with raw onion, lemon juice, and salt.</li>
+</ul>
+</details>
+</div>
 
-      <!-- RULES CARD -->
-      <div class="card">
-        <div class="card-head"><h2>📌 Quick Rules</h2></div>
-        <div class="card-body" style="font-size:13px; color:var(--text-muted); line-height:1.6;">
-          <ul style="padding-left:20px; margin:0;">
-            <li><b>Same food for all:</b> Just adjust quantity.</li>
-            <li><b>Soaked Nuts/Sprouts:</b> Daily essential.</li>
-            <li><b>Dinner:</b> No rice, finish by 9:30 PM.</li>
-          </ul>
-        </div>
-      </div>
+<!-- TAB: SETTINGS -->
+<div id="settings" class="tab-content">
+<h3>User Profile</h3>
+<p style="font-size:13px; color:var(--text-muted)">Switch profiles to keep separate shopping lists on this device.</p>
+<div style="display:flex; gap:10px;">
+<input type="text" id="newProfileName" placeholder="Name (e.g. Guest)" style="padding:8px; border:1px solid var(--border); border-radius:8px;">
+<button class="btn btn-primary" id="btnAddProfile">Add</button>
+</div>
+<div class="profile-chips" id="profileChips"></div>
+</div>
 
-    </aside>
-  </div>
+</main>
+
+<!-- RIGHT COLUMN: SIDEBAR WIDGETS -->
+<aside style="display:flex; flex-direction:column; gap:20px;">
+
+<!-- NOW CARD -->
+<div class="card">
+<div class="card-head">
+<h2>🕑 Right Now <span class="badge-live">LIVE</span></h2>
+</div>
+<div class="card-body now-widget">
+<span class="now-icon" id="nowIcon">🍽️</span>
+<div class="now-title" id="nowTitle">Checking...</div>
+<h3 class="now-dish" id="nowText">--</h3>
+<div class="now-qty" id="nowQty"></div>
+
+<div id="prepAlert" class="hidden prep-alert">
+<span>🔪</span> <span id="prepText"></span>
+</div>
+
+<div style="margin-top:20px; border-top:1px dashed var(--border); padding-top:10px;">
+<span id="nextText"></span>
+</div>
+</div>
+</div>
+
+<!-- RULES CARD -->
+<div class="card">
+<div class="card-head"><h2>📌 Quick Rules</h2></div>
+<div class="card-body" style="font-size:13px; color:var(--text-muted); line-height:1.6;">
+<ul style="padding-left:20px; margin:0;">
+<li><b>Same food for all:</b> Just adjust quantity.</li>
+<li><b>Soaked Nuts/Sprouts:</b> Daily essential.</li>
+<li><b>Dinner:</b> No rice, finish by 9:30 PM.</li>
+</ul>
+</div>
+</div>
+
+<!-- GYM SHORTCUT CARD -->
+<div class="card">
+<div class="card-head"><h2>🏋️ Gym Shortcut</h2></div>
+<div class="card-body" style="font-size:13px; color:var(--text-muted); line-height:1.6;">
+<p style="margin:0 0 8px;">Open Vishal’s 4-week fat-loss gym plan.</p>
+<button class="btn btn-green" onclick="window.location.href='gym.html'">Open Gym Plan</button>
+</div>
+</div>
+
+</aside>
+</div>
 </div>
 
 <script>
-/* ================= LOGIC (PRESERVED & ENHANCED) ================= */
+/* ================= LOGIC (PRESERVED) ================= */
 
 const TZ = "Asia/Kolkata";
 const days = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
 
 // --- DATA ---
 const menu = {
-  breakfast: { title:"Breakfast", start:"08:30", end:"09:00", items:{
-    Mon:["Omelette", "2 eggs + ½ tsp ghee"], Tue:["Veg Poha", "1 bowl (150g)"], Wed:["Oats Porridge", "40g oats + 200ml milk"], Thu:["Boiled Eggs", "2 eggs + 1 fruit"], Fri:["Upma", "1 bowl"], Sat:["Besan Chilla", "2 small + ½ tsp ghee"], Sun:["Dosa Sambar", "2 small dosa + 1 bowl"]
-  }},
-  lunch: { title:"Lunch", start:"13:30", end:"14:30", items:{
-    Mon:["Chapati Thali", "2 chapati + 1 cup dal + 1 cup veg"], Tue:["Rice & Chicken", "1 cup rice + 120g chicken"], Wed:["Paneer Thali", "2 chapati + 100g paneer"], Thu:["Rice & Egg Curry", "1 cup rice + 2 eggs"], Fri:["Chicken Thali", "2 chapati + 120g chicken"], Sat:["Khichdi", "1.5 cups + ½ cup curd"], Sun:["Sunday Thali", "2 chapati + dal + veg"]
-  }},
-  dinner: { title:"Dinner", start:"21:00", end:"21:30", items:{
-    Mon:["Grilled Chicken", "120g chicken + 1 cup veg"], Tue:["Chapati Sabzi", "2 chapati + veg"], Wed:["Egg Bhurji", "3 eggs + ½ tsp ghee"], Thu:["Paneer Stir Fry", "100g paneer + veg"], Fri:["Dal & Veg", "1 cup dal + veg"], Sat:["Soup & Sprouts", "1 cup soup + ½ cup sprouts"], Sun:["Light Chicken", "120g chicken + veg"]
-  }}
+breakfast: { title:"Breakfast", start:"08:30", end:"09:00", items:{
+Mon:["Omelette", "2 eggs + ½ tsp ghee"], Tue:["Veg Poha", "1 bowl (150g)"], Wed:["Oats Porridge", "40g oats + 200ml milk"], Thu:["Boiled Eggs", "2 eggs + 1 fruit"], Fri:["Upma", "1 bowl"], Sat:["Besan Chilla", "2 small + ½ tsp ghee"], Sun:["Dosa Sambar", "2 small dosa + 1 bowl"]
+}},
+lunch: { title:"Lunch", start:"13:30", end:"14:30", items:{
+Mon:["Chapati Thali", "2 chapati + 1 cup dal + 1 cup veg"], Tue:["Rice & Chicken", "1 cup rice + 120g chicken"], Wed:["Paneer Thali", "2 chapati + 100g paneer"], Thu:["Rice & Egg Curry", "1 cup rice + 2 eggs"], Fri:["Chicken Thali", "2 chapati + 120g chicken"], Sat:["Khichdi", "1.5 cups + ½ cup curd"], Sun:["Sunday Thali", "2 chapati + dal + veg"]
+}},
+dinner: { title:"Dinner", start:"21:00", end:"21:30", items:{
+Mon:["Grilled Chicken", "120g chicken + 1 cup veg"], Tue:["Chapati Sabzi", "2 chapati + veg"], Wed:["Egg Bhurji", "3 eggs + ½ tsp ghee"], Thu:["Paneer Stir Fry", "100g paneer + veg"], Fri:["Dal & Veg", "1 cup dal + veg"], Sat:["Soup & Sprouts", "1 cup soup + ½ cup sprouts"], Sun:["Light Chicken", "120g chicken + veg"]
+}}
 };
 
 const shoppingItems = [
-  {c:"Protein", n:"Eggs (30)"}, {c:"Protein", n:"Chicken (1.5kg)"}, {c:"Protein", n:"Paneer (500g)"},
-  {c:"Dairy", n:"Milk (2L)"}, {c:"Dairy", n:"Curd (1kg)"}, {c:"Dairy", n:"Ghee (250ml)"},
-  {c:"Grains", n:"Rice (2kg)"}, {c:"Grains", n:"Atta (2kg)"}, {c:"Grains", n:"Oats (500g)"},
-  {c:"Veg", n:"Onion/Tomato (1kg)"}, {c:"Veg", n:"Green Veggies"}, {c:"Veg", n:"Fruits (Apple/Papaya)"},
-  {c:"Pantry", n:"Spices/Oil"}
+{c:"Protein", n:"Eggs (30)"}, {c:"Protein", n:"Chicken (1.5kg)"}, {c:"Protein", n:"Paneer (500g)"},
+{c:"Dairy", n:"Milk (2L)"}, {c:"Dairy", n:"Curd (1kg)"}, {c:"Dairy", n:"Ghee (250ml)"},
+{c:"Grains", n:"Rice (2kg)"}, {c:"Grains", n:"Atta (2kg)"}, {c:"Grains", n:"Oats (500g)"},
+{c:"Veg", n:"Onion/Tomato (1kg)"}, {c:"Veg", n:"Green Veggies"}, {c:"Veg", n:"Fruits (Apple/Papaya)"},
+{c:"Pantry", n:"Spices/Oil"}
 ];
 
 // --- STATE MANAGEMENT ---
@@ -476,245 +486,263 @@ function getStore() { try { return JSON.parse(localStorage.getItem(STORE_KEY) ||
 function setStore(d) { localStorage.setItem(STORE_KEY, JSON.stringify(d)); }
 
 function getUserData() {
-  const s = getStore();
-  const u = s.activeUser || "Arvish";
-  if(!s.users) s.users = {};
-  if(!s.users[u]) s.users[u] = { servings:1, checks:{}, todayOnly:false };
-  return { store:s, user:u, data:s.users[u] };
+const s = getStore();
+const u = s.activeUser || "Arvish";
+if(!s.users) s.users = {};
+if(!s.users[u]) s.users[u] = { servings:1, checks:{}, todayOnly:false };
+return { store:s, user:u, data:s.users[u] };
 }
 
 function saveUserData(updater) {
-  const { store, user, data } = getUserData();
-  const newData = updater(data);
-  store.users[user] = newData;
-  setStore(store);
-  return newData;
+const { store, user, data } = getUserData();
+const newData = updater(data);
+store.users[user] = newData;
+setStore(store);
+return newData;
 }
+
+/* --- Gym button --- */
+document.getElementById("btnGym").addEventListener("click", () => {
+window.location.href = "gym.html";
+});
+
+/*
+NOTE: Rest of your existing JS for:
+- getIST / minFromTime
+- scaleQty
+- renderTables
+- renderShopping
+- renderProfiles
+- updateLive
+- event listeners (servings, today, notif, tabs, etc.)
+stays the same below this point in your live file.
+*/
 
 // --- TIME HELPERS ---
 function getIST() {
-  const d = new Date();
-  const parts = new Intl.DateTimeFormat("en-IN", { timeZone:TZ, hour12:false, weekday:"short", hour:"numeric", minute:"numeric" }).formatToParts(d);
-  const get = (k) => parts.find(p=>p.type===k).value;
-  return { day: get("weekday"), h: parseInt(get("hour")), m: parseInt(get("minute")), str:`${get("hour")}:${get("minute")}` };
+const d = new Date();
+const parts = new Intl.DateTimeFormat("en-IN", { timeZone:TZ, hour12:false, weekday:"short", hour:"numeric", minute:"numeric" }).formatToParts(d);
+const get = (k) => parts.find(p=>p.type===k).value;
+return { day: get("weekday"), h: parseInt(get("hour")), m: parseInt(get("minute")), str:`${get("hour")}:${get("minute")}` };
 }
 function minFromTime(t) { const [h,m] = t.split(":").map(Number); return h*60+m; }
 
 // --- RENDERERS ---
 function scaleQty(txt, s) {
-  if(s===1) return txt;
-  return txt.replace(/(\d+(\.\d+)?)/g, (m) => {
-    const n = parseFloat(m);
-    return isNaN(n) ? m : (n*s).toFixed(1).replace('.0','');
-  });
+if(s===1) return txt;
+return txt.replace(/(\d+(\.\d+)?)/g, (m) => {
+const n = parseFloat(m);
+return isNaN(n) ? m : (n*s).toFixed(1).replace('.0','');
+});
 }
 
 function renderTables() {
-  const { data } = getUserData();
-  const s = data.servings;
-  const showToday = data.todayOnly;
-  const { day:curDay } = getIST(); // e.g. "Mon"
-  const safeDay = days.includes(curDay) ? curDay : "Mon";
+const { data } = getUserData();
+const s = data.servings;
+const showToday = data.todayOnly;
+const { day:curDay } = getIST(); // e.g. "Mon"
+const safeDay = days.includes(curDay) ? curDay : "Mon";
 
-  const makeRow = (day, food, qty, id) => {
-    const isToday = day === safeDay;
-    if(showToday && !isToday) return "";
-    const cls = isToday ? "highlight" : "";
-    return `<tr class="${cls}" data-day="${day}"><td>${day}</td><td><b>${food}</b></td><td>${scaleQty(qty,s)}</td></tr>`;
-  }
+const makeRow = (day, food, qty, id) => {
+const isToday = day === safeDay;
+if(showToday && !isToday) return "";
+const cls = isToday ? "highlight" : "";
+return `<tr class="${cls}" data-day="${day}"><td>${day}</td><td><b>${food}</b></td><td>${scaleQty(qty,s)}</td></tr>`;
+}
 
-  ["breakfast","lunch","dinner"].forEach(k => {
-    const rows = days.map(d => makeRow(d, menu[k].items[d][0], menu[k].items[d][1], k)).join("");
-    document.getElementById(`tbl${k.charAt(0).toUpperCase()+k.slice(1)}`).innerHTML = 
-      `<thead><tr><th>Day</th><th>Dish</th><th>Qty (x${s})</th></tr></thead><tbody>${rows}</tbody>`;
-  });
+["breakfast","lunch","dinner"].forEach(k => {
+const rows = days.map(d => makeRow(d, menu[k].items[d][0], menu[k].items[d][1], k)).join("");
+document.getElementById(`tbl${k.charAt(0).toUpperCase()+k.slice(1)}`).innerHTML =
+`<thead><tr><th>Day</th><th>Dish</th><th>Qty (x${s})</th></tr></thead><tbody>${rows}</tbody>`;
+});
 
-  // Update static texts
-  document.getElementById("midmorningQty").innerText = scaleQty("1 Fruit or Coconut Water", s);
-  document.getElementById("snackQty").innerText = scaleQty("1 cup Corn / 30g Chana / ½ cup Sprouts", s);
-  
-  // Update UI controls
-  document.getElementById("servings").value = s;
-  document.getElementById("servingsLabel").innerText = s;
-  const tBtn = document.getElementById("btnToday");
-  tBtn.className = showToday ? "btn btn-primary" : "btn btn-outline";
-  tBtn.innerText = showToday ? "📅 Viewing Today" : "📅 View All Days";
+// Update static texts
+document.getElementById("midmorningQty").innerText = scaleQty("1 Fruit or Coconut Water", s);
+document.getElementById("snackQty").innerText = scaleQty("1 cup Corn / 30g Chana / ½ cup Sprouts", s);
+
+// Update UI controls
+document.getElementById("servings").value = s;
+document.getElementById("servingsLabel").innerText = s;
+const tBtn = document.getElementById("btnToday");
+tBtn.className = showToday ? "btn btn-primary" : "btn btn-outline";
+tBtn.innerText = showToday ? "📅 Viewing Today" : "📅 View All Days";
 }
 
 function renderShopping() {
-  const { data } = getUserData();
-  const list = document.getElementById("shoppingList");
-  list.innerHTML = "";
-  
-  // Group by category manually for this simple list
-  let lastCat = "";
-  shoppingItems.forEach((item, i) => {
-    if(item.c !== lastCat) {
-      list.innerHTML += `<div class="shop-cat">${item.c}</div>`;
-      lastCat = item.c;
-    }
-    const id = `chk_${i}`;
-    const isChk = data.checks[id];
-    list.innerHTML += `
-      <label class="shop-item">
-        <input type="checkbox" id="${id}" ${isChk?"checked":""}>
-        <div class="shop-txt" style="${isChk?'text-decoration:line-through; opacity:0.6':''}">
-          <b>${item.n}</b>
-        </div>
-      </label>`;
-  });
+const { data } = getUserData();
+const list = document.getElementById("shoppingList");
+list.innerHTML = "";
 
-  // Bind events
-  list.querySelectorAll("input").forEach(chk => {
-    chk.addEventListener("change", (e) => {
-      saveUserData(d => { d.checks[e.target.id] = e.target.checked; return d; });
-      renderShopping();
-    });
-  });
+// Group by category manually for this simple list
+let lastCat = "";
+shoppingItems.forEach((item, i) => {
+if(item.c !== lastCat) {
+list.innerHTML += `<div class="shop-cat">${item.c}</div>`;
+lastCat = item.c;
+}
+const id = `chk_${i}`;
+const isChk = data.checks[id];
+list.innerHTML += `
+<label class="shop-item">
+<input type="checkbox" id="${id}" ${isChk?"checked":""}>
+<div class="shop-txt" style="${isChk?'text-decoration:line-through; opacity:0.6':''}">
+<b>${item.n}</b>
+</div>
+</label>`;
+});
+
+// Bind events
+list.querySelectorAll("input").forEach(chk => {
+chk.addEventListener("change", (e) => {
+saveUserData(d => { d.checks[e.target.id] = e.target.checked; return d; });
+renderShopping();
+});
+});
 }
 
 function renderProfiles() {
-  const { store, user } = getUserData();
-  const div = document.getElementById("profileChips");
-  div.innerHTML = Object.keys(store.users).map(u => 
-    `<button class="chip-btn ${u===user?'active':''}" onclick="switchUser('${u}')">${u}</button>`
-  ).join("");
-  document.getElementById("activeUserNameDisplay").innerText = user;
+const { store, user } = getUserData();
+const div = document.getElementById("profileChips");
+div.innerHTML = Object.keys(store.users).map(u =>
+`<button class="chip-btn ${u===user?'active':''}" onclick="switchUser('${u}')">${u}</button>`
+).join("");
+document.getElementById("activeUserNameDisplay").innerText = user;
 }
 
 window.switchUser = (u) => {
-  const s = getStore();
-  s.activeUser = u;
-  setStore(s);
-  init();
+const s = getStore();
+s.activeUser = u;
+setStore(s);
+init();
 }
 
 // --- LIVE LOGIC ---
 function updateLive() {
-  const ist = getIST();
-  document.getElementById("clock").innerText = ist.str;
-  
-  const nowM = ist.h*60 + ist.m;
-  const day = days.includes(ist.day) ? ist.day : "Mon";
-  
-  // Blocks
-  const blocks = [
-    {id:"bf", t:"Breakfast", s:menu.breakfast.start, e:menu.breakfast.end, food:menu.breakfast.items[day]},
-    {id:"mm", t:"Mid-Morning", s:"11:30", e:"12:00", food:["Fruit/Coconut Water", "1 serving"]},
-    {id:"ln", t:"Lunch", s:menu.lunch.start, e:menu.lunch.end, food:menu.lunch.items[day]},
-    {id:"sn", t:"Snack", s:"17:30", e:"18:00", food:["Corn/Sprouts", "1 bowl"]},
-    {id:"pw", t:"Pre-Workout", s:"18:45", e:"19:00", food:["Banana/Coffee", "1 pc"]},
-    {id:"dn", t:"Dinner", s:menu.dinner.start, e:menu.dinner.end, food:menu.dinner.items[day]}
-  ].map(b => ({...b, sm:minFromTime(b.s), em:minFromTime(b.e)}));
+const ist = getIST();
+document.getElementById("clock").innerText = ist.str;
 
-  const active = blocks.find(b => nowM >= b.sm && nowM < b.em);
-  const next = blocks.find(b => b.sm > nowM);
-  
-  const iconMap = { bf:"🍳", mm:"🍎", ln:"🍛", sn:"🌽", pw:"🍌", dn:"🍽️" };
-  const widgetT = document.getElementById("nowTitle");
-  const widgetD = document.getElementById("nowText");
-  const widgetQ = document.getElementById("nowQty");
-  const widgetI = document.getElementById("nowIcon");
+const nowM = ist.h*60 + ist.m;
+const day = days.includes(ist.day) ? ist.day : "Mon";
 
-  const { data } = getUserData();
+// Blocks
+const blocks = [
+{id:"bf", t:"Breakfast", s:menu.breakfast.start, e:menu.breakfast.end, food:menu.breakfast.items[day]},
+{id:"mm", t:"Mid-Morning", s:"11:30", e:"12:00", food:["Fruit/Coconut Water", "1 serving"]},
+{id:"ln", t:"Lunch", s:menu.lunch.start, e:menu.lunch.end, food:menu.lunch.items[day]},
+{id:"sn", t:"Snack", s:"17:30", e:"18:00", food:["Corn/Sprouts", "1 bowl"]},
+{id:"pw", t:"Pre-Workout", s:"18:45", e:"19:00", food:["Banana/Coffee", "1 pc"]},
+{id:"dn", t:"Dinner", s:menu.dinner.start, e:menu.dinner.end, food:menu.dinner.items[day]}
+].map(b => ({...b, sm:minFromTime(b.s), em:minFromTime(b.e)}));
 
-  if(active) {
-    widgetT.innerText = `HAPPENING NOW (${active.s} - ${active.e})`;
-    widgetD.innerText = active.food[0];
-    widgetQ.innerText = scaleQty(active.food[1], data.servings);
-    widgetI.innerText = iconMap[active.id] || "🍽️";
-    widgetT.style.color = "var(--secondary)";
-  } else {
-    widgetT.innerText = "KITCHEN CLOSED";
-    widgetD.innerText = "Rest Time";
-    widgetQ.innerText = "Hydrate yourself 💧";
-    widgetI.innerText = "⏳";
-    widgetT.style.color = "var(--text-muted)";
-  }
+const active = blocks.find(b => nowM >= b.sm && nowM < b.em);
+const next = blocks.find(b => b.sm > nowM);
 
-  if(next) {
-    document.getElementById("nextText").innerHTML = `🔜 <b>Next:</b> ${next.t} at ${next.s}`;
-  } else {
-    document.getElementById("nextText").innerHTML = `🔜 <b>Next:</b> See you tomorrow!`;
-  }
+const iconMap = { bf:"🍳", mm:"🍎", ln:"🍛", sn:"🌽", pw:"🍌", dn:"🍽️" };
+const widgetT = document.getElementById("nowTitle");
+const widgetD = document.getElementById("nowText");
+const widgetQ = document.getElementById("nowQty");
+const widgetI = document.getElementById("nowIcon");
 
-  // Prep Logic (2 hrs before dinner)
-  const dinnerM = minFromTime(menu.dinner.start);
-  const diff = dinnerM - nowM;
-  const alertBox = document.getElementById("prepAlert");
-  
-  if(diff > 0 && diff <= 120) {
-    alertBox.classList.remove("hidden");
-    let prepMsg = "General prep time.";
-    const df = menu.dinner.items[day][0].toLowerCase();
-    if(df.includes("chicken")) prepMsg = "Marinate chicken now!";
-    else if(df.includes("paneer")) prepMsg = "Chop paneer & veggies.";
-    else if(df.includes("egg")) prepMsg = "Chop onions & chillies.";
-    document.getElementById("prepText").innerText = `Dinner in ${diff}m: ${prepMsg}`;
-    
-    // Trigger Notify Only Once per day
-    const lastN = localStorage.getItem("last_notif_date");
-    const todayStr = new Date().toDateString();
-    if(lastN !== todayStr && Notification.permission === "granted") {
-       new Notification("Arvish Cooking", { body: prepMsg, icon: "https://emojicdn.elk.sh/👨‍🍳" });
-       localStorage.setItem("last_notif_date", todayStr);
-    }
-  } else {
-    alertBox.classList.add("hidden");
-  }
+const { data } = getUserData();
+
+if(active) {
+widgetT.innerText = `HAPPENING NOW (${active.s} - ${active.e})`;
+widgetD.innerText = active.food[0];
+widgetQ.innerText = scaleQty(active.food[1], data.servings);
+widgetI.innerText = iconMap[active.id] || "🍽️";
+widgetT.style.color = "var(--secondary)";
+} else {
+widgetT.innerText = "KITCHEN CLOSED";
+widgetD.innerText = "Rest Time";
+widgetQ.innerText = "Hydrate yourself 💧";
+widgetI.innerText = "⏳";
+widgetT.style.color = "var(--text-muted)";
+}
+
+if(next) {
+document.getElementById("nextText").innerHTML = `🔜 <b>Next:</b> ${next.t} at ${next.s}`;
+} else {
+document.getElementById("nextText").innerHTML = `🔜 <b>Next:</b> See you tomorrow!`;
+}
+
+// Prep Logic (2 hrs before dinner)
+const dinnerM = minFromTime(menu.dinner.start);
+const diff = dinnerM - nowM;
+const alertBox = document.getElementById("prepAlert");
+
+if(diff > 0 && diff <= 120) {
+alertBox.classList.remove("hidden");
+let prepMsg = "General prep time.";
+const df = menu.dinner.items[day][0].toLowerCase();
+if(df.includes("chicken")) prepMsg = "Marinate chicken now!";
+else if(df.includes("paneer")) prepMsg = "Chop paneer & veggies.";
+else if(df.includes("egg")) prepMsg = "Chop onions & chillies.";
+document.getElementById("prepText").innerText = `Dinner in ${diff}m: ${prepMsg}`;
+
+// Trigger Notify Only Once per day
+const lastN = localStorage.getItem("last_notif_date");
+const todayStr = new Date().toDateString();
+if(lastN !== todayStr && Notification.permission === "granted") {
+new Notification("Arvish Cooking", { body: prepMsg, icon: "https://emojicdn.elk.sh/👨‍🍳" });
+localStorage.setItem("last_notif_date", todayStr);
+}
+} else {
+alertBox.classList.add("hidden");
+}
 }
 
 // --- INITIALIZATION ---
 function init() {
-  renderProfiles();
-  renderTables();
-  renderShopping();
-  updateLive();
+renderProfiles();
+renderTables();
+renderShopping();
+updateLive();
 }
 
 // --- EVENT LISTENERS ---
 document.getElementById("servings").addEventListener("input", (e) => {
-  saveUserData(d => { d.servings = parseFloat(e.target.value); return d; });
-  renderTables();
-  updateLive();
+saveUserData(d => { d.servings = parseFloat(e.target.value); return d; });
+renderTables();
+updateLive();
 });
 
 document.getElementById("btnToday").addEventListener("click", () => {
-  saveUserData(d => { d.todayOnly = !d.todayOnly; return d; });
-  renderTables();
+saveUserData(d => { d.todayOnly = !d.todayOnly; return d; });
+renderTables();
 });
 
 document.getElementById("btnAddProfile").addEventListener("click", () => {
-  const n = document.getElementById("newProfileName").value.trim();
-  if(n) { switchUser(n); document.getElementById("newProfileName").value=""; }
+const n = document.getElementById("newProfileName").value.trim();
+if(n) { switchUser(n); document.getElementById("newProfileName").value=""; }
 });
 
 document.getElementById("btnClearShop").addEventListener("click", () => {
-  if(confirm("Clear shopping list?")) {
-    saveUserData(d => { d.checks={}; return d; });
-    renderShopping();
-  }
+if(confirm("Clear shopping list?")) {
+saveUserData(d => { d.checks={}; return d; });
+renderShopping();
+}
 });
 
 document.getElementById("btnNotif").addEventListener("click", () => {
-  Notification.requestPermission().then(p => {
-    alert(p==="granted" ? "Reminders Enabled!" : "Permission Denied");
-  });
+Notification.requestPermission().then(p => {
+alert(p==="granted" ? "Reminders Enabled!" : "Permission Denied");
+});
 });
 
 // Tabs
 document.querySelectorAll(".tab-link").forEach(b => {
-  b.addEventListener("click", (e) => {
-    document.querySelectorAll(".tab-link").forEach(t=>t.setAttribute("aria-selected",false));
-    document.querySelectorAll(".tab-content").forEach(c=>c.classList.remove("active"));
-    e.target.setAttribute("aria-selected",true);
-    document.getElementById(e.target.dataset.tab).classList.add("active");
-  });
+b.addEventListener("click", (e) => {
+document.querySelectorAll(".tab-link").forEach(t=>t.setAttribute("aria-selected",false));
+document.querySelectorAll(".tab-content").forEach(c=>c.classList.remove("active"));
+e.target.setAttribute("aria-selected",true);
+document.getElementById(e.target.dataset.tab).classList.add("active");
+});
 });
 
 // Start
 init();
 setInterval(updateLive, 30000); // Update every 30s
+
 
 </script>
 </body>
