@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Vishal Fat-Loss Gym Plan 💪</title>
+  <meta name="theme-color" content="#fff8f0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg-body:#fffbf7;
+      --bg-card:#ffffff;
+      --primary:#ff8c42;
+      --secondary:#4caf50;
+      --accent:#ff5e62;
+      --text-dark:#2d2424;
+      --text-muted:#756a6a;
+      --border:#f0e6dd;
+      --shadow:0 8px 24px rgba(149,157,165,0.12);
+      --radius:20px;
+      --font-head:'Merienda',cursive;
+      --font-body:'Poppins',sans-serif;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:var(--font-body);
+      color:var(--text-dark);
+      background-color:var(--bg-body);
+      background-image:
+        radial-gradient(#ffe0b2 1.5px,transparent 1.5px),
+        radial-gradient(#ffe0b2 1.5px,var(--bg-body) 1.5px);
+      background-size:30px 30px;
+      background-position:0 0,15px 15px;
+      min-height:100vh;
+      padding-bottom:40px;
+    }
+    .wrap{max-width:1000px;margin:0 auto;padding:20px}
+
+    header{
+      background:var(--bg-card);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:24px;
+      margin-bottom:20px;
+      position:relative;
+      overflow:hidden;
+      border-bottom:4px solid var(--primary);
+    }
+    header::before{
+      content:"";position:absolute;top:0;left:0;width:100%;height:6px;
+      background:linear-gradient(90deg,var(--secondary),var(--primary),var(--accent));
+    }
+    .brand-row{
+      display:flex;align-items:center;justify-content:space-between;
+      flex-wrap:wrap;gap:15px;
+    }
+    .brand{display:flex;align-items:center;gap:15px}
+    .logo-emoji{
+      font-size:42px;background:#fff0e6;
+      width:70px;height:70px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 4px 10px rgba(255,140,66,0.2);
+    }
+    .brand h1{margin:0;font-family:var(--font-head);font-size:26px}
+    .brand p{margin:4px 0 0;font-size:13px;color:var(--text-muted)}
+
+    .meta-tags{display:flex;gap:8px;flex-wrap:wrap}
+    .tag{
+      font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;
+      padding:6px 12px;border-radius:50px;
+      background:#fdf2f8;color:var(--accent);border:1px solid #fce7f3;
+    }
+    .tag.green{background:#f0fdf4;color:var(--secondary);border-color:#dcfce7}
+    .tag.blue{background:#e0f2fe;color:#0369a1;border-color:#bae6fd}
+
+    .controls-bar{
+      display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;
+      margin-top:18px;padding-top:18px;border-top:2px dashed var(--border);
+    }
+    .status-info{font-size:13px;color:var(--text-muted);display:flex;gap:10px;align-items:center}
+    .clock-pill{
+      background:var(--text-dark);color:#fff;padding:4px 10px;border-radius:6px;font-family:monospace;
+    }
+    .action-group{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .btn{
+      appearance:none;border:none;font-family:var(--font-body);font-weight:600;font-size:13px;
+      padding:8px 14px;border-radius:12px;cursor:pointer;transition:all .2s;
+      display:inline-flex;align-items:center;gap:6px;box-shadow:0 2px 5px rgba(0,0,0,.05);
+      background:#fff;border:1px solid var(--border);color:var(--text-muted);
+    }
+    .btn-primary{background:var(--primary);color:#fff;border-color:var(--primary)}
+    .btn:active{transform:translateY(1px)}
+
+    .main-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:20px}
+    @media(max-width:850px){.main-grid{grid-template-columns:1fr}}
+
+    .card{
+      background:var(--bg-card);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      border:1px solid #fff;
+      overflow:hidden;
+    }
+    .card-head{
+      padding:16px 18px;
+      background:#fffcf7;
+      border-bottom:1px solid var(--border);
+      display:flex;align-items:center;justify-content:space-between;gap:8px;
+    }
+    .card-head h2{
+      margin:0;font-family:var(--font-head);font-size:18px;display:flex;align-items:center;gap:8px;
+    }
+    .badge{
+      font-size:11px;padding:4px 8px;border-radius:999px;border:1px solid var(--border);
+      background:#fff;color:var(--text-muted);
+    }
+    .badge.today{background:#e0f2fe;border-color:#bae6fd;color:#0369a1}
+    .card-body{padding:18px}
+
+    .tabs-nav{
+      display:flex;gap:5px;padding:10px 18px;border-bottom:1px solid var(--border);background:#fffcf9;
+      overflow-x:auto;
+    }
+    .tab-link{
+      background:transparent;border:none;padding:8px 12px;font-family:var(--font-body);
+      font-weight:600;color:var(--text-muted);cursor:pointer;border-radius:8px;white-space:nowrap;
+    }
+    .tab-link[aria-selected="true"]{
+      background:var(--primary);color:#fff;box-shadow:0 4px 10px rgba(255,140,66,0.25);
+    }
+    .tab-content{display:none;padding:18px;animation:fade .25s ease}
+    .tab-content.active{display:block}
+    @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+    .day-card{
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:10px 12px;
+      margin-bottom:10px;
+      background:#fff;
+    }
+    .day-header{
+      display:flex;justify-content:space-between;align-items:center;gap:8px;
+      margin-bottom:4px;
+    }
+    .day-name{font-weight:600;font-size:14px}
+    .day-label{font-size:12px;color:var(--text-muted)}
+    .chip-today{
+      font-size:11px;padding:2px 8px;border-radius:999px;background:#e0f2fe;color:#0369a1;
+    }
+    .work-item{
+      font-size:13px;color:var(--text-dark);display:flex;gap:8px;margin:4px 0;
+    }
+    .work-item span:first-child{width:20px;text-align:center}
+    .work-meta{font-size:12px;color:var(--text-muted);margin-top:4px}
+
+    .check-row{
+      display:flex;align-items:center;justify-content:space-between;
+      margin-top:6px;font-size:12px;color:var(--text-muted);
+    }
+    .check-row input{width:16px;height:16px;accent-color:var(--secondary);}
+
+    .pill{
+      display:inline-flex;align-items:center;gap:6px;
+      padding:6px 10px;border-radius:999px;
+      background:#fff;border:1px solid var(--border);
+      font-size:12px;color:var(--text-muted);
+      margin-right:6px;margin-top:4px;
+    }
+
+    .rule-list li{margin-bottom:4px}
+    .rule-list{padding-left:18px;font-size:13px;color:var(--text-muted)}
+
+    .week-grid{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;
+      font-size:12px;color:var(--text-muted);
+    }
+    .week-card{
+      border:1px solid var(--border);border-radius:10px;padding:8px 10px;background:#fff;
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand-row">
+      <div class="brand">
+        <div class="logo-emoji">🏋️‍♂️</div>
+        <div>
+          <h1>Vishal Fat-Loss Plan</h1>
+          <p>4-Week Gym + Cardio • Restart Safe & Strong</p>
+        </div>
+      </div>
+      <div class="meta-tags">
+        <div class="tag green">Fat Loss</div>
+        <div class="tag blue">6 Days / Week</div>
+        <div class="tag">60 min / Day</div>
+      </div>
+    </div>
+
+    <div class="controls-bar">
+      <div class="status-info">
+        <span class="clock-pill" id="clock">--:--</span>
+        <span id="todayLabel">Today: -</span>
+      </div>
+      <div class="action-group">
+        <button class="btn" id="btnTodayView">Today View</button>
+        <button class="btn btn-primary" id="btnResetTicks">Reset Done Marks</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="main-grid">
+    <!-- LEFT: PLAN -->
+    <main class="card">
+      <div class="tabs-nav">
+        <button class="tab-link" aria-selected="true" data-tab="plan">📅 Plan</button>
+        <button class="tab-link" aria-selected="false" data-tab="rules">📏 Rules</button>
+        <button class="tab-link" aria-selected="false" data-tab="results">📈 Results</button>
+      </div>
+
+      <!-- PLAN TAB -->
+      <div id="plan" class="tab-content active">
+        <div id="daysContainer"></div>
+      </div>
+
+      <!-- RULES TAB -->
+      <div id="rules" class="tab-content">
+        <h2 style="margin-top:0;font-family:var(--font-head);font-size:18px;">🥗 Diet Rules</h2>
+        <div class="card-body" style="padding:0 0 8px 0;">
+          <div style="margin-bottom:6px;font-weight:600;">Do this ✅</div>
+          <ul class="rule-list">
+            <li>Protein every meal (eggs, chicken, dal, paneer).</li>
+            <li>Rice allowed but controlled.</li>
+            <li>Dinner before 9 PM.</li>
+            <li>3–3.5 litres water daily.</li>
+          </ul>
+
+          <div style="margin:12px 0 6px;font-weight:600;">Avoid ❌</div>
+          <ul class="rule-list">
+            <li>Sugary drinks & desserts.</li>
+            <li>Fried snacks and junk.</li>
+            <li>Late-night eating.</li>
+            <li>Alcohol (big belly killer 🍺❌).</li>
+          </ul>
+        </div>
+
+        <h2 style="font-family:var(--font-head);font-size:18px;margin-top:18px;">🧠 Training Rules</h2>
+        <ul class="rule-list">
+          <li>Week 1: Use ~70% of your previous weights.</li>
+          <li>Increase slowly from Week 2 (progressive overload).</li>
+          <li>Consistency > perfection: show up, even if lighter.</li>
+        </ul>
+      </div>
+
+      <!-- RESULTS TAB -->
+      <div id="results" class="tab-content">
+        <h2 style="margin-top:0;font-family:var(--font-head);font-size:18px;">⚖️ What to Expect</h2>
+        <div class="week-grid">
+          <div class="week-card">
+            <b>Week 1</b>
+            <div>Water weight ↓</div>
+            <div>Energy & pump ↑</div>
+          </div>
+          <div class="week-card">
+            <b>Week 2</b>
+            <div>Belly tightness</div>
+            <div>Better stamina</div>
+          </div>
+          <div class="week-card">
+            <b>Week 3</b>
+            <div>Face & waist leaner</div>
+          </div>
+          <div class="week-card">
+            <b>Week 4</b>
+            <div>3–5 kg weight loss possible (with diet)</div>
+          </div>
+        </div>
+
+        <div style="margin-top:16px;font-size:13px;color:var(--text-muted);">
+          Tip: run this 4-week cycle 2–3 times, adjusting weights, and your pictures will show a full transformation.
+        </div>
+      </div>
+    </main>
+
+    <!-- RIGHT: TODAY & NOTES -->
+    <aside style="display:flex;flex-direction:column;gap:18px;">
+      <div class="card">
+        <div class="card-head">
+          <h2>Today’s Focus</h2>
+          <span class="badge today" id="todayBadge">--</span>
+        </div>
+        <div class="card-body">
+          <div id="todaySummary" style="font-size:14px;margin-bottom:8px;"></div>
+          <div id="todayBlocks" style="font-size:13px;color:var(--text-muted);line-height:1.5;"></div>
+          <div style="margin-top:10px;">
+            <span class="pill">🔥 Use Week 1 weights at ~70%</span>
+            <span class="pill">🚶 5–10 min warm-up</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h2>Weekly Split</h2></div>
+        <div class="card-body">
+          <div class="week-grid" id="weekSplit"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h2>Notes</h2></div>
+        <div class="card-body" style="font-size:13px;color:var(--text-muted);line-height:1.6;">
+          <ul style="padding-left:20px;margin:0;">
+            <li>Day 7 = full rest. Only light walking & good sleep 😴.</li>
+            <li>On busy days, at least finish main lifts; cardio optional.</li>
+            <li>If any joint pain: reduce weight, increase warm-up, skip that exercise.</li>
+          </ul>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<script>
+const TZ = "Asia/Kolkata";
+const days = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+const plan = [
+  {
+    id:"d1", label:"Day 1 – Chest + Light Cardio", short:"Chest + Cardio", weekDay:"Mon",
+    items:[
+      "Treadmill warm-up – 5 min",
+      "Flat bench press – 4×12",
+      "Incline dumbbell press – 3×12",
+      "Cable fly – 3×15",
+      "Push-ups – 2 sets till failure",
+      "Cardio: Incline walk 15 min"
+    ]
+  },
+  {
+    id:"d2", label:"Day 2 – Back + Abs", short:"Back + Abs", weekDay:"Tue",
+    items:[
+      "Lat pulldown – 4×12",
+      "Seated cable row – 3×12",
+      "One-arm dumbbell row – 3×12",
+      "Face pulls – 3×15",
+      "Hanging leg raises – 3×12",
+      "Plank – 2×45 sec",
+      "Optional: Cycling 10 min"
+    ]
+  },
+  {
+    id:"d3", label:"Day 3 – Legs (Fat Burn Booster)", short:"Legs (Fat Burn)", weekDay:"Wed",
+    items:[
+      "Bodyweight squats – 2×20",
+      "Leg press – 4×15",
+      "Leg curls – 3×12",
+      "Walking lunges – 3×20 steps",
+      "Standing calf raises – 4×15",
+      "Cardio: Treadmill incline walk – 20 min"
+    ]
+  },
+  {
+    id:"d4", label:"Day 4 – Shoulders + Traps", short:"Shoulders + Traps", weekDay:"Thu",
+    items:[
+      "Dumbbell shoulder press – 4×12",
+      "Lateral raises – 4×15",
+      "Front raises – 3×12",
+      "Rear delt fly – 3×15",
+      "Shrugs – 4×15",
+      "Cardio: Cross trainer – 15 min"
+    ]
+  },
+  {
+    id:"d5", label:"Day 5 – Arms + Core", short:"Arms + Core", weekDay:"Fri",
+    items:[
+      "Barbell curls + Tricep pushdown – 4×12 (superset)",
+      "Hammer curls + Overhead tricep ext – 3×12 (superset)",
+      "Preacher curls – 3×12",
+      "Cable crunch – 3×15",
+      "Russian twists – 3×20"
+    ]
+  },
+  {
+    id:"d6", label:"Day 6 – Cardio + Full Body Burn", short:"Cardio + Full Body", weekDay:"Sat",
+    items:[
+      "Cycling – 10 min",
+      "Battle ropes / skipping – 10 min",
+      "Light dumbbell circuit – 3 rounds",
+      "Stretching – 10 min"
+    ]
+  },
+  {
+    id:"d7", label:"Day 7 – REST", short:"Rest", weekDay:"Sun",
+    items:[
+      "Walking only",
+      "Good sleep 😴"
+    ]
+  }
+];
+
+const LS_KEY = "vishal_workout_ticks_v1";
+
+function getIST(){
+  const d = new Date();
+  const parts = new Intl.DateTimeFormat("en-IN",{
+    timeZone:TZ,
+    weekday:"short",
+    hour:"2-digit",
+    minute:"2-digit",
+    hour12:false
+  }).formatToParts(d);
+  const get = (type)=> (parts.find(p=>p.type===type)||{}).value;
+  const weekday = get("weekday");
+  const hour = get("hour");
+  const minute = get("minute");
+  return {
+    weekday,
+    h: Number(hour),
+    m: Number(minute),
+    str: `${hour}:${minute}`
+  };
+}
+
+function loadTicks(){
+  try { return JSON.parse(localStorage.getItem(LS_KEY)||"{}"); } catch { return {}; }
+}
+function saveTicks(obj){
+  localStorage.setItem(LS_KEY, JSON.stringify(obj));
+}
+
+function renderPlan(todayOnly=false){
+  const cont = document.getElementById("daysContainer");
+  const ticks = loadTicks();
+  const ist = getIST();
+  const todayShort = ist.weekday; // "Mon" style
+  document.getElementById("clock").innerText = ist.str;
+  document.getElementById("todayLabel").innerText = `Today: ${todayShort}`;
+
+  const todayPlan = plan.find(p => p.weekDay === todayShort) || plan[0];
+  document.getElementById("todayBadge").innerText = todayPlan.short;
+  document.getElementById("todaySummary").innerText = todayPlan.label;
+  document.getElementById("todayBlocks").innerHTML = todayPlan.items.map(i=>`• ${i}`).join("<br>");
+
+  cont.innerHTML = "";
+  plan.forEach(dayPlan => {
+    if(todayOnly && dayPlan.weekDay !== todayShort) return;
+    const done = !!ticks[dayPlan.id];
+    const isToday = dayPlan.weekDay === todayShort;
+    const div = document.createElement("div");
+    div.className = "day-card";
+    div.innerHTML = `
+      <div class="day-header">
+        <div>
+          <div class="day-name">${dayPlan.label}</div>
+          <div class="day-label">${isToday ? "Today" : "Recommended day: "+dayPlan.weekDay}</div>
+        </div>
+        <div style="text-align:right;">
+          ${isToday ? '<span class="chip-today">Today</span>' : ""}
+        </div>
+      </div>
+      <div>
+        ${dayPlan.items.map((txt,idx)=>`
+          <div class="work-item">
+            <span>•</span>
+            <span>${txt}</span>
+          </div>
+        `).join("")}
+      </div>
+      <div class="check-row">
+        <label>
+          <input type="checkbox" data-id="${dayPlan.id}" ${done?"checked":""}>
+          Mark day as done
+        </label>
+        <span>${done ? "✅ Great job!" : ""}</span>
+      </div>
+    `;
+    cont.appendChild(div);
+  });
+
+  cont.querySelectorAll("input[type=checkbox]").forEach(chk=>{
+    chk.addEventListener("change",(e)=>{
+      const id = e.target.dataset.id;
+      const map = loadTicks();
+      map[id] = e.target.checked;
+      saveTicks(map);
+      renderPlan(todayOnly);
+    });
+  });
+
+  // Weekly split on right
+  const w = document.getElementById("weekSplit");
+  w.innerHTML = plan.map(p=>`
+    <div class="week-card">
+      <b>${p.weekDay}</b>
+      <div>${p.short}</div>
+    </div>
+  `).join("");
+}
+
+// Tabs
+document.querySelectorAll(".tab-link").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll(".tab-link").forEach(b=>b.setAttribute("aria-selected","false"));
+    btn.setAttribute("aria-selected","true");
+    document.querySelectorAll(".tab-content").forEach(s=>s.classList.remove("active"));
+    document.getElementById(btn.dataset.tab).classList.add("active");
+  });
+});
+
+let todayMode = true;
+document.getElementById("btnTodayView").addEventListener("click",()=>{
+  todayMode = !todayMode;
+  document.getElementById("btnTodayView").innerText = todayMode ? "Today View" : "All Days View";
+  renderPlan(todayMode);
+});
+
+document.getElementById("btnResetTicks").addEventListener("click",()=>{
+  if(!confirm("Clear all 'done' marks?")) return;
+  localStorage.removeItem(LS_KEY);
+  renderPlan(todayMode);
+});
+
+// init
+renderPlan(true);
+setInterval(()=>renderPlan(todayMode),30000);
+</script>
+</body>
+</html>
