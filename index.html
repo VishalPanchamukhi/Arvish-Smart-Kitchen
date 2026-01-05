@@ -1,0 +1,876 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Arvish Smart Kitchen</title>
+  <meta name="theme-color" content="#fff3e6" />
+  <style>
+    :root{
+      --bg:#fff7ed;
+      --bg2:#fff;
+      --ink:#1f2937;
+      --muted:#6b7280;
+      --line: rgba(31,41,55,.12);
+
+      --brand1:#ff6b6b;
+      --brand2:#ffb703;
+      --brand3:#34d399;
+      --brand4:#60a5fa;
+      --brand5:#a78bfa;
+
+      --card:#ffffffcc;
+      --shadow: 0 14px 35px rgba(31,41,55,.10);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(1200px 700px at 10% 0%, rgba(255,107,107,.20), transparent 60%),
+        radial-gradient(900px 600px at 90% 10%, rgba(96,165,250,.18), transparent 60%),
+        radial-gradient(900px 600px at 50% 100%, rgba(52,211,153,.18), transparent 60%),
+        var(--bg);
+      min-height:100vh;
+    }
+    .wrap{max-width:1150px;margin:0 auto;padding:16px 16px 44px}
+    header{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, #fff, #fff7ed);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .hero{
+      padding:16px 16px 12px;
+      display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;justify-content:space-between;
+      background:
+        linear-gradient(135deg, rgba(255,107,107,.18), rgba(255,183,3,.12), rgba(52,211,153,.14), rgba(96,165,250,.14));
+    }
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{
+      width:46px;height:46px;border-radius:16px;
+      background: linear-gradient(135deg, var(--brand1), var(--brand2));
+      box-shadow: 0 12px 22px rgba(255,107,107,.25);
+      border:1px solid rgba(0,0,0,.06);
+      display:grid;place-items:center;
+      font-size:22px;
+    }
+    .brand h1{margin:0;font-size:18px;letter-spacing:.2px}
+    .brand p{margin:6px 0 0;color:var(--muted);font-size:13px;line-height:1.35}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
+    .chip{
+      padding:8px 10px;border-radius:999px;
+      background: rgba(255,255,255,.70);
+      border:1px solid rgba(0,0,0,.06);
+      font-size:12px;color:var(--muted);
+      box-shadow: 0 10px 18px rgba(31,41,55,.06);
+    }
+    .chip b{color:var(--ink)}
+    .subbar{
+      border-top:1px solid var(--line);
+      padding:10px 12px;
+      display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;
+      background: rgba(255,255,255,.65);
+      backdrop-filter: blur(8px);
+    }
+    .kpiRow{display:flex;flex-wrap:wrap;gap:10px;align-items:center;color:var(--muted);font-size:12.5px}
+    .kpi{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:7px 10px;border-radius:999px;
+      background: rgba(255,255,255,.9);
+      border:1px solid rgba(0,0,0,.06);
+    }
+    .dot{width:8px;height:8px;border-radius:99px;background:var(--brand4);box-shadow:0 0 0 4px rgba(96,165,250,.18)}
+    .controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:flex-end}
+    .btn{
+      appearance:none; border:1px solid rgba(0,0,0,.10);
+      background:#fff; color:var(--ink);
+      padding:10px 12px; border-radius: 14px;
+      font-size:13px; cursor:pointer;
+      box-shadow: 0 10px 18px rgba(31,41,55,.06);
+    }
+    .btn.primary{background: linear-gradient(135deg, rgba(255,107,107,.18), rgba(255,183,3,.18));}
+    .btn.good{background: rgba(52,211,153,.18); border-color: rgba(52,211,153,.35)}
+    .btn.warn{background: rgba(255,183,3,.18); border-color: rgba(255,183,3,.35)}
+    .btn.danger{background: rgba(255,107,107,.18); border-color: rgba(255,107,107,.35)}
+    .toggle{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:9px 12px;border-radius:14px;
+      background:#fff; border:1px solid rgba(0,0,0,.10);
+      box-shadow: 0 10px 18px rgba(31,41,55,.06);
+      color:var(--muted); font-size:13px;
+    }
+    input[type="range"]{width:140px}
+    .grid{
+      display:grid;gap:14px;margin-top:14px;
+      grid-template-columns: 1.1fr .9fr;
+    }
+    @media (max-width: 900px){ .grid{grid-template-columns:1fr} }
+    .card{
+      border:1px solid rgba(0,0,0,.08);
+      border-radius: var(--radius);
+      background: var(--card);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .card h2{
+      margin:0;padding:14px 16px;
+      font-size:13px;letter-spacing:.25px;
+      border-bottom:1px solid rgba(0,0,0,.08);
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      background: rgba(255,255,255,.85);
+    }
+    .body{padding:14px 16px}
+    .badge{
+      display:inline-flex;align-items:center;gap:6px;
+      padding:6px 10px;border-radius:999px;
+      border:1px solid rgba(0,0,0,.10);
+      background:#fff;
+      color:var(--muted);font-size:12px;
+    }
+    .badge.good{background: rgba(52,211,153,.20); border-color: rgba(52,211,153,.35); color:#065f46}
+    .badge.warn{background: rgba(255,183,3,.22); border-color: rgba(255,183,3,.38); color:#7c2d12}
+    .badge.purple{background: rgba(167,139,250,.20); border-color: rgba(167,139,250,.35); color:#4c1d95}
+    .nowTitle{margin:0;font-size:16px}
+    .nowText{margin:6px 0 0;color:var(--muted);line-height:1.5}
+    .mini{margin-top:10px;color:var(--muted);font-size:12.5px;line-height:1.4}
+    .note{
+      border-left:4px solid rgba(52,211,153,.70);
+      background: rgba(52,211,153,.14);
+      padding:10px 12px;border-radius: 14px;
+      color:#065f46; font-size:13px; line-height:1.45;
+    }
+    .tabs{
+      display:flex;gap:8px;flex-wrap:wrap;
+      padding:10px;border-bottom:1px solid rgba(0,0,0,.08);
+      background: rgba(255,255,255,.80);
+    }
+    .tabbtn{
+      appearance:none;border:1px solid rgba(0,0,0,.10);
+      background:#fff;color:var(--ink);
+      padding:10px 12px;border-radius:14px;
+      font-size:13px;cursor:pointer;
+      box-shadow: 0 10px 18px rgba(31,41,55,.06);
+    }
+    .tabbtn[aria-selected="true"]{
+      background: linear-gradient(135deg, rgba(96,165,250,.22), rgba(167,139,250,.22));
+      border-color: rgba(96,165,250,.35);
+    }
+    .section{display:none}
+    .section.active{display:block}
+    table{
+      width:100%;
+      border-collapse:separate;border-spacing:0;
+      border:1px solid rgba(0,0,0,.08);
+      border-radius: 16px;
+      overflow:hidden;
+      background:#fff;
+    }
+    th,td{padding:10px 10px;border-bottom:1px solid rgba(0,0,0,.08);vertical-align:top}
+    th{font-size:12px;color:var(--muted);text-align:left;background: rgba(255,247,237,.85)}
+    tr:last-child td{border-bottom:none}
+    tr.hl{
+      outline: 2px solid rgba(96,165,250,.65);
+      background: linear-gradient(90deg, rgba(96,165,250,.18), rgba(52,211,153,.12));
+    }
+    .list{display:grid;gap:8px}
+    .item{
+      display:flex;gap:10px;align-items:flex-start;
+      border:1px solid rgba(0,0,0,.08);
+      background:#fff;
+      padding:10px 12px;border-radius: 14px;
+    }
+    .item input{margin-top:3px}
+    .item .t{flex:1}
+    .item .t b{display:block;font-size:13px}
+    .item .t span{display:block;margin-top:2px;color:var(--muted);font-size:12.5px;line-height:1.35}
+    details{
+      border:1px solid rgba(0,0,0,.08);
+      border-radius: 16px;
+      background:#fff;
+      padding:10px 12px;
+    }
+    details summary{cursor:pointer;font-weight:700}
+    ul{margin:8px 0 0 18px;color:var(--muted);font-size:13px;line-height:1.55}
+    .input{
+      padding:12px;border-radius:14px;border:1px solid rgba(0,0,0,.10);
+      background:#fff;color:var(--ink); min-width:220px; flex:1;
+      box-shadow: 0 10px 18px rgba(31,41,55,.06);
+    }
+    .kitchenIcons{
+      display:flex; gap:10px; flex-wrap:wrap; margin-top:8px; color:var(--muted); font-size:13px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <header>
+      <div class="hero">
+        <div class="brand">
+          <div class="logo" aria-hidden="true">🍲</div>
+          <div>
+            <h1>Arvish Smart Kitchen 🍳</h1>
+            <p>Smart fridge menu </p>
+            <div class="kitchenIcons">🍅 🥚 🍗 🥗 🍚 🫓 🧀 🌽 🍌 ☕</div>
+          </div>
+        </div>
+
+        <div class="chips">
+          <div class="chip">🧈 <b>Ghee/day:</b> 2–2.5 tsp max</div>
+          <div class="chip">🍱 <b>Lunch ghee:</b> 1 tsp max</div>
+          <div class="chip">🥘 <b>Dinner ghee:</b> ½ tsp max</div>
+          <div class="chip">🚫 <b>No oil</b></div>
+          <div class="chip">🌙 <b>No rice at night</b></div>
+        </div>
+      </div>
+
+      <div class="subbar">
+        <div class="kpiRow">
+          <span class="kpi"><span class="dot"></span><span id="clock">Loading time…</span></span>
+          <span class="kpi">🇮🇳 Timezone: <b>Asia/Kolkata</b></span>
+          <span class="kpi">👤 Active: <b id="activeUserName">Arvish</b></span>
+        </div>
+
+        <div class="controls">
+          <div class="toggle" title="Auto-adjust quantities">
+            👨‍👩‍👦 Servings: <b id="servingsLabel">1</b>
+            <input id="servings" type="range" min="1" max="5" step="1" value="1" />
+          </div>
+          <button class="btn warn" id="btnToday">📌 Today view: OFF</button>
+          <button class="btn primary" id="btnEnableNotif">🔔 Enable reminders</button>
+        </div>
+      </div>
+    </header>
+
+    <div class="grid">
+      <!-- NOW -->
+      <section class="card">
+        <h2>
+          <span>⏰ What to do now</span>
+          <span class="badge purple" id="statusBadge">Checking…</span>
+        </h2>
+        <div class="body">
+          <h3 class="nowTitle" id="nowTitle">—</h3>
+          <p class="nowText" id="nowText">—</p>
+          <div class="mini" id="nextText"></div>
+          <div class="mini" id="reminderHint"></div>
+        </div>
+      </section>
+
+      <!-- QUICK -->
+      <aside class="card">
+        <h2>
+          <span>✅ Kitchen notes</span>
+          <span class="badge good">Family</span>
+        </h2>
+        <div class="body">
+          <div class="note">❤️ Same food for everyone is okay — only quantity & ghee amount changes.</div>
+          </div>
+      </aside>
+
+      <!-- MAIN -->
+      <section class="card" style="grid-column: 1 / -1;">
+        <div class="tabs" role="tablist" aria-label="Planner tabs">
+          <button class="tabbtn" role="tab" aria-selected="true" data-tab="menu">🗓️ Menu</button>
+          <button class="tabbtn" role="tab" aria-selected="false" data-tab="shopping">🛒 Shopping</button>
+          <button class="tabbtn" role="tab" aria-selected="false" data-tab="instructions">👩‍🍳 Instructions</button>
+          <button class="tabbtn" role="tab" aria-selected="false" data-tab="profiles">👤 Profiles</button>
+        </div>
+
+        <!-- MENU -->
+        <div class="body section active" id="menu">
+          <div class="mini">Tip: Tap “Today view” for faster fridge reading.</div>
+
+          <div class="mini" style="margin:12px 0 6px">🍳 Breakfast (8:30–9:00)</div>
+          <table id="tblBreakfast"></table>
+
+          <div class="mini" style="margin:14px 0 6px">🍎 Mid-morning (11:30)</div>
+          <div class="item">
+            <div class="t">
+              <b>Daily</b>
+              <span id="midmorningQty">1 fruit (100–150g) OR coconut water (1 glass)</span>
+            </div>
+          </div>
+
+          <div class="mini" style="margin:14px 0 6px">🍛 Lunch (1:30–2:30)</div>
+          <table id="tblLunch"></table>
+
+          <div class="mini" style="margin:14px 0 6px">🌽 Evening snack (5:30–6:00)</div>
+          <div class="item"><div class="t">
+            <b>Choose ONE daily</b>
+            <span id="snackQty">Sweet corn OR roasted chana OR sprouts + no-sugar tea/coffee</span>
+          </div></div>
+
+          <div class="mini" style="margin:14px 0 6px">🏋️ Pre-workout (6:45)</div>
+          <div class="item"><div class="t">
+            <b>Daily</b>
+            <span id="preworkoutQty">1 banana (100g) OR black coffee</span>
+          </div></div>
+
+          <div class="mini" style="margin:14px 0 6px">🍽️ Dinner (9:00–9:30)</div>
+          <table id="tblDinner"></table>
+
+          <div class="mini" style="margin:14px 0 8px">🌱 Soaked grains / sprouts (daily)</div>
+          <details>
+            <summary>Show options</summary>
+            <ul>
+              <li><b>Option A:</b> Mixed sprouts 1 cup (100–120g) + onion + lemon + salt + pepper (no ghee).</li>
+              <li><b>Option B:</b> Soaked black chana / green gram 1 cup (alternate days).</li>
+              <li>Use once per day, not more.</li>
+            </ul>
+          </details>
+        </div>
+
+        <!-- SHOPPING -->
+        <div class="body section" id="shopping">
+          <h2 style="padding:0 0 10px;border:none">🛒 Weekly shopping checklist</h2>
+          <div class="mini">Ticks are saved in phone storage (localStorage).</div>
+
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 0">
+            <button class="btn good" id="btnCheckAll">✅ Check all</button>
+            <button class="btn" id="btnUncheckAll">⬜ Uncheck all</button>
+            <button class="btn danger" id="btnReset">🧹 Reset ticks</button>
+          </div>
+
+          <div style="height:10px"></div>
+          <div class="list" id="shoppingList"></div>
+        </div>
+
+        <!-- INSTRUCTIONS -->
+        <div class="body section" id="instructions">
+          <h2 style="padding:0 0 10px;border:none">👩‍🍳 Simple cooking instructions</h2>
+
+          <details open>
+            <summary>🥚 Eggs (omelette / bhurji)</summary>
+            <ul>
+              <li>Use non‑stick pan.</li>
+              <li>Heat ½ tsp ghee only, add onion/chilli → eggs → salt.</li>
+              <li>Cook on low flame.</li>
+            </ul>
+          </details>
+
+          <div style="height:10px"></div>
+
+          <details>
+            <summary>🍗 Chicken curry (light)</summary>
+            <ul>
+              <li>Heat 1 tsp ghee, add jeera → onion → ginger‑garlic.</li>
+              <li>Add chicken + spices + water, cook covered (no frying).</li>
+            </ul>
+          </details>
+
+          <div style="height:10px"></div>
+
+          <details>
+            <summary>🧀 Paneer stir fry</summary>
+            <ul>
+              <li>Pan heat → ½ tsp ghee.</li>
+              <li>Add paneer cubes + capsicum, toss lightly (no browning).</li>
+            </ul>
+          </details>
+
+          <div style="height:10px"></div>
+
+          <details>
+            <summary>🌱 Sprouts / soaked grains</summary>
+            <ul>
+              <li>Soak overnight.</li>
+              <li>Pressure cook 1 whistle OR steam.</li>
+              <li>Mix lemon, onion, salt.</li>
+            </ul>
+          </details>
+
+          <div style="height:10px"></div>
+
+          <details>
+            <summary>🌽 Sweet corn</summary>
+            <ul>
+              <li>Boil 5–7 minutes.</li>
+              <li>Add salt + pepper, no butter.</li>
+            </ul>
+          </details>
+
+          <div class="mini">🔔 Notifications need permission and a button click to enable in most browsers [web:26][web:32].</div>
+        </div>
+
+        <!-- PROFILES -->
+        <div class="body section" id="profiles">
+          <h2 style="padding:0 0 10px;border:none">👤 Profiles (this device)</h2>
+          <div class="mini">Not real login—just an “active profile” stored locally (separate shopping ticks/settings per person).</div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; align-items:center">
+            <input class="input" id="profileName" placeholder="Add profile name (e.g., Arati)" />
+            <button class="btn primary" id="btnAddProfile">➕ Add / Switch</button>
+          </div>
+
+          <div class="mini" style="margin-top:10px">Quick switch:</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px" id="profileChips"></div>
+        </div>
+
+      </section>
+    </div>
+
+  </div>
+
+<script>
+  // Timezone fixed to Asia/Kolkata via Intl.DateTimeFormat timeZone option. [web:21]
+  const TZ = "Asia/Kolkata";
+  const days = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+
+  const menu = {
+    breakfast: { timeLabel:"Breakfast (8:30–9:00)", start:"08:30", end:"09:00",
+      items:{
+        Mon:["Omelette (ghee) 🍳","2 eggs + ½ tsp ghee"],
+        Tue:["Veg poha 🥣","1 medium bowl (150g)"],
+        Wed:["Oats (milk) 🥛","40g oats + 200ml milk"],
+        Thu:["Boiled eggs + fruit 🥚🍎","2 eggs + 1 fruit"],
+        Fri:["Upma 🍲","1 medium bowl"],
+        Sat:["Besan chilla 🫓","2 small + ½ tsp ghee"],
+        Sun:["Dosa + sambar 🥞","2 small dosa + 1 bowl sambar"],
+      }
+    },
+    lunch: { timeLabel:"Lunch (1:30–2:30)", start:"13:30", end:"14:30",
+      items:{
+        Mon:["Chapati + Dal + Veg 🫓🍛🥗","2 chapati + dal 1 cup + veg 1 cup"],
+        Tue:["Rice + Chicken curry 🍚🍗","Rice 1 cup (150g) + chicken 120g"],
+        Wed:["Chapati + Paneer 🫓🧀","2 chapati + paneer 100g"],
+        Thu:["Rice + Egg curry 🍚🥚","Rice 1 cup + 2 eggs"],
+        Fri:["Chapati + Chicken 🫓🍗","2 chapati + chicken 120g"],
+        Sat:["Veg khichdi + curd 🍲🥛","1.5 cups + curd ½ cup"],
+        Sun:["Chapati + Dal + Veg 🫓🍛🥗","2 chapati + dal + veg"],
+      }
+    },
+    dinner: { timeLabel:"Dinner (9:00–9:30)", start:"21:00", end:"21:30",
+      items:{
+        Mon:["Grilled chicken + veg 🍗🥗","Chicken 120g + veg 1 cup"],
+        Tue:["Chapati + sabzi 🫓🥗","2 chapati + veg"],
+        Wed:["Egg bhurji 🥚","3 eggs + ½ tsp ghee"],
+        Thu:["Paneer stir fry 🧀🫑","Paneer 100g"],
+        Fri:["Dal + veg 🍛🥗","Dal 1 cup + veg"],
+        Sat:["Veg soup + sprouts 🥣🌱","Soup 1 cup + sprouts ½ cup"],
+        Sun:["Light chicken curry 🍗","Chicken 120g + veg"],
+      }
+    }
+  };
+
+  const shopping = [
+    {cat:"Fats", name:"Cow ghee 🧈", note:"250 ml"},
+    {cat:"Protein", name:"Eggs 🥚", note:"24–30"},
+    {cat:"Protein", name:"Chicken 🍗", note:"1.2–1.5 kg"},
+    {cat:"Pulses", name:"Toor dal 🫘", note:"500 g"},
+    {cat:"Pulses", name:"Moong dal 🫘", note:"250 g"},
+    {cat:"Pulses", name:"Chana dal 🫘", note:"250 g"},
+    {cat:"Sprouts", name:"Whole moong 🌱", note:"500 g"},
+    {cat:"Sprouts", name:"Black chana 🌱", note:"500 g"},
+    {cat:"Dairy", name:"Milk 🥛", note:"2 L"},
+    {cat:"Dairy", name:"Curd 🥛", note:"1 kg"},
+    {cat:"Dairy", name:"Paneer 🧀", note:"400–500 g"},
+    {cat:"Grains", name:"Rice 🍚", note:"2 kg"},
+    {cat:"Grains", name:"Wheat flour (atta) 🌾", note:"2 kg"},
+    {cat:"Grains", name:"Oats 🌾", note:"500 g"},
+    {cat:"Grains", name:"Besan 🌾", note:"500 g"},
+    {cat:"Grains", name:"Poha 🌾", note:"500 g"},
+    {cat:"Veggies", name:"Onion 🧅", note:"1 kg"},
+    {cat:"Veggies", name:"Tomato 🍅", note:"1 kg"},
+    {cat:"Veggies", name:"Potato 🥔", note:"500 g"},
+    {cat:"Veggies", name:"Carrot 🥕", note:"500 g"},
+    {cat:"Veggies", name:"Beans 🫛", note:"250 g"},
+    {cat:"Veggies", name:"Cabbage/Cauliflower 🥦", note:"1 medium"},
+    {cat:"Veggies", name:"Palak/Methi 🥬", note:"1 bunch"},
+    {cat:"Other", name:"Sweet corn 🌽", note:"500 g"},
+    {cat:"Fruits", name:"Apple 🍎", note:"4"},
+    {cat:"Fruits", name:"Orange/Papaya 🍊", note:"~500 g"},
+    {cat:"Add-ons", name:"Lemon 🍋", note:"4"},
+    {cat:"Add-ons", name:"Ginger + Garlic 🫚🧄", note:""},
+    {cat:"Add-ons", name:"Jeera/mustard + pepper 🧂", note:""},
+  ];
+
+  // -------- localStorage profiles (device-only) --------
+  const ROOT_KEY = "arvish_fridge_light_v1";
+  const getRoot = () => { try { return JSON.parse(localStorage.getItem(ROOT_KEY) || "{}"); } catch { return {}; } };
+  const setRoot = (obj) => localStorage.setItem(ROOT_KEY, JSON.stringify(obj));
+  function ensureRoot(){
+    const r = getRoot();
+    if(!r.activeUser) r.activeUser = "Arvish";
+    if(!r.users) r.users = { "Arvish": {} };
+    if(!r.users[r.activeUser]) r.users[r.activeUser] = {};
+    setRoot(r);
+  }
+  function userKey(suffix){
+    const r = getRoot();
+    const u = r.activeUser || "Arvish";
+    return `${ROOT_KEY}::${u}::${suffix}`;
+  }
+
+  // -------- timezone helpers (IST) --------
+  const hmToMin = (hhmm) => { const [h,m]=hhmm.split(":").map(Number); return h*60+m; };
+
+  function indiaParts(){
+    const d = new Date();
+    const parts = new Intl.DateTimeFormat("en-IN", {
+      timeZone: TZ, weekday:"short", year:"numeric", month:"2-digit", day:"2-digit",
+      hour:"2-digit", minute:"2-digit", hour12:false
+    }).formatToParts(d);
+    const get = (t) => (parts.find(p=>p.type===t)||{}).value;
+    return {
+      weekday: get("weekday"),
+      hour: Number(get("hour")),
+      minute: Number(get("minute")),
+      yyyy: get("year"), mm: get("month"), dd: get("day")
+    };
+  }
+  function fmtIndiaNow(){
+    return new Intl.DateTimeFormat("en-IN", {
+      timeZone: TZ, weekday:"long", year:"numeric", month:"2-digit", day:"2-digit",
+      hour:"2-digit", minute:"2-digit", hour12:false
+    }).format(new Date());
+  }
+  function todayKey(){
+    const w = indiaParts().weekday;
+    return days.includes(w) ? w : "Mon";
+  }
+  function nowMinutesIST(){
+    const p = indiaParts();
+    return p.hour*60 + p.minute;
+  }
+
+  // -------- servings scaling --------
+  function scaleText(text, servings){
+    const fracMap = { "½": 0.5, "¼": 0.25, "¾": 0.75 };
+    let t = text;
+    Object.entries(fracMap).forEach(([k,v]) => t = t.replaceAll(k, String(v)));
+    t = t.replace(/(\d+(\.\d+)?)(?!\s*:)/g, (m) => {
+      const n = Number(m);
+      if(!Number.isFinite(n)) return m;
+      const scaled = n * servings;
+      return (Math.round(scaled*100)/100).toString();
+    });
+    t = t.replaceAll("0.5","½").replaceAll("0.25","¼").replaceAll("0.75","¾");
+    return t;
+  }
+  function getServings(){
+    const v = Number(localStorage.getItem(userKey("servings")) || "1");
+    return [1,2,3,4,5].includes(v) ? v : 1;
+  }
+  function setServings(v){ localStorage.setItem(userKey("servings"), String(v)); }
+
+  // -------- today view --------
+  function getTodayView(){ return (localStorage.getItem(userKey("todayView")) || "off") === "on"; }
+  function setTodayView(on){ localStorage.setItem(userKey("todayView"), on ? "on" : "off"); }
+  function applyTodayView(){
+    const on = getTodayView();
+    const btn = document.getElementById("btnToday");
+    btn.textContent = on ? "📌 Today view: ON" : "📌 Today view: OFF";
+    btn.className = on ? "btn good" : "btn warn";
+    const today = todayKey();
+    ["tblBreakfast","tblLunch","tblDinner"].forEach(tid=>{
+      document.querySelectorAll(`#${tid} tr[data-day]`).forEach(r=>{
+        const isToday = r.getAttribute("data-day") === today;
+        r.style.display = on ? (isToday ? "" : "none") : "";
+      });
+    });
+  }
+
+  // -------- tables --------
+  function buildWeekTable(elId, block){
+    const s = getServings();
+    const dayToday = todayKey();
+    const el = document.getElementById(elId);
+    el.innerHTML = `
+      <tr>
+        <th style="width:110px">Day</th>
+        <th>Food</th>
+        <th>Qty (x${s})</th>
+      </tr>
+      ${days.map(day => {
+        const [food, qty] = block.items[day];
+        return `
+          <tr data-day="${day}" data-is-today="${day === dayToday ? "1":"0"}">
+            <td><b>${day}</b></td>
+            <td>${food}</td>
+            <td>${scaleText(qty, s)}</td>
+          </tr>
+        `;
+      }).join("")}
+    `;
+  }
+  function clearHighlights(){ document.querySelectorAll("tr.hl").forEach(tr=>tr.classList.remove("hl")); }
+
+  // -------- shopping --------
+  function loadChecks(){ try { return JSON.parse(localStorage.getItem(userKey("shoppingChecks")) || "{}"); } catch { return {}; } }
+  function saveChecks(obj){ localStorage.setItem(userKey("shoppingChecks"), JSON.stringify(obj)); }
+  function renderShopping(){
+    const checks = loadChecks();
+    const wrap = document.getElementById("shoppingList");
+    wrap.innerHTML = "";
+    shopping.forEach((it, idx)=>{
+      const id = `shop_${idx}`;
+      const checked = !!checks[id];
+      const row = document.createElement("label");
+      row.className = "item";
+      row.innerHTML = `
+        <input type="checkbox" ${checked ? "checked":""} data-id="${id}">
+        <div class="t">
+          <b>${it.name}</b>
+          <span>${it.cat}${it.note ? " • " + it.note : ""}</span>
+        </div>
+      `;
+      row.querySelector("input").addEventListener("change",(e)=>{
+        const c = loadChecks();
+        c[id] = e.target.checked;
+        saveChecks(c);
+      });
+      wrap.appendChild(row);
+    });
+  }
+
+  // -------- tabs --------
+  document.querySelectorAll(".tabbtn").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      document.querySelectorAll(".tabbtn").forEach(b=>b.setAttribute("aria-selected","false"));
+      btn.setAttribute("aria-selected","true");
+      const tab = btn.dataset.tab;
+      document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+      document.getElementById(tab).classList.add("active");
+    });
+  });
+
+  // -------- now + reminders --------
+  function blocks(){
+    return [
+      {key:"breakfast", ...menu.breakfast},
+      {key:"midmorning", timeLabel:"Mid-morning (11:30) 🍎", start:"11:30", end:"11:45",
+        items:Object.fromEntries(days.map(d=>[d,["Fruit or coconut water 🍎🥥","1 fruit (100–150g) OR coconut water (1 glass)"]]))},
+      {key:"lunch", ...menu.lunch},
+      {key:"snack", timeLabel:"Evening snack (5:30–6:00) 🌽", start:"17:30", end:"18:00",
+        items:Object.fromEntries(days.map(d=>[d,["Choose ONE snack 🌽","Sweet corn 1 cup OR roasted chana 30g OR sprouts ½ cup + no-sugar tea/coffee"]]))},
+      {key:"preworkout", timeLabel:"Pre-workout (6:45) 🏋️", start:"18:45", end:"19:00",
+        items:Object.fromEntries(days.map(d=>[d,["Banana or black coffee 🍌☕","1 banana (100g) OR black coffee"]]))},
+      {key:"dinner", ...menu.dinner},
+    ].map(b=>({ ...b, s:hmToMin(b.start), e:hmToMin(b.end) }));
+  }
+  function getCurrentBlock(){
+    const t = nowMinutesIST();
+    const b = blocks();
+    const inBlock = b.find(x => t >= x.s && t < x.e);
+    return { b, inBlock };
+  }
+  function nextUpcoming(b){
+    const t = nowMinutesIST();
+    const candidates = [...b].sort((a,c)=>a.s-c.s);
+    const later = candidates.find(x => x.s > t);
+    if(later) return {when:"Today", b:later};
+    return {when:"Tomorrow", b:candidates[0]};
+  }
+  function prepMessageForToday(){
+    const day = todayKey();
+    const dinnerFood = menu.dinner.items[day][0].toLowerCase();
+    if(dinnerFood.includes("chicken")) return "Prep: Marinate chicken 🧂🫚🧄 (2 hours before dinner).";
+    if(dinnerFood.includes("paneer")) return "Prep: Cut paneer + capsicum 🧀🫑 and keep masala ready.";
+    if(dinnerFood.includes("egg")) return "Prep: Chop onion/chilli 🧅🌶️ for quick bhurji.";
+    if(dinnerFood.includes("dal")) return "Prep: Wash/soak dal 🫘 and keep cooker ready.";
+    return "Prep: Chop veggies 🥗 and keep spices ready.";
+  }
+
+  function updateNow(){
+    document.getElementById("clock").textContent = fmtIndiaNow();
+
+    const day = todayKey();
+    const {b, inBlock} = getCurrentBlock();
+    clearHighlights();
+
+    const badge = document.getElementById("statusBadge");
+    const nowTitle = document.getElementById("nowTitle");
+    const nowText  = document.getElementById("nowText");
+    const nextText = document.getElementById("nextText");
+    const reminderHint = document.getElementById("reminderHint");
+
+    const s = getServings();
+
+    if(inBlock){
+      const [food, qty] = inBlock.items[day];
+      nowTitle.textContent = `✅ Now: ${inBlock.timeLabel}`;
+      nowText.textContent = `${food} — ${scaleText(qty, s)}`;
+      badge.className = "badge good";
+      badge.textContent = "NOW ✅";
+
+      const map = { breakfast:"tblBreakfast", lunch:"tblLunch", dinner:"tblDinner" };
+      const tid = map[inBlock.key];
+      if(tid){
+        const row = document.querySelector(`#${tid} tr[data-day="${day}"]`);
+        if(row) row.classList.add("hl");
+      }
+    } else {
+      nowTitle.textContent = "⏳ Between meal slots";
+      nowText.textContent = "Open Menu for full schedule.";
+      badge.className = "badge warn";
+      badge.textContent = "WAIT ⏳";
+    }
+
+    const nxt = nextUpcoming(b);
+    const [nf, nq] = nxt.b.items[day];
+    nextText.textContent = `➡️ Next: ${nxt.when} • ${nxt.b.timeLabel} — ${nf} (${scaleText(nq, s)})`;
+
+    const dinnerStart = hmToMin(menu.dinner.start);
+    const nowMin = nowMinutesIST();
+    const minsToDinner = dinnerStart - nowMin;
+    reminderHint.textContent = (minsToDinner > 0 && minsToDinner <= 240)
+      ? `🔪 Dinner in ${minsToDinner} mins. ${prepMessageForToday()}`
+      : `🔪 ${prepMessageForToday()}`;
+
+    applyTodayView();
+  }
+
+  // Notifications: need permission via requestPermission (button click) [web:26]
+  function notifAllowed(){ return ("Notification" in window) && Notification.permission === "granted"; }
+  function notify(title, body){ try { new Notification(title, { body }); } catch(e){} }
+
+  function schedulePrepReminder(){
+    const lastKey = userKey("lastPrepNotify"); // YYYY-MM-DD
+    const tick = () => {
+      if(!notifAllowed()) return;
+      const p = indiaParts();
+      const today = `${p.yyyy}-${p.mm}-${p.dd}`;
+      const nowMin = nowMinutesIST();
+      const target = hmToMin(menu.dinner.start) - 120; // 2 hours before dinner
+      if(nowMin >= target && nowMin <= target + 2){
+        const last = localStorage.getItem(lastKey) || "";
+        if(last !== today){
+          localStorage.setItem(lastKey, today);
+          notify("🔔 Arvish Cooking: Prep reminder", prepMessageForToday());
+        }
+      }
+    };
+    setInterval(tick, 30 * 1000);
+    tick();
+  }
+
+  async function enableNotifications(){
+    if(!("Notification" in window)){
+      alert("Notifications not supported on this browser.");
+      return;
+    }
+    if(Notification.permission === "granted"){
+      alert("Notifications already enabled ✅");
+      return;
+    }
+    const permission = await Notification.requestPermission(); // [web:26]
+    if(permission === "granted"){
+      alert("Enabled ✅ Prep reminders will trigger (best effort).");
+      schedulePrepReminder();
+      document.getElementById("btnEnableNotif").textContent = "🔔 Reminders enabled";
+      document.getElementById("btnEnableNotif").className = "btn good";
+    } else {
+      alert("Permission not granted.");
+    }
+  }
+
+  // Profiles
+  function setActiveUser(name){
+    const r = getRoot();
+    r.activeUser = name;
+    r.users = r.users || {};
+    r.users[name] = r.users[name] || {};
+    setRoot(r);
+    document.getElementById("activeUserName").textContent = name;
+  }
+  function renderProfiles(){
+    const r = getRoot();
+    const users = Object.keys(r.users || {});
+    const wrap = document.getElementById("profileChips");
+    wrap.innerHTML = "";
+    users.forEach(u=>{
+      const b = document.createElement("button");
+      b.className = "btn";
+      b.textContent = `👤 ${u}`;
+      b.addEventListener("click", ()=>{ setActiveUser(u); hydrate(); });
+      wrap.appendChild(b);
+    });
+  }
+  function addOrSwitchProfile(name){
+    const n = (name || "").trim();
+    if(!n) return;
+    const r = getRoot();
+    r.users = r.users || {};
+    r.users[n] = r.users[n] || {};
+    r.activeUser = n;
+    setRoot(r);
+    setActiveUser(n);
+    hydrate();
+  }
+
+  function hydrate(){
+    const s = getServings();
+    document.getElementById("servings").value = String(s);
+    document.getElementById("servingsLabel").textContent = String(s);
+
+    buildWeekTable("tblBreakfast", menu.breakfast);
+    buildWeekTable("tblLunch", menu.lunch);
+    buildWeekTable("tblDinner", menu.dinner);
+
+    document.getElementById("midmorningQty").textContent =
+      scaleText("1 fruit (100–150g) OR coconut water (1 glass)", s);
+    document.getElementById("snackQty").textContent =
+      scaleText("Boiled sweet corn – 1 cup (150g) OR roasted chana – 30g OR sprouts salad – ½ cup", s);
+    document.getElementById("preworkoutQty").textContent =
+      scaleText("1 banana (100g) OR black coffee", s);
+
+    renderShopping();
+    applyTodayView();
+    updateNow();
+
+    if(("Notification" in window) && Notification.permission === "granted"){
+      document.getElementById("btnEnableNotif").textContent = "🔔 Reminders enabled";
+      document.getElementById("btnEnableNotif").className = "btn good";
+    }
+  }
+
+  // Hook up buttons
+  document.getElementById("btnEnableNotif").addEventListener("click", enableNotifications);
+
+  document.getElementById("servings").addEventListener("input", (e)=>{
+    const v = Number(e.target.value);
+    document.getElementById("servingsLabel").textContent = String(v);
+    setServings(v);
+    hydrate();
+  });
+
+  document.getElementById("btnToday").addEventListener("click", ()=>{
+    setTodayView(!getTodayView());
+    applyTodayView();
+  });
+
+  document.getElementById("btnCheckAll").addEventListener("click", ()=>{
+    const c = {}; shopping.forEach((_,idx)=>c[`shop_${idx}`]=true); saveChecks(c); renderShopping();
+  });
+  document.getElementById("btnUncheckAll").addEventListener("click", ()=>{
+    const c = {}; shopping.forEach((_,idx)=>c[`shop_${idx}`]=false); saveChecks(c); renderShopping();
+  });
+  document.getElementById("btnReset").addEventListener("click", ()=>{
+    localStorage.removeItem(userKey("shoppingChecks")); renderShopping();
+  });
+
+  document.getElementById("btnAddProfile").addEventListener("click", ()=>{
+    addOrSwitchProfile(document.getElementById("profileName").value);
+    document.getElementById("profileName").value = "";
+    renderProfiles();
+  });
+
+  // Init
+  ensureRoot();
+  setActiveUser(getRoot().activeUser);
+  renderProfiles();
+  hydrate();
+  setInterval(updateNow, 30 * 1000);
+
+  if(("Notification" in window) && Notification.permission === "granted"){
+    schedulePrepReminder();
+  }
+</script>
+</body>
+</html>
