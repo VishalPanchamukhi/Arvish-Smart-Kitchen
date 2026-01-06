@@ -13,9 +13,9 @@
     :root{
       --bg-body: #fffbf7; 
       --bg-card: #ffffff;
-      --primary: #ff8c42; /* Soft appetizing orange */
-      --secondary: #4caf50; /* Fresh green */
-      --accent: #ff5e62; /* Salmon pink */
+      --primary: #ff8c42;
+      --secondary: #4caf50;
+      --accent: #ff5e62;
       --text-dark: #2d2424;
       --text-muted: #756a6a;
       --border: #f0e6dd;
@@ -31,7 +31,6 @@
       margin:0; font-family: var(--font-body);
       color: var(--text-dark);
       background-color: var(--bg-body);
-      /* Subtle food pattern background */
       background-image: radial-gradient(#ffe0b2 1.5px, transparent 1.5px), radial-gradient(#ffe0b2 1.5px, var(--bg-body) 1.5px);
       background-size: 30px 30px;
       background-position: 0 0, 15px 15px;
@@ -134,9 +133,13 @@
 
     /* --- GRID --- */
     .main-grid {
-      display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 20px;
+      display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 20px;
     }
-    @media(max-width: 850px){ .main-grid { grid-template-columns: 1fr; } }
+    @media(max-width: 850px){
+      .main-grid { grid-template-columns: 1fr; }
+      .main-grid > aside { order: 1; }
+      .main-grid > main { order: 2; }
+    }
 
     /* --- CARDS --- */
     .card {
@@ -238,7 +241,7 @@
     }
     details[open] { border-color: var(--primary); box-shadow: 0 4px 12px rgba(255,140,66,0.08); }
     summary {
-      padding: 12px 15px; cursor: pointer; font-weight: 600; list-style: none; display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 15px; cursor: pointer; font-weight: 600; list-style: none; display: flex; justify-content:space-between; align-items:center;
     }
     summary::after { content: "+"; font-size: 18px; color: var(--primary); }
     details[open] summary::after { content: "−"; }
@@ -254,7 +257,6 @@
     /* --- UTILS --- */
     .hidden { display: none !important; }
     .badge-live { background: #e6fffa; color: #059669; padding: 2px 8px; border-radius: 4px; font-size: 10px; border: 1px solid #a7f3d0; font-weight: bold; }
-
   </style>
 </head>
 <body>
@@ -298,130 +300,7 @@
 
   <div class="main-grid">
 
-    <!-- LEFT COLUMN: MAIN CONTENT -->
-    <main class="card">
-      <div class="tabs-nav" role="tablist">
-        <button class="tab-link" aria-selected="true" data-tab="menu">📜 Menu</button>
-        <button class="tab-link" aria-selected="false" data-tab="shopping">🛒 Shopping</button>
-        <button class="tab-link" aria-selected="false" data-tab="inventory">📦 Inventory</button>
-        <button class="tab-link" aria-selected="false" data-tab="instructions">👩‍🍳 Cook</button>
-        <button class="tab-link" aria-selected="false" data-tab="settings">⚙️ Settings</button>
-      </div>
-
-      <!-- TAB: MENU -->
-      <div id="menu" class="tab-content active">
-        <div class="menu-group">
-          <div class="menu-group-title">🌅 Breakfast (8:30–9:00)</div>
-          <table class="styled-table" id="tblBreakfast"></table>
-        </div>
-
-        <div class="menu-group">
-          <div class="menu-group-title">🍎 Mid-Morning (11:30)</div>
-          <div class="single-item">
-            <div class="icon-box">🥥</div>
-            <div><b id="midmorningQty">Fruit or Coconut Water</b></div>
-          </div>
-        </div>
-
-        <div class="menu-group">
-          <div class="menu-group-title">🍛 Lunch (1:30–2:30) <span style="font-size:10px; color:var(--text-muted); margin-left:5px">(Max 1 tsp Ghee)</span></div>
-          <table class="styled-table" id="tblLunch"></table>
-        </div>
-
-        <div class="menu-group">
-          <div class="menu-group-title">🌽 Evening Snack (5:30–6:00)</div>
-          <div class="single-item">
-            <div class="icon-box">☕</div>
-            <div><b id="snackQty">Corn / Chana / Sprouts</b></div>
-          </div>
-        </div>
-
-        <div class="menu-group">
-          <div class="menu-group-title">🍽️ Dinner (9:00–9:30) <span style="font-size:10px; color:var(--text-muted); margin-left:5px">(Light • No Rice)</span></div>
-          <table class="styled-table" id="tblDinner"></table>
-        </div>
-      </div>
-      
-      <div id="inventory" class="tab-content">
-  <h3 style="font-family:var(--font-head); margin-top:0;">📦 Inventory (Sync)</h3>
-  <p style="font-size:13px; color:var(--text-muted); margin-top:6px;">
-    This syncs via Google Sheet. Changes from any phone will appear here after auto-refresh.
-  </p>
-
-  <div style="display:flex; gap:10px; flex-wrap:wrap; margin:10px 0 14px;">
-    <button class="btn btn-outline" id="btnInvRefresh">🔄 Refresh</button>
-    <button class="btn btn-outline" id="btnInvSeed">➕ Add common items</button>
-    <span style="font-size:12px;color:var(--text-muted)" id="invStatus">Not synced yet</span>
-  </div>
-
-  <div id="invList" style="border:1px solid var(--border); border-radius:12px; overflow:hidden;"></div>
-</div>
-
-
-      <!-- TAB: SHOPPING -->
-      <div id="shopping" class="tab-content">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-          <h3 style="margin:0; font-family:var(--font-head)">Checklist</h3>
-          <button class="btn btn-outline" style="font-size:11px" id="btnClearShop">Clear All</button>
-        </div>
-        <div id="shoppingList"></div>
-      </div>
-
-      <!-- TAB: INSTRUCTIONS -->
-      <div id="instructions" class="tab-content">
-        <h3 style="font-family:var(--font-head); margin-top:0;">Quick Recipes</h3>
-
-        <details open>
-          <summary>🥚 Perfect Omelette / Bhurji</summary>
-          <ul>
-            <li>Heat <b>½ tsp ghee</b> in a non-stick pan.</li>
-            <li>Sauté chopped onion & chili for 1 min.</li>
-            <li>Pour whisked eggs (salt added). Cook on low flame.</li>
-          </ul>
-        </details>
-
-        <details>
-          <summary>🍗 Light Chicken Curry</summary>
-          <ul>
-            <li>Heat <b>1 tsp ghee</b>. Add jeera, onion, ginger-garlic paste.</li>
-            <li>Add chicken pieces + turmeric + masala. Sauté 2 mins.</li>
-            <li>Add water, cover and cook till tender. <b>No frying.</b></li>
-          </ul>
-        </details>
-
-        <details>
-          <summary>🧀 Paneer Stir Fry</summary>
-          <ul>
-            <li>Heat <b>½ tsp ghee</b>.</li>
-            <li>Toss paneer cubes and capsicum slices on high heat for 2 mins.</li>
-            <li>Sprinkle salt & pepper. Serve warm.</li>
-          </ul>
-        </details>
-
-        <details>
-          <summary>🌱 Sprouts (Steamed)</summary>
-          <ul>
-            <li>Soak moong/chana overnight.</li>
-            <li>Pressure cook for 1 whistle OR steam for 10 mins.</li>
-            <li>Toss with raw onion, lemon juice, and salt.</li>
-          </ul>
-        </details>
-      </div>
-
-      <!-- TAB: SETTINGS -->
-      <div id="settings" class="tab-content">
-        <h3>User Profile</h3>
-        <p style="font-size:13px; color:var(--text-muted)">Switch profiles to keep separate shopping lists on this device.</p>
-        <div style="display:flex; gap:10px;">
-          <input type="text" id="newProfileName" placeholder="Name (e.g. Guest)" style="padding:8px; border:1px solid var(--border); border-radius:8px;">
-          <button class="btn btn-primary" id="btnAddProfile">Add</button>
-        </div>
-        <div class="profile-chips" id="profileChips"></div>
-      </div>
-
-    </main>
-
-    <!-- RIGHT COLUMN: SIDEBAR WIDGETS -->
+    <!-- RIGHT NOW + RULES + GYM (now on the LEFT visually due to grid order) -->
     <aside style="display:flex; flex-direction:column; gap:20px;">
 
       <!-- NOW CARD -->
@@ -467,6 +346,140 @@
       </div>
 
     </aside>
+
+    <!-- MAIN CONTENT (Menu, Shopping, Inventory, Instructions, Settings) -->
+    <main class="card">
+      <div class="tabs-nav" role="tablist">
+        <button class="tab-link" aria-selected="true" data-tab="menu">📜 Menu</button>
+        <button class="tab-link" aria-selected="false" data-tab="shopping">🛒 Shopping</button>
+        <button class="tab-link" aria-selected="false" data-tab="inventory">📦 Inventory</button>
+        <button class="tab-link" aria-selected="false" data-tab="instructions">👩‍🍳 Cook</button>
+        <button class="tab-link" aria-selected="false" data-tab="settings">⚙️ Settings</button>
+      </div>
+
+      <!-- TAB: MENU -->
+      <div id="menu" class="tab-content active">
+        <div class="menu-group">
+          <div class="menu-group-title">🌅 Breakfast (8:30–9:00)</div>
+          <table class="styled-table" id="tblBreakfast"></table>
+        </div>
+
+        <div class="menu-group">
+          <div class="menu-group-title">🍎 Mid-Morning (11:30)</div>
+          <div class="single-item">
+            <div class="icon-box">🥥</div>
+            <div><b id="midmorningQty">Fruit or Coconut Water</b></div>
+          </div>
+        </div>
+
+        <div class="menu-group">
+          <div class="menu-group-title">🍛 Lunch (1:30–2:30) <span style="font-size:10px; color:var(--text-muted); margin-left:5px">(Max 1 tsp Ghee)</span></div>
+          <table class="styled-table" id="tblLunch"></table>
+        </div>
+
+        <div class="menu-group">
+          <div class="menu-group-title">🌽 Evening Snack (5:30–6:00)</div>
+          <div class="single-item">
+            <div class="icon-box">☕</div>
+            <div><b id="snackQty">Corn / Chana / Sprouts</b></div>
+          </div>
+        </div>
+
+        <div class="menu-group">
+          <div class="menu-group-title">🍽️ Dinner (9:00–9:30) <span style="font-size:10px; color:var(--text-muted); margin-left:5px">(Light • No Rice)</span></div>
+          <table class="styled-table" id="tblDinner"></table>
+        </div>
+      </div>
+
+      <!-- TAB: SHOPPING -->
+      <div id="shopping" class="tab-content">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+          <h3 style="margin:0; font-family:var(--font-head)">Checklist</h3>
+          <button class="btn btn-outline" style="font-size:11px" id="btnClearShop">Clear All</button>
+        </div>
+        <div id="shoppingList"></div>
+      </div>
+
+      <!-- TAB: INVENTORY -->
+      <div id="inventory" class="tab-content">
+        <h3 style="font-family:var(--font-head); margin-top:0;">📦 Inventory (Sync)</h3>
+        <p style="font-size:13px; color:var(--text-muted); margin-top:6px;">
+          This syncs via Google Sheet. Changes from any phone will appear here after auto-refresh.
+        </p>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin:10px 0 14px;">
+          <button class="btn btn-outline" id="btnInvRefresh">🔄 Refresh</button>
+          <button class="btn btn-outline" id="btnInvSeed">➕ Add common items</button>
+          <span style="font-size:12px;color:var(--text-muted)" id="invStatus">Not synced yet</span>
+        </div>
+
+        <div id="invList" style="border:1px solid var(--border); border-radius:12px; overflow:hidden;"></div>
+      </div>
+
+      <!-- TAB: INSTRUCTIONS -->
+      <div id="instructions" class="tab-content">
+        <h3 style="font-family:var(--font-head); margin-top:0;">Quick Recipes</h3>
+
+        <details open>
+          <summary>🥚 Perfect Omelette / Bhurji</summary>
+          <ul>
+            <li>Beat <b>2 eggs</b> with <b>¼ tsp salt</b> and a pinch of pepper.</li>
+            <li>Finely chop <b>2 tbsp onion</b>, <b>1 green chilli</b>, and <b>1 tbsp coriander leaves</b>.</li>
+            <li>Heat <b>½ tsp ghee</b> in a non-stick tawa on medium flame.</li>
+            <li>For omelette: Sauté onion and chilli for 1 minute, pour egg, spread gently, cook till set, then fold.</li>
+            <li>For bhurji: Pour egg, keep stirring softly for 2–3 minutes till small soft pieces form, switch off before it dries.</li>
+          </ul>
+        </details>
+
+        <details>
+          <summary>🍗 Light Chicken Curry (South Indian)</summary>
+          <ul>
+            <li>Take <b>250 g chicken pieces</b>, rinse and keep aside.</li>
+            <li>For masala: Slice <b>1 medium onion</b>, crush <b>1 tsp ginger-garlic paste</b>, and chop <b>1 tomato</b>.</li>
+            <li>Heat <b>1 tsp ghee</b> in a kadai. Add <b>½ tsp jeera</b>, <b>4–5 curry leaves</b>, and let them splutter.</li>
+            <li>Add onion and sauté 3–4 minutes till light golden, then add ginger-garlic paste and fry till raw smell goes.</li>
+            <li>Add tomato, <b>¼ tsp turmeric</b>, <b>½–¾ tsp red chilli powder</b>, <b>½ tsp coriander powder</b>, and salt; cook till tomato softens.</li>
+            <li>Add chicken, mix well with the masala and sauté for 3–4 minutes on medium flame.</li>
+            <li>Pour <b>¾–1 cup hot water</b> for a light gravy, cover and cook 12–15 minutes till chicken is tender.</li>
+            <li>Finish with <b>½ tsp lemon juice</b> and a few coriander leaves; keep gravy thin and avoid extra ghee.</li>
+          </ul>
+        </details>
+
+        <details>
+          <summary>🧀 Paneer Stir Fry (South Indian style)</summary>
+          <ul>
+            <li>Cut <b>100 g paneer</b> into small cubes and slice <b>¼ cup capsicum</b> and <b>¼ cup onion</b>.</li>
+            <li>Heat <b>½ tsp ghee</b> in a wide pan. Add <b>¼ tsp mustard seeds</b> and <b>4–5 curry leaves</b>.</li>
+            <li>Add onion and capsicum, sauté 2–3 minutes on medium flame without browning too much.</li>
+            <li>Add paneer cubes, sprinkle <b>¼ tsp turmeric</b>, a pinch of red chilli powder, salt, and gently toss.</li>
+            <li>Cook just 2–3 minutes on low flame so paneer stays soft; finish with fresh coriander and serve immediately.</li>
+          </ul>
+        </details>
+
+        <details>
+          <summary>🌱 Steamed Sprouts Sundal</summary>
+          <ul>
+            <li>Soak <b>½ cup whole moong or chana</b> overnight and drain.</li>
+            <li>Pressure cook with water and a pinch of salt for 1 whistle or steam 10–12 minutes till just soft.</li>
+            <li>Heat <b>½ tsp oil or ghee</b> in a small pan, add <b>¼ tsp mustard seeds</b>, <b>a pinch of urad dal</b>, and 4–5 curry leaves.</li>
+            <li>Add sprouts, toss for 2 minutes, then switch off and add <b>1–2 tbsp grated coconut</b> and <b>½ tsp lemon juice</b>.</li>
+            <li>Mix well and serve warm as a light South Indian-style sundal.</li>
+          </ul>
+        </details>
+      </div>
+
+      <!-- TAB: SETTINGS -->
+      <div id="settings" class="tab-content">
+        <h3>User Profile</h3>
+        <p style="font-size:13px; color:var(--text-muted)">Switch profiles to keep separate shopping lists on this device.</p>
+        <div style="display:flex; gap:10px;">
+          <input type="text" id="newProfileName" placeholder="Name (e.g. Guest)" style="padding:8px; border:1px solid var(--border); border-radius:8px;">
+          <button class="btn btn-primary" id="btnAddProfile">Add</button>
+        </div>
+        <div class="profile-chips" id="profileChips"></div>
+      </div>
+
+    </main>
   </div>
 </div>
 
@@ -529,31 +542,158 @@ const shoppingItems = [
 /* ================== Cooking instructions per meal/day ================== */
 const cookBook = {
   breakfast: {
-    Mon:{title:"🍳 Omelette", steps:["½ tsp ghee in non-stick pan.","Add onion/chilli (optional).","Add eggs + salt, cook low flame."]},
-    Tue:{title:"🥣 Veg Poha", steps:["Rinse poha and drain.","Tadka with ½ tsp ghee (optional).","Mix veggies + poha, cook 3–4 mins."]},
-    Wed:{title:"🥛 Oats", steps:["Warm milk.","Add oats.","Simmer 3–5 mins; keep light."]},
-    Thu:{title:"🥚 Boiled Eggs", steps:["Boil 8–10 mins.","Cool + peel.","Serve with 1 fruit."]},
-    Fri:{title:"🍲 Upma", steps:["Tadka (½ tsp ghee).","Add water + rava.","Cook until fluffy."]},
-    Sat:{title:"🥞 Besan Chilla", steps:["Make besan batter.","Nonstick + ½ tsp ghee.","Cook both sides."]},
-    Sun:{title:"🥘 Dosa + Sambar", steps:["Heat tawa.","Cook dosa.","Serve with sambar."]}
+    Mon:{title:"🍳 Masala Omelette / Bhurji", steps:[
+      "Break 2 eggs into a bowl, add 1/4 tsp salt, a pinch of pepper, and whisk till frothy.",
+      "Finely chop 2 tbsp onion, 1 green chilli, and 1 tbsp coriander; mix into the egg.",
+      "Heat 1/2 tsp ghee in a non-stick tawa on medium flame.",
+      "For omelette: Pour the mixture, spread gently, cook till edges set, flip once if needed and cook till just done.",
+      "For bhurji: Pour and keep stirring gently for 2–3 minutes till soft small pieces form, switch off before it becomes dry."
+    ]},
+    Tue:{title:"🥣 Veg Poha (South Indian twist)", steps:[
+      "Rinse 1 cup poha in water, drain completely and keep aside for 5 minutes.",
+      "Heat 1/2 tsp ghee in a pan; add 1/4 tsp mustard seeds, a pinch of urad dal, 4–5 curry leaves, and 1 chopped green chilli.",
+      "Add 2 tbsp chopped onion and sauté 2 minutes till translucent.",
+      "Add 2–3 tbsp mixed chopped vegetables (carrot, beans, peas) with a pinch of salt and cook 3–4 minutes.",
+      "Mix in the soaked poha with 1/4 tsp turmeric and salt; toss gently for 3–4 minutes on low flame.",
+      "Switch off and top with 1–2 tbsp grated coconut and lemon juice if desired."
+    ]},
+    Wed:{title:"🥛 Oats Porridge", steps:[
+      "Add 200 ml milk (or 150 ml milk + 50 ml water) to a saucepan and bring to a gentle boil.",
+      "Stir in 40 g oats (about 1/2 cup) and mix well so no lumps form.",
+      "Cook on low–medium flame for 4–5 minutes, stirring occasionally until creamy.",
+      "Add a pinch of cardamom powder and 1–2 tsp jaggery or a small piece of jaggery, mix and switch off.",
+      "Serve warm; optionally top with 4–5 soaked almonds or banana slices."
+    ]},
+    Thu:{title:"🥚 Boiled Eggs + Fruit", steps:[
+      "Place 2 eggs in a saucepan, cover completely with water.",
+      "Bring to a boil, then simmer 8–10 minutes for hard-boiled eggs.",
+      "Transfer eggs to normal water, cool slightly, peel and sprinkle a pinch of salt and pepper.",
+      "Serve with 1 medium fruit like banana or apple, washed and sliced if needed."
+    ]},
+    Fri:{title:"🍲 Rava Upma", steps:[
+      "Dry roast 1/4 cup rava (sooji) on low flame for 3–4 minutes till it smells nutty; keep aside.",
+      "Heat 1/2 tsp ghee in a kadai; add 1/4 tsp mustard seeds, a pinch of urad dal, 4–5 curry leaves, and 1 chopped green chilli.",
+      "Add 2 tbsp chopped onion and sauté till translucent; optionally add 2–3 tbsp mixed vegetables.",
+      "Add about 3/4 cup water, salt to taste, and bring to a boil.",
+      "Slowly add roasted rava while stirring continuously to avoid lumps.",
+      "Cook on low flame 3–4 minutes till the mixture thickens and rava is soft, then switch off and rest 2 minutes."
+    ]},
+    Sat:{title:"🥞 Besan Chilla", steps:[
+      "In a bowl, add 1/4 cup besan, 2 tbsp finely chopped onion, 1 chopped green chilli, coriander, salt, and pinch of turmeric.",
+      "Add water gradually to make a smooth, pourable batter (like dosa batter), whisking well.",
+      "Heat a non-stick tawa, spread 1/2 tsp ghee for 2 small chillas or lightly grease with a cloth.",
+      "Pour a small ladle of batter, spread into a thin circle; cook on medium flame till the edges leave the pan.",
+      "Flip and cook the other side for 1–2 minutes till golden spots appear; repeat for second chilla."
+    ]},
+    Sun:{title:"🥘 Dosa + Sambar", steps:[
+      "Use ready dosa batter; if thick, adjust with little water and add salt if required.",
+      "Heat a dosa tawa, sprinkle some water to check heat; wipe and add a few drops of oil if needed.",
+      "Pour a ladle of batter and spread in circular motion to a thin dosa; drizzle a few drops of ghee or oil if you prefer.",
+      "Cook till bottom turns golden; fold and remove (for crispy dosa, cook slightly longer).",
+      "Serve with 1 bowl light sambar prepared with toor dal, vegetables, sambar powder, and minimal oil tadka."
+    ]}
   },
   lunch: {
-    Mon:{title:"🫓 Dal + Veg", steps:["Pressure cook dal (light).","Cook veg sabzi (no frying).","Serve with chapati."]},
-    Tue:{title:"🍗 Chicken Curry (Light)", steps:["1 tsp ghee + jeera.","Onion + ginger-garlic.","Add chicken + water; cover cook."]},
-    Wed:{title:"🧀 Paneer (Light)", steps:["½ tsp ghee.","Toss paneer + capsicum.","Salt/pepper; no browning."]},
-    Thu:{title:"🥚 Egg Curry", steps:["Boil eggs.","Light gravy (no frying).","Add eggs; simmer 5 mins."]},
-    Fri:{title:"🍗 Chicken + Chapati", steps:["Cook light chicken curry.","Serve with chapati.","Avoid extra ghee."]},
-    Sat:{title:"🍲 Khichdi + Curd", steps:["Cook rice+dal+veg together.","Keep light.","Serve with curd."]},
-    Sun:{title:"🫓 Dal + Veg", steps:["Light dal.","Veg sabzi.","Serve with chapati."]}
+    Mon:{title:"🫓 Chapati + Dal + Veg", steps:[
+      "For dal: Pressure cook 1/4 cup toor/moong dal with 1 cup water, a pinch of turmeric, and salt for 2–3 whistles.",
+      "Temper with 1/2 tsp ghee, 1/4 tsp mustard seeds, a pinch of jeera, and curry leaves; pour over dal and simmer 3–4 minutes.",
+      "For sabzi: Lightly sauté 1 cup mixed vegetables with minimal oil, salt, and basic spices; keep it soft, not fried.",
+      "For chapati: Knead atta with water and a pinch of salt, rest 10–15 minutes, roll into 2 thin chapatis and cook on tawa.",
+      "Serve 2 chapatis with 1 cup dal and 1 cup veg, keeping ghee under 1 tsp total."
+    ]},
+    Tue:{title:"🍗 Light Chicken Curry (Lunch)", steps:[
+      "Clean 120 g chicken pieces and keep aside.",
+      "Heat 1 tsp ghee in a kadai; add 1/2 tsp jeera and 4–5 curry leaves.",
+      "Add 1 medium sliced onion and sauté 3–4 minutes till light golden.",
+      "Add 1 tsp ginger-garlic paste and fry till raw smell goes off.",
+      "Add 1 chopped tomato, 1/4 tsp turmeric, 1/2–3/4 tsp red chilli powder, 1/2 tsp coriander powder, and salt.",
+      "Cook till tomato is soft and masala releases a little oil.",
+      "Add chicken pieces, mix well and sauté 4–5 minutes on medium flame.",
+      "Pour around 3/4 cup hot water for thin curry, cover and cook 12–15 minutes till chicken is tender.",
+      "Finish with coriander leaves; serve with 1 cup steamed rice."
+    ]},
+    Wed:{title:"🧀 Paneer Curry / Stir Fry", steps:[
+      "Cube 100 g paneer and cut 1/4 cup capsicum and 1/4 cup onion into strips.",
+      "Heat 1/2 tsp ghee; add 1/4 tsp jeera and a few curry leaves.",
+      "Add onion and capsicum, sauté 2–3 minutes till just soft.",
+      "Add paneer cubes, 1/4 tsp turmeric, a pinch of red chilli powder, salt, and gently mix.",
+      "Cook 2–3 minutes on low flame so paneer stays soft; add a spoon of water if it becomes too dry.",
+      "Serve with 2 chapatis as a light paneer side."
+    ]},
+    Thu:{title:"🥚 Egg Curry (South Indian)", steps:[
+      "Boil 2 eggs in water for 8–10 minutes; cool, peel, and keep aside.",
+      "Heat 1 tsp oil/ghee; add 1/2 tsp mustard seeds, 1/4 tsp jeera, and curry leaves.",
+      "Add 1 medium chopped onion and sauté till light brown.",
+      "Add 1 tsp ginger-garlic paste and fry till raw smell goes.",
+      "Add 1 chopped tomato, 1/4 tsp turmeric, 1/2 tsp red chilli powder, 1/2 tsp coriander powder, and salt; cook till soft.",
+      "Add 3/4–1 cup water and bring to boil; gently add boiled eggs (whole or halved).",
+      "Simmer 5–7 minutes so eggs absorb masala; garnish with coriander and serve with rice."
+    ]},
+    Fri:{title:"🍗 Chicken + Chapati", steps:[
+      "Prepare a light chicken curry as on Tuesday with 120 g chicken, using minimal ghee.",
+      "Keep gravy slightly thick so it pairs well with chapati (add less water).",
+      "Simmer till chicken is cooked and masala coats the pieces.",
+      "Serve with 2 chapatis; avoid extra ghee on top."
+    ]},
+    Sat:{title:"🍲 Veg Khichdi + Curd", steps:[
+      "Wash 1/4 cup rice and 1/4 cup moong dal; soak for 10 minutes if possible.",
+      "In a pressure cooker, add rice, dal, 1 cup chopped mixed vegetables, salt, 1/4 tsp turmeric, and about 2.5–3 cups water.",
+      "Optionally do a light tadka with 1/2 tsp ghee, jeera, and curry leaves before adding water.",
+      "Pressure cook for 3–4 whistles till soft, then mash lightly for a comforting texture.",
+      "Serve 1.5 cups khichdi with 1/2 cup curd on the side."
+    ]},
+    Sun:{title:"🫓 Chapati + Dal + Veg", steps:[
+      "Repeat the light dal and sabzi method from Monday with less oil and gentle cooking.",
+      "Prepare fresh chapatis and avoid mixing too many heavy sides.",
+      "Serve 2 chapatis with dal and veg for a simple Sunday lunch."
+    ]}
   },
   dinner: {
-    Mon:{title:"🍗 Grilled Chicken + Veg", steps:["Marinate chicken (salt + spices).","Grill/airfry/pan cook.","Steam veg; ½ tsp ghee max."]},
-    Tue:{title:"🫓 Chapati + Sabzi", steps:["Cook sabzi light.","Serve with chapati.","No rice at night."]},
-    Wed:{title:"🍳 Egg Bhurji", steps:["½ tsp ghee.","Onion/chilli.","Add eggs; cook soft."]},
-    Thu:{title:"🧀 Paneer Stir Fry", steps:["½ tsp ghee.","Paneer + veggies.","Quick toss only."]},
-    Fri:{title:"🥣 Dal + Veg", steps:["Light dal.","Steam veg.","Finish dinner by 9:30."]},
-    Sat:{title:"🍵 Soup + Sprouts", steps:["Make veg soup.","Steam sprouts.","Combine; serve warm."]},
-    Sun:{title:"🍗 Light Chicken Curry", steps:["Light curry (no frying).","Add veg.","No rice at night."]}
+    Mon:{title:"🍗 Grilled Chicken + Veg", steps:[
+      "Marinate 120 g chicken with 1/4 tsp salt, 1/2 tsp chilli powder, 1/4 tsp turmeric, 1/2 tsp ginger-garlic paste, and 1/2 tsp lemon juice for 20–30 minutes.",
+      "For veg, cut 1 cup vegetables like beans, carrot, capsicum into pieces.",
+      "Grill or pan-cook chicken on low–medium flame with a few drops of oil/ghee, turning till cooked and lightly charred.",
+      "Steam or sauté vegetables in a pan with 1/2 tsp ghee, salt, and pepper for 4–5 minutes till just soft.",
+      "Serve hot keeping dinner light and without rice."
+    ]},
+    Tue:{title:"🫓 Chapati + Sabzi", steps:[
+      "Prepare a simple sabzi using 1 cup vegetables (lauki, beans, bhindi, etc.) with minimal oil, salt, and basic spices.",
+      "Avoid heavy cream or too much masala; keep it home-style and moist.",
+      "Make fresh chapatis (2 small) on tawa without extra ghee on top.",
+      "Serve hot and finish dinner before 9:30 PM."
+    ]},
+    Wed:{title:"🍳 Egg Bhurji (Night)", steps:[
+      "Beat 3 eggs with 1/4 tsp salt and a pinch of pepper.",
+      "Heat 1/2 tsp ghee in a pan; add 2 tbsp chopped onion, 1 chopped green chilli, and a few curry leaves.",
+      "Sauté for 2–3 minutes then pour the egg mixture.",
+      "Keep stirring on low–medium flame for 3–4 minutes till soft bhurji forms; do not over-dry.",
+      "Serve hot with a small portion of salad or veg on the side."
+    ]},
+    Thu:{title:"🧀 Paneer Stir Fry (Dinner)", steps:[
+      "Cut 100 g paneer into small cubes; slice 1/4 cup capsicum and 1/4 cup onion.",
+      "Heat 1/2 tsp ghee in a pan; add 1/4 tsp mustard seeds and curry leaves.",
+      "Add onion and capsicum; sauté for 2–3 minutes till semi-cooked.",
+      "Add paneer, a pinch of turmeric, red chilli powder, and salt; gently toss.",
+      "Cook for 2–3 minutes on low flame and switch off; keep it light and not oily."
+    ]},
+    Fri:{title:"🥣 Dal + Veg (Light)", steps:[
+      "Cook a small portion of dal (1/4 cup) with more water for a thinner consistency and very little tadka.",
+      "Steam or lightly sauté 1 cup mixed vegetables with salt and a pinch of pepper.",
+      "Avoid heavy roti/rice; eat more of dal and veg to keep dinner light.",
+      "Finish meal by 9:30 PM and avoid second helpings if very late."
+    ]},
+    Sat:{title:"🍵 Veg Soup + Sprouts", steps:[
+      "For soup: Boil 1 cup chopped vegetables (carrot, beans, tomato, onion) in 2 cups water with salt and pepper.",
+      "Simmer 10–12 minutes, lightly mash or blend, then bring back to a gentle boil; avoid cream and cornflour if possible.",
+      "For sprouts: Steam 1/2 cup sprouts for 5–7 minutes or use boiled ones.",
+      "Mix sprouts into the soup or serve separately with lemon and a pinch of chaat masala."
+    ]},
+    Sun:{title:"🍗 Light Chicken Curry (Dinner, No Rice)", steps:[
+      "Make a small-batch light chicken curry using ~120 g chicken with very little ghee, similar to lunch recipe.",
+      "Keep gravy thinner and portion smaller for night time.",
+      "Serve with a small side of vegetables or salad; avoid rice and heavy rotis at dinner.",
+      "Eat slowly and keep last bite by 9:30 PM."
+    ]}
   }
 };
 
@@ -595,16 +735,13 @@ function minFromTime(t){ const [h,m]=t.split(":").map(Number); return h*60+m; }
 /* ================== Qty scaling ================== */
 function scaleQty(txt, s){
   if(s===1) return txt;
-  // simple numeric scaling; keeps your format
   return txt.replace(/(\d+(\.\d+)?)/g, (m)=>{
     const n = parseFloat(m);
     return isNaN(n) ? m : (n*s).toFixed(1).replace(".0","");
   });
 }
 
-/* ================== JSONP API to Apps Script (cross-device sync) ==================
-   Apps Script JSONP pattern is recommended in Content Service guide [web:174].
-*/
+/* ================== JSONP API to Apps Script ================== */
 function jsonp(url){
   return new Promise((resolve, reject)=>{
     const cb = "__cb_" + Math.random().toString(36).slice(2);
@@ -728,11 +865,9 @@ function renderShopping(){
       const itemKey = e.target.dataset.itemkey;
       const checked = e.target.checked;
 
-      // update local immediately
       saveUserData(d => { d.checks[`chk_${itemKey}`] = checked; return d; });
       renderShopping();
 
-      // push to server
       try { await apiSetShoppingCheck(itemKey, checked); }
       catch(err){ console.warn(err); }
     });
@@ -903,7 +1038,6 @@ function updateLive(){
     ? `🔜 <b>Next:</b> ${next.t} at ${next.s}`
     : `🔜 <b>Next:</b> Tomorrow`;
 
-  // Prep reminder display only (notifications optional)
   const dinnerM = minFromTime(menu.dinner.start);
   const diff = dinnerM - nowM;
   const alertBox = document.getElementById("prepAlert");
@@ -952,16 +1086,13 @@ async function syncFromServer(){
     const server = await apiGetAll();
 
     saveUserData(d=>{
-      // inventory
       d.invCache = server.inventory || d.invCache || {};
 
-      // settings
       if(server.settings){
         d.servings = Number(server.settings.servings || d.servings || 1);
         d.todayOnly = !!server.settings.todayOnly;
       }
 
-      // shopping checks from server.shopping
       const serverChecks = server.shopping || {};
       Object.keys(serverChecks).forEach(itemKey=>{
         d.checks[`chk_${itemKey}`] = !!serverChecks[itemKey];
@@ -1014,9 +1145,8 @@ document.getElementById("btnClearShop").addEventListener("click", async ()=>{
   if(!confirm("Clear shopping list (this profile)?")) return;
   saveUserData(d=>{ d.checks = {}; return d; });
   renderShopping();
-  // optional: push clears to server by unchecking each
   for(const it of shoppingItems){
-    try { await apiSetShoppingCheck(it.key, false); } catch(err){ /* ignore */ }
+    try { await apiSetShoppingCheck(it.key, false); } catch(err){ }
   }
 });
 
@@ -1058,11 +1188,10 @@ function init(){
   renderShopping();
   renderInventory();
   updateLive();
-  syncFromServer(); // initial sync
+  syncFromServer();
 }
 init();
 
-// Auto refresh every 20 seconds (near-realtime cross-device)
 setInterval(syncFromServer, 20000);
 setInterval(updateLive, 30000);
 </script>
