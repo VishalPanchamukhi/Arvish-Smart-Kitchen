@@ -38,7 +38,7 @@
       min-height:100vh;
       padding-bottom:40px;
     }
-    .wrap{max-width:1000px;margin:0 auto;padding:20px}
+    .wrap{max-width:1100px;margin:0 auto;padding:20px}
 
     header{
       background:var(--bg-card);
@@ -81,9 +81,12 @@
       display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;
       margin-top:18px;padding-top:18px;border-top:2px dashed var(--border);
     }
-    .status-info{font-size:13px;color:var(--text-muted);display:flex;gap:10px;align-items:center}
+    .status-info{font-size:13px;color:var(--text-muted);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
     .clock-pill{
       background:var(--text-dark);color:#fff;padding:4px 10px;border-radius:6px;font-family:monospace;
+    }
+    .progress-pill{
+      background:#eefcf3;color:var(--secondary);padding:4px 10px;border-radius:6px;font-size:12px;
     }
     .action-group{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
     .btn{
@@ -95,8 +98,8 @@
     .btn-primary{background:var(--primary);color:#fff;border-color:var(--primary)}
     .btn:active{transform:translateY(1px)}
 
-    .main-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:20px}
-    @media(max-width:850px){.main-grid{grid-template-columns:1fr}}
+    .main-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:20px}
+    @media(max-width:900px){.main-grid{grid-template-columns:1fr}}
 
     .card{
       background:var(--bg-card);
@@ -153,16 +156,19 @@
       font-size:11px;padding:2px 8px;border-radius:999px;background:#e0f2fe;color:#0369a1;
     }
     .work-item{
-      font-size:13px;color:var(--text-dark);display:flex;gap:8px;margin:4px 0;
+      font-size:13px;color:var(--text-dark);display:flex;gap:8px;margin:4px 0;align-items:flex-start;
     }
     .work-item span:first-child{width:20px;text-align:center}
-    .work-meta{font-size:12px;color:var(--text-muted);margin-top:4px}
+    .work-title{font-weight:500}
+    .work-meta{font-size:11px;color:var(--text-muted);margin-top:2px}
+    .work-target{font-size:11px;color:var(--text-muted);margin-top:1px}
 
     .check-row{
       display:flex;align-items:center;justify-content:space-between;
       margin-top:6px;font-size:12px;color:var(--text-muted);
     }
     .check-row input{width:16px;height:16px;accent-color:var(--secondary);}
+    .check-row span.done-text{color:var(--secondary);font-weight:500}
 
     .pill{
       display:inline-flex;align-items:center;gap:6px;
@@ -182,6 +188,36 @@
     .week-card{
       border:1px solid var(--border);border-radius:10px;padding:8px 10px;background:#fff;
     }
+
+    /* Pre/Post gym blocks */
+    .mini-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+      gap:10px;
+      margin-top:10px;
+      font-size:13px;
+      color:var(--text-muted);
+    }
+    .mini-card{
+      border:1px dashed var(--border);
+      border-radius:12px;
+      padding:8px 10px;
+      background:#fffcf9;
+    }
+    .mini-card b{font-size:13px;display:block;margin-bottom:4px}
+
+    .note-small{font-size:11px;color:var(--text-muted);margin-top:6px}
+
+    /* Progress bar */
+    .progress-wrap{display:flex;align-items:center;gap:8px;margin-top:8px}
+    .progress-bar{
+      flex:1;height:6px;border-radius:999px;background:#ffe0cc;overflow:hidden;
+    }
+    .progress-bar-inner{
+      height:100%;width:0%;background:linear-gradient(90deg,var(--secondary),var(--primary));
+      transition:width .25s ease;
+    }
+
   </style>
 </head>
 <body>
@@ -198,7 +234,7 @@
       <div class="meta-tags">
         <div class="tag green">Fat Loss</div>
         <div class="tag blue">6 Days / Week</div>
-        <div class="tag">60 min / Day</div>
+        <div class="tag">60–75 min / Day</div>
       </div>
     </div>
 
@@ -206,6 +242,7 @@
       <div class="status-info">
         <span class="clock-pill" id="clock">--:--</span>
         <span id="todayLabel">Today: -</span>
+        <span class="progress-pill" id="weekProgress">Week: 0 / 6 days done</span>
       </div>
       <div class="action-group">
         <button class="btn" id="btnTodayView">Today View</button>
@@ -219,7 +256,8 @@
     <main class="card">
       <div class="tabs-nav">
         <button class="tab-link" aria-selected="true" data-tab="plan">📅 Plan</button>
-        <button class="tab-link" aria-selected="false" data-tab="rules">📏 Rules</button>
+        <button class="tab-link" aria-selected="false" data-tab="prepost">⏱ Pre / Post Gym</button>
+        <button class="tab-link" aria-selected="false" data-tab="rules">📏 Diet & Rules</button>
         <button class="tab-link" aria-selected="false" data-tab="results">📈 Results</button>
       </div>
 
@@ -228,32 +266,77 @@
         <div id="daysContainer"></div>
       </div>
 
+      <!-- PRE / POST GYM TAB -->
+      <div id="prepost" class="tab-content">
+        <h2 style="margin-top:0;font-family:var(--font-head);font-size:18px;">⏱ Before & After Gym</h2>
+        <div class="card-body" style="padding:0;margin-top:6px;">
+          <div class="mini-grid">
+            <div class="mini-card">
+              <b>30–90 min before</b>
+              <ul class="rule-list">
+                <li>Light snack: banana + whey / buttermilk / fruit + nuts (easy to digest carbs + protein).</li>
+                <li>Drink 300–500 ml water; sip, do not chug.</li>
+                <li>Avoid heavy oily food to prevent discomfort during training.</li>
+              </ul>
+            </div>
+            <div class="mini-card">
+              <b>Just before workout</b>
+              <ul class="rule-list">
+                <li>5–10 min dynamic warm-up (walking, arm circles, leg swings, light treadmill). [web:11]</li>
+                <li>Mobility for tight areas: shoulders, hips, ankles.</li>
+                <li>Set intention: which lifts are priority today.</li>
+              </ul>
+            </div>
+            <div class="mini-card">
+              <b>Immediately after</b>
+              <ul class="rule-list">
+                <li>Cool down 5–10 min: slow walk + light stretching. [web:9]</li>
+                <li>Rehydrate 500–750 ml water; use electrolytes if sweat was heavy. [web:6][web:12]</li>
+                <li>Protein + carbs within 1 hour (whey + fruit / paneer + roti / egg bhurji + toast). [web:4][web:14]</li>
+              </ul>
+            </div>
+            <div class="mini-card">
+              <b>Recovery habits</b>
+              <ul class="rule-list">
+                <li>Target 7–8 hours of sleep for better fat loss and muscle recovery. [web:6][web:12]</li>
+                <li>On off-days: light walk + stretching instead of full rest on the sofa.</li>
+                <li>Notice soreness vs pain: joint pain = reduce weight or skip exercise.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="note-small">
+            This routine supports fat loss, keeps performance stable, and reduces injury risk by combining warm-up, structured training, and consistent recovery. [web:5][web:10]
+          </div>
+        </div>
+      </div>
+
       <!-- RULES TAB -->
       <div id="rules" class="tab-content">
-        <h2 style="margin-top:0;font-family:var(--font-head);font-size:18px;">🥗 Diet Rules</h2>
+        <h2 style="margin-top:0;font-family:var(--font-head);font-size:18px;">🥗 Diet Rules (Fat Loss)</h2>
         <div class="card-body" style="padding:0 0 8px 0;">
           <div style="margin-bottom:6px;font-weight:600;">Do this ✅</div>
           <ul class="rule-list">
-            <li>Protein every meal (eggs, chicken, dal, paneer).</li>
-            <li>Rice allowed but controlled.</li>
-            <li>Dinner before 9 PM.</li>
-            <li>3–3.5 litres water daily.</li>
+            <li>Protein every meal (eggs, chicken, fish, dal, paneer, curd). [web:4][web:14]</li>
+            <li>Rice/roti allowed but portioned; fill half plate with veggies first.</li>
+            <li>Dinner before 9 PM; keep it lighter and high protein.</li>
+            <li>3–3.5 litres water daily, more on intense cardio days. [web:6]</li>
           </ul>
 
           <div style="margin:12px 0 6px;font-weight:600;">Avoid ❌</div>
           <ul class="rule-list">
-            <li>Sugary drinks & desserts.</li>
-            <li>Fried snacks and junk.</li>
-            <li>Late-night eating.</li>
-            <li>Alcohol (big belly killer 🍺❌).</li>
+            <li>Sugary drinks, desserts, packaged juices most days.</li>
+            <li>Fried snacks, bakery items, and frequent outside food.</li>
+            <li>Late-night heavy meals; stop mindless munching after dinner.</li>
+            <li>Alcohol; it slows fat loss and affects sleep quality. [web:18]</li>
           </ul>
         </div>
 
         <h2 style="font-family:var(--font-head);font-size:18px;margin-top:18px;">🧠 Training Rules</h2>
         <ul class="rule-list">
-          <li>Week 1: Use ~70% of your previous weights.</li>
-          <li>Increase slowly from Week 2 (progressive overload).</li>
-          <li>Consistency > perfection: show up, even if lighter.</li>
+          <li>Week 1: Use ~70% of your previous working weights, focus on clean form. [web:10]</li>
+          <li>From Week 2: progressive overload – add small weight or 1–2 reps if it felt easy. [web:10]</li>
+          <li>Consistency beats perfection: even a 30-min short session is better than a skip.</li>
+          <li>Keep most sets 1–2 reps away from total failure to recover better. [web:12]</li>
         </ul>
       </div>
 
@@ -263,26 +346,28 @@
         <div class="week-grid">
           <div class="week-card">
             <b>Week 1</b>
-            <div>Water weight ↓</div>
-            <div>Energy & pump ↑</div>
+            <div>Water weight down, less bloating. [web:10]</div>
+            <div>Energy and pump start to improve.</div>
           </div>
           <div class="week-card">
             <b>Week 2</b>
-            <div>Belly tightness</div>
-            <div>Better stamina</div>
+            <div>Belly feels tighter; stamina better in cardio. [web:10]</div>
+            <div>Form and confidence improve.</div>
           </div>
           <div class="week-card">
             <b>Week 3</b>
-            <div>Face & waist leaner</div>
+            <div>Face and waist look leaner in photos. [web:10]</div>
+            <div>Weights feel more stable.</div>
           </div>
           <div class="week-card">
             <b>Week 4</b>
-            <div>3–5 kg weight loss possible (with diet)</div>
+            <div>Roughly 3–5 kg loss possible with strict diet and sleep. [web:10]</div>
+            <div>Run this 4-week block 2–3 times for visible transformation.</div>
           </div>
         </div>
 
         <div style="margin-top:16px;font-size:13px;color:var(--text-muted);">
-          Tip: run this 4-week cycle 2–3 times, adjusting weights, and your pictures will show a full transformation.
+          Remember: scale weight will fluctuate daily; track weekly average and progress photos instead of judging only one day. [web:10]
         </div>
       </div>
     </main>
@@ -297,8 +382,12 @@
         <div class="card-body">
           <div id="todaySummary" style="font-size:14px;margin-bottom:8px;"></div>
           <div id="todayBlocks" style="font-size:13px;color:var(--text-muted);line-height:1.5;"></div>
+          <div class="progress-wrap">
+            <div class="progress-bar"><div class="progress-bar-inner" id="dayProgressInner"></div></div>
+            <span id="dayProgressLabel" style="font-size:11px;color:var(--text-muted);min-width:52px;text-align:right;">0%</span>
+          </div>
           <div style="margin-top:10px;">
-            <span class="pill">🔥 Use Week 1 weights at ~70%</span>
+            <span class="pill">🔥 Week 1: 70% previous weights</span>
             <span class="pill">🚶 5–10 min warm-up</span>
           </div>
         </div>
@@ -315,9 +404,10 @@
         <div class="card-head"><h2>Notes</h2></div>
         <div class="card-body" style="font-size:13px;color:var(--text-muted);line-height:1.6;">
           <ul style="padding-left:20px;margin:0;">
-            <li>Day 7 = full rest. Only light walking & good sleep 😴.</li>
-            <li>On busy days, at least finish main lifts; cardio optional.</li>
-            <li>If any joint pain: reduce weight, increase warm-up, skip that exercise.</li>
+            <li>Day 7 = full rest. Only light walking and proper sleep 😴.</li>
+            <li>On busy days, prioritise main compound lifts; cardio becomes optional.</li>
+            <li>Joint pain = reduce load, increase warm-up, or skip that exercise for the day.</li>
+            <li>Every session logged as “done” brings you closer to the 4‑week transformation goal. [web:10]</li>
           </ul>
         </div>
       </div>
@@ -328,81 +418,105 @@
 <script>
 const TZ = "Asia/Kolkata";
 const days = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+
+// More detailed workout info per exercise
 const plan = [
   {
-    id:"d1", label:"Day 1 – Chest + Light Cardio", short:"Chest + Cardio", weekDay:"Mon",
+    id:"d1",
+    label:"Day 1 – Chest + Light Cardio",
+    short:"Chest + Cardio",
+    weekDay:"Mon",
     items:[
-      "Treadmill warm-up – 5 min",
-      "Flat bench press – 4×12",
-      "Incline dumbbell press – 3×12",
-      "Cable fly – 3×15",
-      "Push-ups – 2 sets till failure",
-      "Cardio: Incline walk 15 min"
+      { name:"Treadmill warm-up", details:"5–10 min easy walk", target:"RPE 4/10, slightly warm" },
+      { name:"Flat bench press", details:"4 × 8–12 reps", target:"Last 2 reps hard, but controlled" },
+      { name:"Incline dumbbell press", details:"3 × 10–12 reps", target:"Elbows at ~45°, slow negative" },
+      { name:"Cable fly", details:"3 × 12–15 reps", target:"Squeeze chest, do not lock elbows" },
+      { name:"Push-ups", details:"2 sets to near failure", target:"Stop 1–2 reps before full failure" },
+      { name:"Cardio: Incline walk", details:"15 min", target:"RPE 6–7/10, steady breathing" }
     ]
   },
   {
-    id:"d2", label:"Day 2 – Back + Abs", short:"Back + Abs", weekDay:"Tue",
+    id:"d2",
+    label:"Day 2 – Back + Abs",
+    short:"Back + Abs",
+    weekDay:"Tue",
     items:[
-      "Lat pulldown – 4×12",
-      "Seated cable row – 3×12",
-      "One-arm dumbbell row – 3×12",
-      "Face pulls – 3×15",
-      "Hanging leg raises – 3×12",
-      "Plank – 2×45 sec",
-      "Optional: Cycling 10 min"
+      { name:"Lat pulldown", details:"4 × 8–12 reps", target:"Pull to upper chest, control return" },
+      { name:"Seated cable row", details:"3 × 10–12 reps", target:"Neutral spine, squeeze shoulder blades" },
+      { name:"One-arm dumbbell row", details:"3 × 10–12 reps / side", target:"Keep torso stable, pull to hip" },
+      { name:"Face pulls", details:"3 × 15 reps", target:"To eye level, elbows high" },
+      { name:"Hanging leg raises", details:"3 × 8–12 reps", target:"No swinging, control down" },
+      { name:"Plank", details:"2 × 30–45 sec", target:"Straight line from head to heel" },
+      { name:"Optional: Cycling", details:"10 min easy", target:"Just to increase blood flow" }
     ]
   },
   {
-    id:"d3", label:"Day 3 – Legs (Fat Burn Booster)", short:"Legs (Fat Burn)", weekDay:"Wed",
+    id:"d3",
+    label:"Day 3 – Legs (Fat Burn Booster)",
+    short:"Legs (Fat Burn)",
+    weekDay:"Wed",
     items:[
-      "Bodyweight squats – 2×20",
-      "Leg press – 4×15",
-      "Leg curls – 3×12",
-      "Walking lunges – 3×20 steps",
-      "Standing calf raises – 4×15",
-      "Cardio: Treadmill incline walk – 20 min"
+      { name:"Bodyweight squats", details:"2 × 15–20 reps", target:"Warm-up and groove pattern" },
+      { name:"Leg press", details:"4 × 12–15 reps", target:"Full range, do not lock knees" },
+      { name:"Leg curls", details:"3 × 10–12 reps", target:"Pause 1s at top squeeze" },
+      { name:"Walking lunges", details:"3 × 20 total steps", target:"Short rest, keep chest up" },
+      { name:"Standing calf raises", details:"4 × 12–15 reps", target:"Slow 2–3s stretch at bottom" },
+      { name:"Cardio: Treadmill incline walk", details:"20 min", target:"RPE 6–7/10, strong sweat" }
     ]
   },
   {
-    id:"d4", label:"Day 4 – Shoulders + Traps", short:"Shoulders + Traps", weekDay:"Thu",
+    id:"d4",
+    label:"Day 4 – Shoulders + Traps",
+    short:"Shoulders + Traps",
+    weekDay:"Thu",
     items:[
-      "Dumbbell shoulder press – 4×12",
-      "Lateral raises – 4×15",
-      "Front raises – 3×12",
-      "Rear delt fly – 3×15",
-      "Shrugs – 4×15",
-      "Cardio: Cross trainer – 15 min"
+      { name:"Dumbbell shoulder press", details:"4 × 8–12 reps", target:"Do not arch back; seated if needed" },
+      { name:"Lateral raises", details:"4 × 12–15 reps", target:"Slight bend in elbow, pause at top" },
+      { name:"Front raises", details:"3 × 10–12 reps", target:"Lift to eye level only" },
+      { name:"Rear delt fly", details:"3 × 12–15 reps", target:"Think elbows, not hands" },
+      { name:"Shrugs", details:"4 × 12–15 reps", target:"Up and slightly back, full squeeze" },
+      { name:"Cardio: Cross trainer", details:"15 min", target:"Comfortable but sweaty pace" }
     ]
   },
   {
-    id:"d5", label:"Day 5 – Arms + Core", short:"Arms + Core", weekDay:"Fri",
+    id:"d5",
+    label:"Day 5 – Arms + Core",
+    short:"Arms + Core",
+    weekDay:"Fri",
     items:[
-      "Barbell curls + Tricep pushdown – 4×12 (superset)",
-      "Hammer curls + Overhead tricep ext – 3×12 (superset)",
-      "Preacher curls – 3×12",
-      "Cable crunch – 3×15",
-      "Russian twists – 3×20"
+      { name:"Barbell curls + Tricep pushdown", details:"4 × 10–12 each (superset)", target:"Minimal rest between moves" },
+      { name:"Hammer curls + Overhead tricep ext", details:"3 × 10–12 each (superset)", target:"Control stretch on triceps" },
+      { name:"Preacher curls", details:"3 × 10–12 reps", target:"Slow negative for biceps" },
+      { name:"Cable crunch", details:"3 × 12–15 reps", target:"Flex spine slightly, exhale at squeeze" },
+      { name:"Russian twists", details:"3 × 20 total reps", target:"Light weight, rotate with control" }
     ]
   },
   {
-    id:"d6", label:"Day 6 – Cardio + Full Body Burn", short:"Cardio + Full Body", weekDay:"Sat",
+    id:"d6",
+    label:"Day 6 – Cardio + Full Body Burn",
+    short:"Cardio + Full Body",
+    weekDay:"Sat",
     items:[
-      "Cycling – 10 min",
-      "Battle ropes / skipping – 10 min",
-      "Light dumbbell circuit – 3 rounds",
-      "Stretching – 10 min"
+      { name:"Cycling", details:"10–15 min", target:"RPE 5–6/10, warm but can talk" },
+      { name:"Battle ropes / Skipping", details:"10–15 min intervals", target:"20–30s hard / 30–40s easy" },
+      { name:"Light dumbbell circuit", details:"3 rounds, 6–8 exercises", target:"Full body, no set to failure" },
+      { name:"Stretching", details:"10 min", target:"Focus on hips, hamstrings, chest" }
     ]
   },
   {
-    id:"d7", label:"Day 7 – REST", short:"Rest", weekDay:"Sun",
+    id:"d7",
+    label:"Day 7 – REST",
+    short:"Rest",
+    weekDay:"Sun",
     items:[
-      "Walking only",
-      "Good sleep 😴"
+      { name:"Walking only", details:"20–30 min easy walk", target:"Relaxed, outdoor if possible" },
+      { name:"Good sleep 😴", details:"Earlier bedtime", target:"Prepare body for next week" }
     ]
   }
 ];
 
-const LS_KEY = "vishal_workout_ticks_v1";
+const LS_KEY_DAYS = "vishal_workout_ticks_v2";
+const LS_KEY_EX = "vishal_workout_ex_ticks_v1";
 
 function getIST(){
   const d = new Date();
@@ -425,16 +539,23 @@ function getIST(){
   };
 }
 
-function loadTicks(){
-  try { return JSON.parse(localStorage.getItem(LS_KEY)||"{}"); } catch { return {}; }
+function loadJson(key){
+  try { return JSON.parse(localStorage.getItem(key)||"{}"); } catch { return {}; }
 }
-function saveTicks(obj){
-  localStorage.setItem(LS_KEY, JSON.stringify(obj));
+function saveJson(key,obj){
+  localStorage.setItem(key, JSON.stringify(obj));
+}
+
+function updateWeekProgress(){
+  const ticks = loadJson(LS_KEY_DAYS);
+  const doneCount = plan.filter(p=>p.id!=="d7" && ticks[p.id]).length;
+  document.getElementById("weekProgress").innerText = `Week: ${doneCount} / 6 days done`;
 }
 
 function renderPlan(todayOnly=false){
   const cont = document.getElementById("daysContainer");
-  const ticks = loadTicks();
+  const dayTicks = loadJson(LS_KEY_DAYS);
+  const exTicks = loadJson(LS_KEY_EX);
   const ist = getIST();
   const todayShort = ist.weekday; // "Mon" style
   document.getElementById("clock").innerText = ist.str;
@@ -443,13 +564,30 @@ function renderPlan(todayOnly=false){
   const todayPlan = plan.find(p => p.weekDay === todayShort) || plan[0];
   document.getElementById("todayBadge").innerText = todayPlan.short;
   document.getElementById("todaySummary").innerText = todayPlan.label;
-  document.getElementById("todayBlocks").innerHTML = todayPlan.items.map(i=>`• ${i}`).join("<br>");
+  document.getElementById("todayBlocks").innerHTML = todayPlan.items
+    .map(i=>`• ${i.name} (${i.details})`).join("<br>");
+
+  // day progress (exercise level)
+  const exMap = exTicks[todayPlan.id] || {};
+  const totalEx = todayPlan.items.length;
+  const doneEx = Object.values(exMap).filter(Boolean).length;
+  const pct = totalEx ? Math.round((doneEx/totalEx)*100) : 0;
+  const inner = document.getElementById("dayProgressInner");
+  const label = document.getElementById("dayProgressLabel");
+  if(inner && label){
+    inner.style.width = pct+"%";
+    label.innerText = pct+"%";
+  }
 
   cont.innerHTML = "";
   plan.forEach(dayPlan => {
     if(todayOnly && dayPlan.weekDay !== todayShort) return;
-    const done = !!ticks[dayPlan.id];
+    const done = !!dayTicks[dayPlan.id];
     const isToday = dayPlan.weekDay === todayShort;
+    const exMapDay = exTicks[dayPlan.id] || {};
+    const totalItems = dayPlan.items.length;
+    const doneItems = Object.values(exMapDay).filter(Boolean).length;
+
     const div = document.createElement("div");
     div.className = "day-card";
     div.innerHTML = `
@@ -460,45 +598,74 @@ function renderPlan(todayOnly=false){
         </div>
         <div style="text-align:right;">
           ${isToday ? '<span class="chip-today">Today</span>' : ""}
+          <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">
+            ${doneItems}/${totalItems} exercises done
+          </div>
         </div>
       </div>
       <div>
-        ${dayPlan.items.map((txt,idx)=>`
+        ${dayPlan.items.map((item,idx)=>`
           <div class="work-item">
-            <span>•</span>
-            <span>${txt}</span>
+            <span><input type="checkbox" data-ex="1" data-day="${dayPlan.id}" data-index="${idx}" ${exMapDay[idx]?"checked":""}></span>
+            <span>
+              <div class="work-title">${item.name}</div>
+              <div class="work-meta">${item.details}</div>
+              <div class="work-target">${item.target}</div>
+            </span>
           </div>
         `).join("")}
       </div>
       <div class="check-row">
         <label>
-          <input type="checkbox" data-id="${dayPlan.id}" ${done?"checked":""}>
-          Mark day as done
+          <input type="checkbox" data-daydone="${dayPlan.id}" ${done?"checked":""}>
+          Mark entire day as done
         </label>
-        <span>${done ? "✅ Great job!" : ""}</span>
+        <span class="done-text">${done ? "✅ Logged!" : ""}</span>
       </div>
     `;
     cont.appendChild(div);
   });
 
-  cont.querySelectorAll("input[type=checkbox]").forEach(chk=>{
+  // exercise-level listeners
+  cont.querySelectorAll("input[data-ex='1']").forEach(chk=>{
     chk.addEventListener("change",(e)=>{
-      const id = e.target.dataset.id;
-      const map = loadTicks();
+      const dayId = e.target.dataset.day;
+      const idx = e.target.dataset.index;
+      const map = loadJson(LS_KEY_EX);
+      map[dayId] = map[dayId] || {};
+      map[dayId][idx] = e.target.checked;
+      saveJson(LS_KEY_EX,map);
+      renderPlan(todayOnly);
+    });
+  });
+
+  // day-level listeners
+  cont.querySelectorAll("input[data-daydone]").forEach(chk=>{
+    chk.addEventListener("change",(e)=>{
+      const id = e.target.dataset.daydone;
+      const map = loadJson(LS_KEY_DAYS);
       map[id] = e.target.checked;
-      saveTicks(map);
+      saveJson(LS_KEY_DAYS,map);
+      updateWeekProgress();
       renderPlan(todayOnly);
     });
   });
 
   // Weekly split on right
   const w = document.getElementById("weekSplit");
-  w.innerHTML = plan.map(p=>`
+  w.innerHTML = plan.map(p=>{
+    const ticks = loadJson(LS_KEY_DAYS);
+    const done = !!ticks[p.id];
+    return `
     <div class="week-card">
       <b>${p.weekDay}</b>
       <div>${p.short}</div>
-    </div>
-  `).join("");
+      <div style="margin-top:4px;font-size:11px;color:${done?"#16a34a":"var(--text-muted)"};">
+        ${done ? "✅ Done" : "Pending"}
+      </div>
+    </div>`;
+  }).join("");
+  updateWeekProgress();
 }
 
 // Tabs
@@ -519,8 +686,9 @@ document.getElementById("btnTodayView").addEventListener("click",()=>{
 });
 
 document.getElementById("btnResetTicks").addEventListener("click",()=>{
-  if(!confirm("Clear all 'done' marks?")) return;
-  localStorage.removeItem(LS_KEY);
+  if(!confirm("Clear all 'done' marks (days + exercises)?")) return;
+  localStorage.removeItem(LS_KEY_DAYS);
+  localStorage.removeItem(LS_KEY_EX);
   renderPlan(todayMode);
 });
 
