@@ -1,700 +1,1794 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Vishal Fat-Loss Gym Plan 💪</title>
-  <meta name="theme-color" content="#fff8f0" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vishal's 30-Day Belly Fat Shred Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"/>
   <style>
-    :root{
-      --bg-body:#fffbf7;
-      --bg-card:#ffffff;
-      --primary:#ff8c42;
-      --secondary:#4caf50;
-      --accent:#ff5e62;
-      --text-dark:#2d2424;
-      --text-muted:#756a6a;
-      --border:#f0e6dd;
-      --shadow:0 8px 24px rgba(149,157,165,0.12);
-      --radius:20px;
-      --font-head:'Merienda',cursive;
-      --font-body:'Poppins',sans-serif;
+    /* ═══════════════════════════════════════════
+       THEME TOKENS
+    ═══════════════════════════════════════════ */
+    :root {
+      --fire: #FF6B00;
+      --fire-2: #FF9500;
+      --fire-glow: rgba(255,107,0,.18);
+      --fire-rim: rgba(255,107,0,.35);
+      --green: #22C55E;
+      --green-glow: rgba(34,197,94,.18);
+      --red: #EF4444;
+      --blue: #3B82F6;
+      --r: 14px;
+      --rc: 18px;
+      --ease: .22s cubic-bezier(.4,0,.2,1);
     }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:var(--font-body);
-      color:var(--text-dark);
-      background-color:var(--bg-body);
-      background-image:
-        radial-gradient(#ffe0b2 1.5px,transparent 1.5px),
-        radial-gradient(#ffe0b2 1.5px,var(--bg-body) 1.5px);
-      background-size:30px 30px;
-      background-position:0 0,15px 15px;
-      min-height:100vh;
-      padding-bottom:40px;
+    [data-theme="dark"] {
+      --bg: #0A0A0A;
+      --bg2: #111;
+      --surf: #161616;
+      --surf2: #1E1E1E;
+      --surf3: #272727;
+      --border: #2A2A2A;
+      --border2: #333;
+      --txt: #F2F2F2;
+      --txt2: #999;
+      --txt3: #555;
+      --inp: #0D0D0D;
+      --sh: 0 4px 28px rgba(0,0,0,.6);
     }
-    .wrap{max-width:1100px;margin:0 auto;padding:20px}
-
-    header{
-      background:var(--bg-card);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:24px;
-      margin-bottom:20px;
-      position:relative;
-      overflow:hidden;
-      border-bottom:4px solid var(--primary);
-    }
-    header::before{
-      content:"";position:absolute;top:0;left:0;width:100%;height:6px;
-      background:linear-gradient(90deg,var(--secondary),var(--primary),var(--accent));
-    }
-    .brand-row{
-      display:flex;align-items:center;justify-content:space-between;
-      flex-wrap:wrap;gap:15px;
-    }
-    .brand{display:flex;align-items:center;gap:15px}
-    .logo-emoji{
-      font-size:42px;background:#fff0e6;
-      width:70px;height:70px;border-radius:50%;
-      display:flex;align-items:center;justify-content:center;
-      box-shadow:0 4px 10px rgba(255,140,66,0.2);
-    }
-    .brand h1{margin:0;font-family:var(--font-head);font-size:26px}
-    .brand p{margin:4px 0 0;font-size:13px;color:var(--text-muted)}
-
-    .meta-tags{display:flex;gap:8px;flex-wrap:wrap}
-    .tag{
-      font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;
-      padding:6px 12px;border-radius:50px;
-      background:#fdf2f8;color:var(--accent);border:1px solid #fce7f3;
-    }
-    .tag.green{background:#f0fdf4;color:var(--secondary);border-color:#dcfce7}
-    .tag.blue{background:#e0f2fe;color:#0369a1;border-color:#bae6fd}
-
-    .controls-bar{
-      display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;
-      margin-top:18px;padding-top:18px;border-top:2px dashed var(--border);
-    }
-    .status-info{font-size:13px;color:var(--text-muted);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-    .clock-pill{
-      background:var(--text-dark);color:#fff;padding:4px 10px;border-radius:6px;font-family:monospace;
-    }
-    .progress-pill{
-      background:#eefcf3;color:var(--secondary);padding:4px 10px;border-radius:6px;font-size:12px;
-    }
-    .action-group{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-    .btn{
-      appearance:none;border:none;font-family:var(--font-body);font-weight:600;font-size:13px;
-      padding:8px 14px;border-radius:12px;cursor:pointer;transition:all .2s;
-      display:inline-flex;align-items:center;gap:6px;box-shadow:0 2px 5px rgba(0,0,0,.05);
-      background:#fff;border:1px solid var(--border);color:var(--text-muted);
-    }
-    .btn-primary{background:var(--primary);color:#fff;border-color:var(--primary)}
-    .btn:active{transform:translateY(1px)}
-
-    .main-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:20px}
-    @media(max-width:900px){.main-grid{grid-template-columns:1fr}}
-
-    .card{
-      background:var(--bg-card);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      border:1px solid #fff;
-      overflow:hidden;
-    }
-    .card-head{
-      padding:16px 18px;
-      background:#fffcf7;
-      border-bottom:1px solid var(--border);
-      display:flex;align-items:center;justify-content:space-between;gap:8px;
-    }
-    .card-head h2{
-      margin:0;font-family:var(--font-head);font-size:18px;display:flex;align-items:center;gap:8px;
-    }
-    .badge{
-      font-size:11px;padding:4px 8px;border-radius:999px;border:1px solid var(--border);
-      background:#fff;color:var(--text-muted);
-    }
-    .badge.today{background:#e0f2fe;border-color:#bae6fd;color:#0369a1}
-    .card-body{padding:18px}
-
-    .tabs-nav{
-      display:flex;gap:5px;padding:10px 18px;border-bottom:1px solid var(--border);background:#fffcf9;
-      overflow-x:auto;
-    }
-    .tab-link{
-      background:transparent;border:none;padding:8px 12px;font-family:var(--font-body);
-      font-weight:600;color:var(--text-muted);cursor:pointer;border-radius:8px;white-space:nowrap;
-    }
-    .tab-link[aria-selected="true"]{
-      background:var(--primary);color:#fff;box-shadow:0 4px 10px rgba(255,140,66,0.25);
-    }
-    .tab-content{display:none;padding:18px;animation:fade .25s ease}
-    .tab-content.active{display:block}
-    @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
-
-    .day-card{
-      border:1px solid var(--border);
-      border-radius:14px;
-      padding:10px 12px;
-      margin-bottom:10px;
-      background:#fff;
-    }
-    .day-header{
-      display:flex;justify-content:space-between;align-items:center;gap:8px;
-      margin-bottom:4px;
-    }
-    .day-name{font-weight:600;font-size:14px}
-    .day-label{font-size:12px;color:var(--text-muted)}
-    .chip-today{
-      font-size:11px;padding:2px 8px;border-radius:999px;background:#e0f2fe;color:#0369a1;
-    }
-    .work-item{
-      font-size:13px;color:var(--text-dark);display:flex;gap:8px;margin:4px 0;align-items:flex-start;
-    }
-    .work-item span:first-child{width:20px;text-align:center}
-    .work-title{font-weight:500}
-    .work-meta{font-size:11px;color:var(--text-muted);margin-top:2px}
-    .work-target{font-size:11px;color:var(--text-muted);margin-top:1px}
-
-    .check-row{
-      display:flex;align-items:center;justify-content:space-between;
-      margin-top:6px;font-size:12px;color:var(--text-muted);
-    }
-    .check-row input{width:16px;height:16px;accent-color:var(--secondary);}
-    .check-row span.done-text{color:var(--secondary);font-weight:500}
-
-    .pill{
-      display:inline-flex;align-items:center;gap:6px;
-      padding:6px 10px;border-radius:999px;
-      background:#fff;border:1px solid var(--border);
-      font-size:12px;color:var(--text-muted);
-      margin-right:6px;margin-top:4px;
+    [data-theme="light"] {
+      --bg: #F0EDE6;
+      --bg2: #EAE7E0;
+      --surf: #FFFFFF;
+      --surf2: #F5F3EE;
+      --surf3: #EAE7E0;
+      --border: #DEDAD2;
+      --border2: #CCC8BF;
+      --txt: #1A1A1A;
+      --txt2: #777;
+      --txt3: #BBB;
+      --inp: #FAFAF8;
+      --sh: 0 4px 28px rgba(0,0,0,.08);
     }
 
-    .rule-list li{margin-bottom:4px}
-    .rule-list{padding-left:18px;font-size:13px;color:var(--text-muted)}
+    /* ═══════════════════════════════════════════
+       RESET
+    ═══════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--txt);
+      min-height: 100vh;
+      transition: background var(--ease), color var(--ease);
+      font-size: 14px;
+    }
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
+    input[type=number] { -moz-appearance: textfield; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--surf3); border-radius: 99px; }
 
-    .week-grid{
-      display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;
-      font-size:12px;color:var(--text-muted);
+    /* ═══════════════════════════════════════════
+       HEADER
+    ═══════════════════════════════════════════ */
+    header {
+      background: var(--surf);
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 200;
+      backdrop-filter: blur(16px);
     }
-    .week-card{
-      border:1px solid var(--border);border-radius:10px;padding:8px 10px;background:#fff;
+    .hdr {
+      max-width: 1180px; margin: 0 auto;
+      padding: 0 20px;
+      display: flex; align-items: center;
+      justify-content: space-between;
+      height: 64px; gap: 12px;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; }
+    .brand-icon {
+      width: 38px; height: 38px;
+      background: var(--fire);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+      box-shadow: 0 0 20px var(--fire-glow);
+    }
+    .brand-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px; letter-spacing: 1.5px;
+      color: var(--txt); line-height: 1;
+    }
+    .brand-sub {
+      font-size: 10px; color: var(--txt2);
+      letter-spacing: .8px; margin-top: 2px;
+    }
+    .hdr-right { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+
+    /* ═══════════════════════════════════════════
+       BUTTONS
+    ═══════════════════════════════════════════ */
+    .btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 14px; border-radius: var(--r);
+      border: 1px solid var(--border2);
+      background: var(--surf2); color: var(--txt);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px; font-weight: 500;
+      cursor: pointer; white-space: nowrap;
+      transition: all var(--ease);
+    }
+    .btn:hover { background: var(--surf3); border-color: var(--fire); color: var(--fire); }
+    .btn:active { transform: scale(.97); }
+    .btn-fire { background: var(--fire); border-color: var(--fire); color: #fff; font-weight: 600; }
+    .btn-fire:hover { background: #e05c00; border-color: #e05c00; color: #fff; box-shadow: 0 4px 16px var(--fire-glow); }
+    .btn-danger { border-color: var(--red); color: var(--red); }
+    .btn-danger:hover { background: rgba(239,68,68,.1); }
+    .btn-icon { width: 34px; height: 34px; padding: 0; justify-content: center; border-radius: 9px; }
+    .btn-sm { padding: 6px 11px; font-size: 11px; border-radius: 8px; }
+
+    /* ═══════════════════════════════════════════
+       MAIN
+    ═══════════════════════════════════════════ */
+    main { max-width: 1180px; margin: 0 auto; padding: 28px 20px 100px; }
+
+    /* ═══════════════════════════════════════════
+       HERO STATS
+    ═══════════════════════════════════════════ */
+    .hero {
+      background: var(--surf);
+      border: 1px solid var(--border);
+      border-radius: var(--rc);
+      padding: 22px 24px;
+      margin-bottom: 20px;
+      box-shadow: var(--sh);
+    }
+    .hero-top {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px; gap: 12px; flex-wrap: wrap;
+    }
+    .hero-label { font-family: 'Bebas Neue', sans-serif; font-size: 11px; letter-spacing: 2.5px; color: var(--txt2); }
+    .hero-pct { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--fire); letter-spacing: 1px; }
+    .track { height: 8px; background: var(--surf3); border-radius: 99px; overflow: hidden; margin-bottom: 16px; }
+    .fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--fire), var(--fire-2));
+      border-radius: 99px;
+      transition: width .7s cubic-bezier(.4,0,.2,1);
+      position: relative;
+    }
+    .fill::after {
+      content: '';
+      position: absolute; right: 0; top: 0;
+      width: 3px; height: 100%;
+      background: rgba(255,255,255,.4);
+      border-radius: 99px;
+    }
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+      gap: 10px;
+    }
+    .stat {
+      background: var(--surf2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px; text-align: center;
+    }
+    .stat-v {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 20px; font-weight: 700;
+      color: var(--fire); display: block; line-height: 1;
+    }
+    .stat-l { font-size: 10px; color: var(--txt2); letter-spacing: .5px; margin-top: 4px; }
+
+    /* ═══════════════════════════════════════════
+       FILTER BAR
+    ═══════════════════════════════════════════ */
+    .filters {
+      display: flex; align-items: center; gap: 6px;
+      margin-bottom: 20px; flex-wrap: wrap;
+    }
+    .flbl { font-size: 10px; letter-spacing: 1px; color: var(--txt2); margin-right: 2px; }
+    .fpill {
+      padding: 5px 13px; border-radius: 99px;
+      border: 1px solid var(--border2);
+      background: transparent; color: var(--txt2);
+      font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500;
+      cursor: pointer; transition: all var(--ease);
+    }
+    .fpill:hover, .fpill.on { background: var(--fire); border-color: var(--fire); color: #fff; }
+
+    /* ═══════════════════════════════════════════
+       WEEK HEADER
+    ═══════════════════════════════════════════ */
+    .wk-head {
+      grid-column: 1 / -1;
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 0 4px;
+    }
+    .wk-lbl { font-family: 'Bebas Neue', sans-serif; font-size: 12px; letter-spacing: 3px; color: var(--fire); white-space: nowrap; }
+    .wk-sub { font-size: 10px; color: var(--txt2); white-space: nowrap; }
+    .wk-line { flex: 1; height: 1px; background: linear-gradient(90deg, var(--fire-rim), transparent); }
+
+    /* ═══════════════════════════════════════════
+       GRID
+    ═══════════════════════════════════════════ */
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 14px; }
+
+    /* ═══════════════════════════════════════════
+       DAY CARD
+    ═══════════════════════════════════════════ */
+    .card {
+      background: var(--surf);
+      border: 1px solid var(--border);
+      border-radius: var(--rc);
+      overflow: hidden;
+      box-shadow: var(--sh);
+      transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease);
+      animation: up .4s ease both;
+    }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 10px 36px rgba(0,0,0,.25); }
+    .card.done { border-color: rgba(34,197,94,.3); }
+    .card.today { border-color: var(--fire); box-shadow: 0 0 0 1px var(--fire), var(--sh); }
+    .card.hidden { display: none; }
+
+    @keyframes up {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* Pre/Post gym blocks */
-    .mini-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-      gap:10px;
-      margin-top:10px;
-      font-size:13px;
-      color:var(--text-muted);
+    /* Card header */
+    .ch {
+      padding: 12px 16px;
+      display: flex; align-items: center; gap: 8px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surf2);
     }
-    .mini-card{
-      border:1px dashed var(--border);
-      border-radius:12px;
-      padding:8px 10px;
-      background:#fffcf9;
+    .card.done .ch { background: rgba(34,197,94,.05); }
+    .day-badge {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 11px; letter-spacing: 2px; color: var(--fire);
+      background: var(--fire-glow);
+      border: 1px solid var(--fire-rim);
+      padding: 2px 8px; border-radius: 5px; flex-shrink: 0;
     }
-    .mini-card b{font-size:13px;display:block;margin-bottom:4px}
+    .day-focus { font-size: 11px; font-weight: 500; color: var(--txt2); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .today-tag {
+      font-size: 9px; font-weight: 700; letter-spacing: 1px;
+      color: var(--fire); background: var(--fire-glow);
+      border: 1px solid var(--fire-rim);
+      padding: 2px 6px; border-radius: 4px; flex-shrink: 0;
+    }
+    .dot {
+      width: 9px; height: 9px; border-radius: 50%;
+      background: var(--surf3); border: 2px solid var(--border2);
+      flex-shrink: 0; transition: all var(--ease);
+    }
+    .card.done .dot { background: var(--green); border-color: var(--green); box-shadow: 0 0 8px rgba(34,197,94,.5); }
+    .card.today:not(.done) .dot { background: var(--fire); border-color: var(--fire); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100% { box-shadow: 0 0 6px var(--fire-glow); } 50% { box-shadow: 0 0 14px var(--fire); } }
 
-    .note-small{font-size:11px;color:var(--text-muted);margin-top:6px}
+    /* Card body */
+    .cb { padding: 14px 16px; }
 
-    /* Progress bar */
-    .progress-wrap{display:flex;align-items:center;gap:8px;margin-top:8px}
-    .progress-bar{
-      flex:1;height:6px;border-radius:999px;background:#ffe0cc;overflow:hidden;
+    /* Workout check */
+    .wcheck {
+      display: flex; align-items: center; gap: 8px;
+      padding: 9px 12px;
+      background: var(--surf2); border: 1px solid var(--border2);
+      border-radius: 9px; margin-bottom: 12px;
+      cursor: pointer; user-select: none; transition: all var(--ease);
     }
-    .progress-bar-inner{
-      height:100%;width:0%;background:linear-gradient(90deg,var(--secondary),var(--primary));
-      transition:width .25s ease;
+    .wcheck:hover { border-color: var(--green); }
+    .wcheck.ticked { background: rgba(34,197,94,.07); border-color: rgba(34,197,94,.3); }
+    .wcheck input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--green); cursor: pointer; flex-shrink: 0; }
+    .wcheck-lbl { font-size: 12px; font-weight: 600; color: var(--txt); }
+    .wcheck.ticked .wcheck-lbl { color: var(--green); }
+
+    /* Workout detail expander */
+    .expand-btn {
+      width: 100%; padding: 7px 0; background: none; border: none;
+      cursor: pointer; font-family: 'DM Sans', sans-serif;
+      font-size: 11px; color: var(--txt2); display: flex;
+      align-items: center; justify-content: center; gap: 5px;
+      transition: color var(--ease); margin-bottom: 10px;
+    }
+    .expand-btn:hover { color: var(--fire); }
+    .expand-arrow { font-size: 9px; transition: transform var(--ease); }
+    .expand-btn.open .expand-arrow { transform: rotate(180deg); }
+
+    /* Workout detail panel */
+    .workout-detail {
+      max-height: 0; overflow: hidden;
+      transition: max-height .4s cubic-bezier(.4,0,.2,1);
+      margin-bottom: 0;
+    }
+    .workout-detail.open { max-height: 1200px; margin-bottom: 10px; }
+    .detail-section { margin-bottom: 8px; }
+    .detail-section-title {
+      font-size: 10px; font-weight: 600; letter-spacing: 1.2px;
+      color: var(--txt3); margin-bottom: 5px; text-transform: uppercase;
+    }
+    .ex-table { width: 100%; border-collapse: collapse; }
+    .ex-table td {
+      padding: 5px 6px; font-size: 11px; color: var(--txt2);
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .ex-table tr:last-child td { border-bottom: none; }
+    .ex-table td:first-child { color: var(--txt); font-weight: 500; padding-left: 0; }
+    .ex-table td:last-child { text-align: right; color: var(--txt3); font-size: 10px; }
+    .ex-table .sect-row td { background: var(--surf2); font-weight: 700; font-size: 10px; letter-spacing: .8px; padding: 4px 6px; color: var(--txt); border-radius: 4px; }
+    .ex-badge {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; font-weight: 700;
+      background: var(--fire-glow); color: var(--fire);
+      border: 1px solid var(--fire-rim);
+      border-radius: 4px; padding: 1px 5px; margin-right: 3px; white-space: nowrap;
+    }
+    .ex-badge.green { background: var(--green-glow); color: var(--green); border-color: rgba(34,197,94,.3); }
+
+    /* Inputs */
+    .inp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+    .field { display: flex; flex-direction: column; gap: 4px; }
+    .field label { font-size: 10px; font-weight: 600; color: var(--txt2); letter-spacing: .8px; text-transform: uppercase; }
+    .field input, .field textarea {
+      background: var(--inp); border: 1px solid var(--border2);
+      border-radius: 8px; padding: 8px 10px;
+      color: var(--txt); font-family: 'JetBrains Mono', monospace;
+      font-size: 13px; font-weight: 700;
+      outline: none; width: 100%; transition: border-color var(--ease), box-shadow var(--ease);
+      -webkit-appearance: none;
+    }
+    .field input:focus, .field textarea:focus { border-color: var(--fire); box-shadow: 0 0 0 3px var(--fire-glow); }
+    .field textarea { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 400; resize: vertical; min-height: 64px; }
+    .field-full { grid-column: span 2; }
+
+    /* Card footer */
+    .cf { padding: 10px 16px 14px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .saved-msg { font-size: 11px; color: var(--green); font-weight: 600; opacity: 0; transition: opacity var(--ease); display: flex; align-items: center; gap: 4px; }
+    .saved-msg.show { opacity: 1; }
+    .kcal-badge { font-size: 10px; color: var(--txt2); font-family: 'JetBrains Mono', monospace; }
+
+    /* ═══════════════════════════════════════════
+       MOBILE ACTIONS
+    ═══════════════════════════════════════════ */
+    .mob-bar { display: none; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+    @media (max-width: 600px) {
+      .mob-bar { display: flex; }
+      .hdr-right .btn:not(.btn-icon) { display: none; }
     }
 
+    /* ═══════════════════════════════════════════
+       TOAST
+    ═══════════════════════════════════════════ */
+    #toast {
+      position: fixed; bottom: 20px; left: 50%;
+      transform: translateX(-50%) translateY(60px);
+      background: var(--surf); border: 1px solid var(--border2);
+      border-radius: 12px; padding: 11px 18px;
+      font-size: 13px; font-weight: 600;
+      box-shadow: 0 8px 32px rgba(0,0,0,.45);
+      z-index: 9999; opacity: 0;
+      transition: transform .3s cubic-bezier(.4,0,.2,1), opacity .3s ease;
+      pointer-events: none;
+    }
+    #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+    #toast.ok { border-color: var(--green); color: var(--green); }
+    #toast.err { border-color: var(--red); color: var(--red); }
+    #toast.info { border-color: var(--fire); color: var(--fire); }
+
+    /* ═══════════════════════════════════════════
+       MODAL
+    ═══════════════════════════════════════════ */
+    .overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.75);
+      backdrop-filter: blur(5px);
+      z-index: 500; display: flex;
+      align-items: center; justify-content: center;
+      padding: 20px; opacity: 0; pointer-events: none;
+      transition: opacity var(--ease);
+    }
+    .overlay.open { opacity: 1; pointer-events: all; }
+    .modal {
+      background: var(--surf); border: 1px solid var(--border2);
+      border-radius: 18px; padding: 26px;
+      max-width: 380px; width: 100%;
+      box-shadow: 0 24px 80px rgba(0,0,0,.6);
+      transform: scale(.95); transition: transform var(--ease);
+    }
+    .overlay.open .modal { transform: scale(1); }
+    .modal h3 { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1px; margin-bottom: 8px; }
+    .modal p { font-size: 13px; color: var(--txt2); line-height: 1.7; margin-bottom: 22px; }
+    .modal-btns { display: flex; gap: 8px; justify-content: flex-end; }
+
+    /* ═══════════════════════════════════════════
+       TABS (Workout view within card)
+    ═══════════════════════════════════════════ */
+    .dtabs { display: flex; gap: 4px; margin-bottom: 8px; }
+    .dtab {
+      flex: 1; padding: 4px; border: 1px solid var(--border2);
+      border-radius: 6px; background: transparent;
+      font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 600;
+      color: var(--txt2); cursor: pointer; transition: all var(--ease);
+      letter-spacing: .3px;
+    }
+    .dtab.active { background: var(--fire); border-color: var(--fire); color: #fff; }
+    .dtab-panel { display: none; }
+    .dtab-panel.active { display: block; }
   </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <div class="brand-row">
-      <div class="brand">
-        <div class="logo-emoji">🏋️‍♂️</div>
-        <div>
-          <h1>Vishal Fat-Loss Plan</h1>
-          <p>4-Week Gym + Cardio • Restart Safe & Strong</p>
-        </div>
-      </div>
-      <div class="meta-tags">
-        <div class="tag green">Fat Loss</div>
-        <div class="tag blue">6 Days / Week</div>
-        <div class="tag">60–75 min / Day</div>
+
+<!-- ═══ HEADER ═══════════════════════════════════════════ -->
+<header>
+  <div class="hdr">
+    <div class="brand">
+      <div class="brand-icon">🔥</div>
+      <div>
+        <div class="brand-name">30-Day Shred Tracker</div>
+        <div class="brand-sub">VISHAL PANCHAMUKHI · BELLY FAT SHRED</div>
       </div>
     </div>
-
-    <div class="controls-bar">
-      <div class="status-info">
-        <span class="clock-pill" id="clock">--:--</span>
-        <span id="todayLabel">Today: -</span>
-        <span class="progress-pill" id="weekProgress">Week: 0 / 6 days done</span>
-      </div>
-      <div class="action-group">
-        <button class="btn" id="btnTodayView">Today View</button>
-        <button class="btn btn-primary" id="btnResetTicks">Reset Done Marks</button>
-      </div>
+    <div class="hdr-right">
+      <button class="btn btn-icon" id="themeBtn" title="Toggle theme"><span id="themeIco">☀️</span></button>
+      <button class="btn btn-sm" id="dlBtn">⬇ Export JSON</button>
+      <button class="btn btn-sm btn-danger" id="resetBtn">↺ Reset</button>
     </div>
-  </header>
+  </div>
+</header>
 
-  <div class="main-grid">
-    <!-- LEFT: PLAN -->
-    <main class="card">
-      <div class="tabs-nav">
-        <button class="tab-link" aria-selected="true" data-tab="plan">📅 Plan</button>
-        <button class="tab-link" aria-selected="false" data-tab="prepost">⏱ Pre / Post Gym</button>
-        <button class="tab-link" aria-selected="false" data-tab="rules">📏 Diet & Rules</button>
-        <button class="tab-link" aria-selected="false" data-tab="results">📈 Results</button>
-      </div>
+<!-- ═══ MAIN ═══════════════════════════════════════════ -->
+<main>
+  <!-- Mobile bar -->
+  <div class="mob-bar">
+    <button class="btn btn-sm" id="dlBtnM">⬇ Export JSON</button>
+    <button class="btn btn-sm btn-danger" id="resetBtnM">↺ Reset All Data</button>
+  </div>
 
-      <!-- PLAN TAB -->
-      <div id="plan" class="tab-content active">
-        <div id="daysContainer"></div>
-      </div>
+  <!-- Stats hero -->
+  <div class="hero">
+    <div class="hero-top">
+      <span class="hero-label">30-DAY CHALLENGE PROGRESS</span>
+      <span class="hero-pct" id="pct">0%</span>
+    </div>
+    <div class="track"><div class="fill" id="fill" style="width:0%"></div></div>
+    <div class="stat-row">
+      <div class="stat"><span class="stat-v" id="sDone">0</span><div class="stat-l">Days Done</div></div>
+      <div class="stat"><span class="stat-v" id="sLeft">30</span><div class="stat-l">Days Left</div></div>
+      <div class="stat"><span class="stat-v" id="sCal">0</span><div class="stat-l">kcal Burned</div></div>
+      <div class="stat"><span class="stat-v" id="sWt">—</span><div class="stat-l">Latest Weight</div></div>
+      <div class="stat"><span class="stat-v" id="sBelly">—</span><div class="stat-l">Latest Belly</div></div>
+    </div>
+  </div>
 
-      <!-- PRE / POST GYM TAB -->
-      <div id="prepost" class="tab-content">
-        <h2 style="margin-top:0;font-family:var(--font-head);font-size:18px;">⏱ Before & After Gym</h2>
-        <div class="card-body" style="padding:0;margin-top:6px;">
-          <div class="mini-grid">
-            <div class="mini-card">
-              <b>30–90 min before</b>
-              <ul class="rule-list">
-                <li>Light snack: banana + whey / buttermilk / fruit + nuts (easy to digest carbs + protein).</li>
-                <li>Drink 300–500 ml water; sip, do not chug.</li>
-                <li>Avoid heavy oily food to prevent discomfort during training.</li>
-              </ul>
-            </div>
-            <div class="mini-card">
-              <b>Just before workout</b>
-              <ul class="rule-list">
-                <li>5–10 min dynamic warm-up (walking, arm circles, leg swings, light treadmill).</li>
-                <li>Mobility for tight areas: shoulders, hips, ankles.</li>
-                <li>Set intention: which lifts are priority today.</li>
-              </ul>
-            </div>
-            <div class="mini-card">
-              <b>Immediately after</b>
-              <ul class="rule-list">
-                <li>Cool down 5–10 min: slow walk + light stretching.</li>
-                <li>Rehydrate 500–750 ml water; use electrolytes if sweat was heavy.</li>
-                <li>Protein + carbs within 1 hour (whey + fruit / paneer + roti / egg bhurji + toast).</li>
-              </ul>
-            </div>
-            <div class="mini-card">
-              <b>Recovery habits</b>
-              <ul class="rule-list">
-                <li>Target 7–8 hours of sleep for better fat loss and muscle recovery.</li>
-                <li>On off-days: light walk + stretching instead of full rest on the sofa.</li>
-                <li>Notice soreness vs pain: joint pain = reduce weight or skip exercise.</li>
-              </ul>
-            </div>
-          </div>
-          <div class="note-small">
-            This routine supports fat loss, keeps performance stable, and reduces injury risk by combining warm-up, structured training, and consistent recovery.
-          </div>
-        </div>
-      </div>
+  <!-- Filters -->
+  <div class="filters">
+    <span class="flbl">VIEW:</span>
+    <button class="fpill on" data-f="all">All Days</button>
+    <button class="fpill" data-f="w1">Week 1</button>
+    <button class="fpill" data-f="w2">Week 2</button>
+    <button class="fpill" data-f="w3">Week 3</button>
+    <button class="fpill" data-f="w4">Week 4</button>
+    <button class="fpill" data-f="done">✓ Done</button>
+    <button class="fpill" data-f="todo">○ Pending</button>
+  </div>
 
-      <!-- RULES TAB -->
-      <div id="rules" class="tab-content">
-        <h2 style="margin-top:0;font-family:var(--font-head);font-size:18px;">🥗 Diet Rules (Fat Loss)</h2>
-        <div class="card-body" style="padding:0 0 8px 0;">
-          <div style="margin-bottom:6px;font-weight:600;">Do this ✅</div>
-          <ul class="rule-list">
-            <li>Protein every meal (eggs, chicken, fish, dal, paneer, curd).</li>
-            <li>Rice/roti allowed but portioned; fill half plate with veggies first.</li>
-            <li>Dinner before 9 PM; keep it lighter and high protein.</li>
-            <li>3–3.5 litres water daily, more on intense cardio days.</li>
-          </ul>
+  <!-- Cards grid -->
+  <div class="grid" id="grid"></div>
+</main>
 
-          <div style="margin:12px 0 6px;font-weight:600;">Avoid ❌</div>
-          <ul class="rule-list">
-            <li>Sugary drinks, desserts, packaged juices most days.</li>
-            <li>Fried snacks, bakery items, and frequent outside food.</li>
-            <li>Late-night heavy meals; stop mindless munching after dinner.</li>
-            <li>Alcohol; it slows fat loss and affects sleep quality./li>
-          </ul>
-        </div>
-
-        <h2 style="font-family:var(--font-head);font-size:18px;margin-top:18px;">🧠 Training Rules</h2>
-        <ul class="rule-list">
-          <li>Week 1: Use ~70% of your previous working weights, focus on clean form.</li>
-          <li>From Week 2: progressive overload – add small weight or 1–2 reps if it felt easy.</li>
-          <li>Consistency beats perfection: even a 30-min short session is better than a skip.</li>
-          <li>Keep most sets 1–2 reps away from total failure to recover better.</li>
-        </ul>
-      </div>
-
-      <!-- RESULTS TAB -->
-      <div id="results" class="tab-content">
-        <h2 style="margin-top:0;font-family:var(--font-head);font-size:18px;">⚖️ What to Expect</h2>
-        <div class="week-grid">
-          <div class="week-card">
-            <b>Week 1</b>
-            <div>Water weight down, less bloating.</div>
-            <div>Energy and pump start to improve.</div>
-          </div>
-          <div class="week-card">
-            <b>Week 2</b>
-            <div>Belly feels tighter; stamina better in cardio.</div>
-            <div>Form and confidence improve.</div>
-          </div>
-          <div class="week-card">
-            <b>Week 3</b>
-            <div>Face and waist look leaner in photos.</div>
-            <div>Weights feel more stable.</div>
-          </div>
-          <div class="week-card">
-            <b>Week 4</b>
-            <div>Roughly 3–5 kg loss possible with strict diet and sleep.</div>
-            <div>Run this 4-week block 2–3 times for visible transformation.</div>
-          </div>
-        </div>
-
-        <div style="margin-top:16px;font-size:13px;color:var(--text-muted);">
-          Remember: scale weight will fluctuate daily; track weekly average and progress photos instead of judging only one day.
-        </div>
-      </div>
-    </main>
-
-    <!-- RIGHT: TODAY & NOTES -->
-    <aside style="display:flex;flex-direction:column;gap:18px;">
-      <div class="card">
-        <div class="card-head">
-          <h2>Today’s Focus</h2>
-          <span class="badge today" id="todayBadge">--</span>
-        </div>
-        <div class="card-body">
-          <div id="todaySummary" style="font-size:14px;margin-bottom:8px;"></div>
-          <div id="todayBlocks" style="font-size:13px;color:var(--text-muted);line-height:1.5;"></div>
-          <div class="progress-wrap">
-            <div class="progress-bar"><div class="progress-bar-inner" id="dayProgressInner"></div></div>
-            <span id="dayProgressLabel" style="font-size:11px;color:var(--text-muted);min-width:52px;text-align:right;">0%</span>
-          </div>
-          <div style="margin-top:10px;">
-            <span class="pill">🔥 Week 1: 70% previous weights</span>
-            <span class="pill">🚶 5–10 min warm-up</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-head"><h2>Weekly Split</h2></div>
-        <div class="card-body">
-          <div class="week-grid" id="weekSplit"></div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-head"><h2>Notes</h2></div>
-        <div class="card-body" style="font-size:13px;color:var(--text-muted);line-height:1.6;">
-          <ul style="padding-left:20px;margin:0;">
-            <li>Day 7 = full rest. Only light walking and proper sleep 😴.</li>
-            <li>On busy days, prioritise main compound lifts; cardio becomes optional.</li>
-            <li>Joint pain = reduce load, increase warm-up, or skip that exercise for the day.</li>
-            <li>Every session logged as “done” brings you closer to the 4‑week transformation goal.</li>
-          </ul>
-        </div>
-      </div>
-    </aside>
+<!-- ═══ MODAL ═══════════════════════════════════════════ -->
+<div class="overlay" id="modal">
+  <div class="modal">
+    <h3>⚠️ Reset All Data?</h3>
+    <p>This will permanently delete all saved progress — workouts, weight, measurements and notes for all 30 days. This cannot be undone.</p>
+    <div class="modal-btns">
+      <button class="btn" id="cancelBtn">Cancel</button>
+      <button class="btn btn-danger" id="confirmBtn">Yes, Reset Everything</button>
+    </div>
   </div>
 </div>
 
-<script>
-const TZ = "Asia/Kolkata";
-const days = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+<!-- ═══ TOAST ═══════════════════════════════════════════ -->
+<div id="toast"></div>
 
-// More detailed workout info per exercise
-const plan = [
+<script>
+/* ═══════════════════════════════════════════════════════════
+   COMPLETE 30-DAY WORKOUT DATA (from the plan document)
+═══════════════════════════════════════════════════════════ */
+const PLAN = [
+  // ── WEEK 1 ──────────────────────────────────────────────
   {
-    id:"d1",
-    label:"Day 1 – Chest + Light Cardio",
-    short:"Chest + Cardio",
-    weekDay:"Mon",
-    items:[
-      { name:"Treadmill warm-up", details:"5–10 min easy walk", target:"RPE 4/10, slightly warm" },
-      { name:"Flat bench press", details:"4 × 8–12 reps", target:"Last 2 reps hard, but controlled" },
-      { name:"Incline dumbbell press", details:"3 × 10–12 reps", target:"Elbows at ~45°, slow negative" },
-      { name:"Cable fly", details:"3 × 12–15 reps", target:"Squeeze chest, do not lock elbows" },
-      { name:"Push-ups", details:"2 sets to near failure", target:"Stop 1–2 reps before full failure" },
-      { name:"Cardio: Incline walk", details:"15 min", target:"RPE 6–7/10, steady breathing" }
-    ]
+    day: 1, week: 1,
+    title: "CHEST + TRICEPS + CORE",
+    subtitle: "Fat-Burn Focus",
+    kcal: "550–650",
+    warmup: [
+      ["Treadmill Brisk Walk","–","5 min","Warm up"],
+      ["Shoulder Rotations","–","20 each dir","Forward & back"],
+      ["Band Pull-Aparts","–","15 reps","Or doorway stretch"],
+      ["Push-Up (half pace)","–","10 reps","Chest activation"],
+      ["Lat Stretch + Chest Opener","–","30 sec each","Hold stretch"],
+    ],
+    main: [
+      ["Barbell Bench Press","4","10,8,8,6 / 75s","Progressive load"],
+      ["Incline Dumbbell Press","3","12,10,10 / 60s","Upper chest"],
+      ["Cable Chest Flyes ⟶ SUPERSET","3","15 reps / 0s","Squeeze at peak"],
+      ["↳ Tricep Pushdown (Rope)","3","15 reps / 60s","Superset"],
+      ["Dips (Weighted if possible)","3","12 reps / 60s","Full ROM"],
+      ["Overhead Tricep Extension (DB)","3","12 reps / 60s","Elbows in"],
+      ["Push-Up Burnout","2","To failure / 60s","Finisher"],
+    ],
+    cardio: [
+      ["Incline Treadmill Walk (10-12%)","1","15 min","Speed 5-6 km/h"],
+      ["HIIT Sprint Intervals (flat)","8","30s sprint / 30s walk","Max effort"],
+    ],
+    core: [
+      ["Plank (Standard)","3","45 sec / 30s rest",""],
+      ["Bicycle Crunches","3","20 reps / 30s rest",""],
+      ["Leg Raises (hanging or lying)","3","15 reps / 30s rest",""],
+      ["Russian Twists (with plate)","3","20 reps / 30s rest",""],
+    ],
   },
   {
-    id:"d2",
-    label:"Day 2 – Back + Abs",
-    short:"Back + Abs",
-    weekDay:"Tue",
-    items:[
-      { name:"Lat pulldown", details:"4 × 8–12 reps", target:"Pull to upper chest, control return" },
-      { name:"Seated cable row", details:"3 × 10–12 reps", target:"Neutral spine, squeeze shoulder blades" },
-      { name:"One-arm dumbbell row", details:"3 × 10–12 reps / side", target:"Keep torso stable, pull to hip" },
-      { name:"Face pulls", details:"3 × 15 reps", target:"To eye level, elbows high" },
-      { name:"Hanging leg raises", details:"3 × 8–12 reps", target:"No swinging, control down" },
-      { name:"Plank", details:"2 × 30–45 sec", target:"Straight line from head to heel" },
-      { name:"Optional: Cycling", details:"10 min easy", target:"Just to increase blood flow" }
-    ]
+    day: 2, week: 1,
+    title: "BACK + BICEPS + CORE",
+    subtitle: "Compound Power",
+    kcal: "580–680",
+    warmup: [
+      ["Treadmill Brisk Walk / Light Jog","–","5 min","RPE 4-5"],
+      ["Arm Circles (forward & back)","–","30 sec each","Loosen shoulders"],
+      ["Hip Rotations","–","20 reps","Both directions"],
+      ["Bodyweight Squats","–","15 reps","Full range"],
+      ["Jumping Jacks","–","30 reps","Elevate heart rate"],
+    ],
+    main: [
+      ["Deadlift","4","8,6,6,5 / 90s","King of fat-burning lifts"],
+      ["Barbell Bent-Over Row","3","10,8,8 / 75s","Keep back flat"],
+      ["Lat Pulldown (Wide Grip)","3","12 reps / 60s","Pull to chest"],
+      ["Seated Cable Row ⟶ SUPERSET","3","12 reps / 0s","Squeeze scapula"],
+      ["↳ Barbell Curl","3","12 reps / 60s","No swing"],
+      ["Hammer Curl (DB)","3","12 each arm / 60s","Brachialis builder"],
+      ["Concentration Curl","3","12 each arm / 45s","Bicep peak focus"],
+    ],
+    cardio: [
+      ["Stationary Bike Warmup","1","3 min easy","Level 4"],
+      ["Bike HIIT Intervals","10","20s max / 40s easy","Level 10 / Level 4"],
+      ["Incline Treadmill Cooldown","1","5 min","8% incline"],
+    ],
+    core: [
+      ["Side Plank (each side)","3","30 sec / 20s rest",""],
+      ["Cable Crunches","3","15 reps / 30s rest",""],
+      ["Mountain Climbers","3","30 sec / 20s rest",""],
+      ["Reverse Crunches","3","15 reps / 30s rest",""],
+    ],
   },
   {
-    id:"d3",
-    label:"Day 3 – Legs (Fat Burn Booster)",
-    short:"Legs (Fat Burn)",
-    weekDay:"Wed",
-    items:[
-      { name:"Bodyweight squats", details:"2 × 15–20 reps", target:"Warm-up and groove pattern" },
-      { name:"Leg press", details:"4 × 12–15 reps", target:"Full range, do not lock knees" },
-      { name:"Leg curls", details:"3 × 10–12 reps", target:"Pause 1s at top squeeze" },
-      { name:"Walking lunges", details:"3 × 20 total steps", target:"Short rest, keep chest up" },
-      { name:"Standing calf raises", details:"4 × 12–15 reps", target:"Slow 2–3s stretch at bottom" },
-      { name:"Cardio: Treadmill incline walk", details:"20 min", target:"RPE 6–7/10, strong sweat" }
-    ]
+    day: 3, week: 1,
+    title: "LEGS + GLUTES + CORE",
+    subtitle: "Max Calorie Day",
+    kcal: "650–800",
+    warmup: [
+      ["Treadmill Brisk Walk / Light Jog","–","5 min","RPE 4-5"],
+      ["Arm Circles","–","30 sec each","Loosen shoulders"],
+      ["Hip Rotations","–","20 reps","Both directions"],
+      ["Bodyweight Squats","–","15 reps","Full range"],
+      ["Jumping Jacks","–","30 reps","Elevate heart rate"],
+    ],
+    main: [
+      ["Barbell Back Squat","4","10,8,8,6 / 90s","Full depth"],
+      ["Romanian Deadlift (RDL)","3","12 reps / 75s","Hip hinge, hamstrings"],
+      ["Leg Press ⟶ SUPERSET","3","15 reps / 0s","Feet high for glutes"],
+      ["↳ Walking Lunges (DB)","3","20 steps / 60s","Superset"],
+      ["Leg Extension","3","15 reps / 45s","Quad isolation"],
+      ["Lying Leg Curl","3","15 reps / 45s","Hamstring focus"],
+      ["Calf Raises (Standing)","4","20 reps / 30s","Full stretch at bottom"],
+    ],
+    cardio: [
+      ["Stair Climber / Step Mill","1","15 min","Moderate-high intensity"],
+      ["Jump Squats (HIIT)","5","15 reps / 30s rest","Explosive power"],
+    ],
+    core: [
+      ["Dragon Flag (or V-Up)","3","10 reps / 40s rest",""],
+      ["Decline Sit-Ups","3","15 reps / 30s rest",""],
+      ["Hollow Body Hold","3","30 sec / 30s rest",""],
+      ["Ab Wheel Rollout","3","12 reps / 40s rest",""],
+    ],
   },
   {
-    id:"d4",
-    label:"Day 4 – Shoulders + Traps",
-    short:"Shoulders + Traps",
-    weekDay:"Thu",
-    items:[
-      { name:"Dumbbell shoulder press", details:"4 × 8–12 reps", target:"Do not arch back; seated if needed" },
-      { name:"Lateral raises", details:"4 × 12–15 reps", target:"Slight bend in elbow, pause at top" },
-      { name:"Front raises", details:"3 × 10–12 reps", target:"Lift to eye level only" },
-      { name:"Rear delt fly", details:"3 × 12–15 reps", target:"Think elbows, not hands" },
-      { name:"Shrugs", details:"4 × 12–15 reps", target:"Up and slightly back, full squeeze" },
-      { name:"Cardio: Cross trainer", details:"15 min", target:"Comfortable but sweaty pace" }
-    ]
+    day: 4, week: 1,
+    title: "ACTIVE RECOVERY + CORE",
+    subtitle: "Mobility & Restoration",
+    kcal: "250–350",
+    warmup: [
+      ["Gentle Walk (outdoor or treadmill)","–","10 min","Easy pace RPE 3"],
+      ["Full body dynamic stretching","–","5 min","Head to toe"],
+    ],
+    main: [
+      ["Foam Rolling – Full Body","1","10 min","Quads, back, lats, calves"],
+      ["Cat-Cow Stretch","3","10 reps","Spine mobility"],
+      ["Hip Flexor Stretch","3","45 sec each","Hold and breathe"],
+      ["World's Greatest Stretch","3","5 each side","Full body opener"],
+      ["Thoracic Spine Rotations","3","10 each side","Upper back mobility"],
+      ["Yoga Flow / Sun Salutation","3","5 min","Optional but recommended"],
+    ],
+    cardio: [
+      ["Low Intensity Steady State (LISS)","1","25 min walk","Fat oxidation zone"],
+    ],
+    core: [
+      ["Dead Bug","3","10 each side / 30s","Slow and controlled"],
+      ["Plank Hold","3","60 sec / 30s","Maintain form"],
+      ["Bird Dog","3","10 each side / 30s","Core stability"],
+      ["Glute Bridge (hold 2 sec)","3","15 reps / 30s","Activate glutes"],
+    ],
   },
   {
-    id:"d5",
-    label:"Day 5 – Arms + Core",
-    short:"Arms + Core",
-    weekDay:"Fri",
-    items:[
-      { name:"Barbell curls + Tricep pushdown", details:"4 × 10–12 each (superset)", target:"Minimal rest between moves" },
-      { name:"Hammer curls + Overhead tricep ext", details:"3 × 10–12 each (superset)", target:"Control stretch on triceps" },
-      { name:"Preacher curls", details:"3 × 10–12 reps", target:"Slow negative for biceps" },
-      { name:"Cable crunch", details:"3 × 12–15 reps", target:"Flex spine slightly, exhale at squeeze" },
-      { name:"Russian twists", details:"3 × 20 total reps", target:"Light weight, rotate with control" }
-    ]
+    day: 5, week: 1,
+    title: "SHOULDERS + ARMS + HIIT",
+    subtitle: "Circuit Training",
+    kcal: "580–680",
+    warmup: [
+      ["Treadmill Brisk Walk","–","5 min","Warm up"],
+      ["Shoulder Rotations","–","20 each dir","Forward & back"],
+      ["Band Pull-Aparts","–","15 reps","Or doorway stretch"],
+      ["Push-Up (half pace)","–","10 reps","Chest & shoulder activation"],
+      ["Lat Stretch + Chest Opener","–","30 sec each","Hold stretch"],
+    ],
+    main: [
+      ["Barbell Overhead Press","4","10,8,8,6 / 75s","Core tight"],
+      ["DB Lateral Raises ⟶ SUPERSET","4","15 reps / 0s","Elbow slightly bent"],
+      ["↳ Front Raises (DB)","4","12 reps / 60s","Superset"],
+      ["Face Pulls (Cable)","3","15 reps / 45s","Rear delt + rotator"],
+      ["EZ-Bar Curl ⟶ SUPERSET","3","12 reps / 0s","Bicep focus"],
+      ["↳ Skull Crushers","3","12 reps / 60s","Tricep long head"],
+      ["21s Bicep Curl (DB)","2","21 reps / 75s","7 bottom + 7 top + 7 full"],
+    ],
+    cardio: [
+      ["Rowing Machine Warmup","1","3 min","Easy pace"],
+      ["Rowing Sprints","8","250m hard / 60s rest","Max power"],
+      ["Jump Rope Finisher","3","60 sec / 30s","Keep moving"],
+    ],
+    core: [
+      ["Plank (Standard)","3","45 sec / 30s",""],
+      ["Bicycle Crunches","3","20 reps / 30s",""],
+      ["Leg Raises (hanging or lying)","3","15 reps / 30s",""],
+      ["Russian Twists (with plate)","3","20 reps / 30s",""],
+    ],
   },
   {
-    id:"d6",
-    label:"Day 6 – Cardio + Full Body Burn",
-    short:"Cardio + Full Body",
-    weekDay:"Sat",
-    items:[
-      { name:"Cycling", details:"10–15 min", target:"RPE 5–6/10, warm but can talk" },
-      { name:"Battle ropes / Skipping", details:"10–15 min intervals", target:"20–30s hard / 30–40s easy" },
-      { name:"Light dumbbell circuit", details:"3 rounds, 6–8 exercises", target:"Full body, no set to failure" },
-      { name:"Stretching", details:"10 min", target:"Focus on hips, hamstrings, chest" }
-    ]
+    day: 6, week: 1,
+    title: "FULL BODY FAT-BURN CIRCUIT",
+    subtitle: "Core Blast",
+    kcal: "620–750",
+    warmup: [
+      ["Treadmill Brisk Walk / Light Jog","–","5 min","RPE 4-5"],
+      ["Arm Circles","–","30 sec each","Loosen shoulders"],
+      ["Hip Rotations","–","20 reps","Both directions"],
+      ["Bodyweight Squats","–","15 reps","Full range"],
+      ["Jumping Jacks","–","30 reps","Elevate heart rate"],
+    ],
+    main: [
+      ["── CIRCUIT A – 4 Rounds ──","–","60s rest between rounds","No rest between exercises"],
+      ["A1: Kettlebell Swings","4","20 reps / 0s","Hip drive, back flat"],
+      ["A2: Dumbbell Thrusters","4","15 reps / 0s","Squat to press"],
+      ["A3: Burpee (full)","4","12 reps / 0s","Max effort"],
+      ["A4: Box Jumps","4","10 reps / 60s","Land softly"],
+      ["── CIRCUIT B – 3 Rounds ──","–","60s rest between rounds","Upper body strength"],
+      ["B1: Pull-Ups (or Lat Pulldown)","3","10 reps / 0s","Full ROM"],
+      ["B2: Push-Ups (Diamond)","3","15 reps / 0s","Tricep emphasis"],
+      ["B3: DB Row (each arm)","3","12 reps / 60s","Controlled"],
+    ],
+    cardio: [
+      ["Treadmill HIIT (final burn)","6","40s sprint / 20s walk","All out effort"],
+      ["Incline Walk Cooldown","1","5 min","Heart rate down"],
+    ],
+    core: [
+      ["Side Plank (each side)","3","30 sec / 20s",""],
+      ["Cable Crunches","3","15 reps / 30s",""],
+      ["Mountain Climbers","3","30 sec / 20s",""],
+      ["Reverse Crunches","3","15 reps / 30s",""],
+    ],
   },
   {
-    id:"d7",
-    label:"Day 7 – REST",
-    short:"Rest",
-    weekDay:"Sun",
-    items:[
-      { name:"Walking only", details:"20–30 min easy walk", target:"Relaxed, outdoor if possible" },
-      { name:"Good sleep 😴", details:"Earlier bedtime", target:"Prepare body for next week" }
-    ]
-  }
+    day: 7, week: 1,
+    title: "COMPLETE REST DAY",
+    subtitle: "Meal Prep + Mental Reset",
+    kcal: "0 (Rest)",
+    warmup: [["Light stretching or yoga","–","10–15 min","Optional"]],
+    main: [
+      ["FULL REST – Body repairs & grows here","–","–","–"],
+      ["10,000 Steps (casual walk)","–","Throughout day","Stay lightly active"],
+      ["Meal Prep for Week 2","–","1–2 hours","Cook proteins in bulk"],
+      ["Sleep 7–9 hours","–","7–9 hrs","Growth hormone peaks during sleep"],
+      ["Review progress photos / measurements","–","15 min","Track and adjust"],
+    ],
+    cardio: [["Rest or gentle 20 min walk","–","Optional","LISS only if feeling good"]],
+    core: [["Rest – no core training today","–","–","Recovery is training"]],
+  },
+
+  // ── WEEK 2 ──────────────────────────────────────────────
+  {
+    day: 8, week: 2,
+    title: "CHEST + TRICEPS",
+    subtitle: "Week 2 – Progressive Overload",
+    kcal: "580–680",
+    warmup: [
+      ["Treadmill Brisk Walk","–","5 min","Warm up"],
+      ["Shoulder Rotations","–","20 each dir","Forward & back"],
+      ["Band Pull-Aparts","–","15 reps","Or doorway stretch"],
+      ["Push-Up (half pace)","–","10 reps","Chest activation"],
+      ["Lat Stretch + Chest Opener","–","30 sec each","Hold stretch"],
+    ],
+    main: [
+      ["Barbell Bench Press (+2.5kg from W1)","4","10,8,8,6 / 75s","+2.5kg each side"],
+      ["Incline DB Press","4","12,10,10,8 / 60s","Add 1 set vs W1"],
+      ["Pec Deck Machine","3","15 reps / 45s","New exercise"],
+      ["Cable Crossover ⟶ SUPERSET","3","15 reps / 0s","Low to high"],
+      ["↳ Tricep Overhead Extension (cable)","3","15 reps / 60s","Superset"],
+      ["Close-Grip Bench Press","3","10 reps / 60s","New W2 exercise"],
+      ["Dip Machine (weighted +5kg)","3","12 reps / 60s","Progressive"],
+    ],
+    cardio: [
+      ["Incline Treadmill Walk (10-12%)","1","15 min","Speed 5-6 km/h"],
+      ["HIIT Sprint Intervals (flat)","8","30s sprint / 30s walk","Max effort"],
+    ],
+    core: [
+      ["Plank (Standard)","3","45 sec / 30s",""],
+      ["Bicycle Crunches","3","20 reps / 30s",""],
+      ["Leg Raises (hanging or lying)","3","15 reps / 30s",""],
+      ["Russian Twists (with plate)","3","20 reps / 30s",""],
+    ],
+  },
+  {
+    day: 9, week: 2,
+    title: "BACK + BICEPS",
+    subtitle: "Week 2 – Intensity Spike",
+    kcal: "600–700",
+    warmup: [
+      ["Treadmill Brisk Walk / Light Jog","–","5 min","RPE 4-5"],
+      ["Arm Circles","–","30 sec each","Loosen shoulders"],
+      ["Hip Rotations","–","20 reps","Both directions"],
+      ["Bodyweight Squats","–","15 reps","Full range"],
+      ["Jumping Jacks","–","30 reps","Elevate heart rate"],
+    ],
+    main: [
+      ["Deadlift (+5kg from W1)","4","8,6,6,5 / 90s","Heavier this week"],
+      ["T-Bar Row","4","10,8,8,8 / 75s","New exercise W2"],
+      ["Wide-Grip Pull-Ups (or Assisted)","3","10 reps / 60s","Full ROM"],
+      ["Single Arm DB Row ⟶ SUPERSET","3","12 each / 0s","Elbow back"],
+      ["↳ Preacher Curl (EZ Bar)","3","12 reps / 60s","Bicep peak"],
+      ["Incline DB Curl","3","12 each arm / 60s","Full stretch"],
+      ["Cable Curl (rope)","3","15 reps / 45s","Squeeze hard"],
+    ],
+    cardio: [
+      ["Stationary Bike Warmup","1","3 min easy","Level 4"],
+      ["Bike HIIT Intervals","10","20s max / 40s easy","Level 10 / Level 4"],
+      ["Incline Treadmill Cooldown","1","5 min","8% incline"],
+    ],
+    core: [
+      ["Side Plank (each side)","3","30 sec / 20s",""],
+      ["Cable Crunches","3","15 reps / 30s",""],
+      ["Mountain Climbers","3","30 sec / 20s",""],
+      ["Reverse Crunches","3","15 reps / 30s",""],
+    ],
+  },
+  {
+    day: 10, week: 2,
+    title: "LEGS",
+    subtitle: "Week 2 – Volume Increase",
+    kcal: "680–820",
+    warmup: [
+      ["Treadmill Brisk Walk / Light Jog","–","5 min","RPE 4-5"],
+      ["Arm Circles","–","30 sec each","Loosen shoulders"],
+      ["Hip Rotations","–","20 reps","Both directions"],
+      ["Bodyweight Squats","–","15 reps","Full range"],
+      ["Jumping Jacks","–","30 reps","Elevate heart rate"],
+    ],
+    main: [
+      ["Barbell Squat (+5kg from W1)","5","10,8,8,6,6 / 90s","Added 5th set"],
+      ["Hack Squat (new W2)","3","12 reps / 75s","Quad focus"],
+      ["Romanian Deadlift (+5kg)","3","12 reps / 75s","Progressive"],
+      ["Bulgarian Split Squat ⟶ SUPERSET","3","12 each leg / 0s","DB in hands"],
+      ["↳ Leg Curl (seated)","3","15 reps / 60s","Superset"],
+      ["Leg Extension (+10% weight)","3","15 reps / 45s","Progressive"],
+      ["Calf Press (machine)","4","20 reps / 30s","New exercise"],
+    ],
+    cardio: [
+      ["Stair Climber","1","20 min","+5 min vs W1"],
+      ["Bodyweight Jump Squats","6","15 reps / 30s rest","Added 1 round"],
+    ],
+    core: [
+      ["Dragon Flag (or V-Up)","3","10 reps / 40s",""],
+      ["Decline Sit-Ups","3","15 reps / 30s",""],
+      ["Hollow Body Hold","3","30 sec / 30s",""],
+      ["Ab Wheel Rollout","3","12 reps / 40s",""],
+    ],
+  },
+  {
+    day: 11, week: 2,
+    title: "ACTIVE RECOVERY",
+    subtitle: "Week 2 – Mobility Focus",
+    kcal: "280–380",
+    warmup: [["Yoga / dynamic flow","–","10 min","Set the tone"]],
+    main: [
+      ["Foam Rolling – Deep Tissue Focus","1","12 min","Slow, 30s per area"],
+      ["Pigeon Pose (each side)","3","60 sec","Hip flexor + glute"],
+      ["Thoracic Rotations","3","10 each","Unlock upper back"],
+      ["90/90 Hip Stretch","3","60 sec each","Both hip positions"],
+      ["Band Work – Shoulder Health","3","15 each","External rotations"],
+    ],
+    cardio: [["LISS Walk (outdoor preferred)","1","30 min","Fasted if possible"]],
+    core: [
+      ["Dead Bug","3","12 each side / 30s","Progression from W1"],
+      ["Plank with Hip Dip","3","20 reps / 30s","Dynamic plank"],
+      ["Bird Dog (slow)","3","12 each / 30s","2 sec hold each rep"],
+    ],
+  },
+  {
+    day: 12, week: 2,
+    title: "SHOULDERS + ARMS",
+    subtitle: "Week 2 – Superset Heavy",
+    kcal: "600–700",
+    warmup: [
+      ["Treadmill Brisk Walk","–","5 min","Warm up"],
+      ["Shoulder Rotations","–","20 each dir","Forward & back"],
+      ["Band Pull-Aparts","–","15 reps","Or doorway stretch"],
+      ["Push-Up (half pace)","–","10 reps","Chest activation"],
+      ["Lat Stretch + Chest Opener","–","30 sec each","Hold stretch"],
+    ],
+    main: [
+      ["Standing Barbell Press (+2.5kg)","4","10,8,8,6 / 75s","Increase from W1"],
+      ["Arnold Press (DB) ⟶ SUPERSET","3","12 reps / 0s","Full rotation"],
+      ["↳ Lateral Raises (cable)","3","15 reps / 60s","Constant tension"],
+      ["Reverse Pec Deck (rear delt)","3","15 reps / 45s","Lean forward slightly"],
+      ["Barbell Curl 21s ⟶ SUPERSET","3","21 reps / 0s","Brutal burnout"],
+      ["↳ Overhead Tricep (DB, two hands)","3","15 reps / 60s","Superset"],
+      ["Hammer Curl to Press","3","10 reps / 60s","Compound curl-press"],
+    ],
+    cardio: [
+      ["Rowing Machine Warmup","1","3 min","Easy pace"],
+      ["Rowing Sprints","8","250m hard / 60s rest","Max power"],
+      ["Jump Rope Finisher","3","60 sec / 30s","Keep moving"],
+    ],
+    core: [
+      ["Plank (Standard)","3","45 sec / 30s",""],
+      ["Bicycle Crunches","3","20 reps / 30s",""],
+      ["Leg Raises (hanging or lying)","3","15 reps / 30s",""],
+      ["Russian Twists (with plate)","3","20 reps / 30s",""],
+    ],
+  },
+  {
+    day: 13, week: 2,
+    title: "FULL BODY CIRCUIT",
+    subtitle: "Week 2 – Increased Volume",
+    kcal: "650–780",
+    warmup: [
+      ["Treadmill Brisk Walk / Light Jog","–","5 min","RPE 4-5"],
+      ["Arm Circles","–","30 sec each","Loosen shoulders"],
+      ["Hip Rotations","–","20 reps","Both directions"],
+      ["Bodyweight Squats","–","15 reps","Full range"],
+      ["Jumping Jacks","–","30 reps","Elevate heart rate"],
+    ],
+    main: [
+      ["── GIANT SET – 4 Rounds ──","–","75s rest between rounds","5 exercises back to back"],
+      ["1: Power Clean (barbell)","4","8 reps / 0s","New exercise W2"],
+      ["2: Push Press","4","10 reps / 0s","Explosive"],
+      ["3: KB Swings","4","20 reps / 0s","Hip drive"],
+      ["4: Box Jump","4","10 reps / 0s","Land soft"],
+      ["5: Burpee Pull-Up","4","8 reps / 75s","Full body"],
+      ["FINISHER: Tabata Protocol","1","8 rounds × 20s on / 10s off","Mountain climbers or jump squats"],
+    ],
+    cardio: [
+      ["Treadmill Sprint Intervals","10","30s sprint / 30s rest","All out, increase speed vs W1"],
+    ],
+    core: [
+      ["Side Plank (each side)","3","30 sec / 20s",""],
+      ["Cable Crunches","3","15 reps / 30s",""],
+      ["Mountain Climbers","3","30 sec / 20s",""],
+      ["Reverse Crunches","3","15 reps / 30s",""],
+    ],
+  },
+  {
+    day: 14, week: 2,
+    title: "REST DAY",
+    subtitle: "Week 2 End – Review + Recharge",
+    kcal: "0 (Rest)",
+    warmup: [["Gentle yoga or walk","–","20 min","Optional"]],
+    main: [
+      ["COMPLETE REST","–","–","Body adapts and grows on rest days"],
+      ["Week 2 Progress Check","–","Photos + measurements","Waist, chest, arms"],
+      ["Adjust diet if needed","–","Review macros","Protein hitting target?"],
+      ["Plan Week 3 meals","–","Prep food","Cook proteins in batch"],
+    ],
+    cardio: [["Optional easy walk","–","20–30 min","Fresh air + mindset reset"]],
+    core: [["No core training – rest","–","–","Recovery essential"]],
+  },
+
+  // ── WEEK 3 ──────────────────────────────────────────────
+  {
+    day: 15, week: 3,
+    title: "CHEST + TRICEPS",
+    subtitle: "Week 3 – Drop Sets + Failure",
+    kcal: "600–700",
+    warmup: [
+      ["Treadmill Brisk Walk","–","5 min","Warm up"],
+      ["Shoulder Rotations","–","20 each dir","Forward & back"],
+      ["Band Pull-Aparts","–","15 reps","Or doorway stretch"],
+      ["Push-Up (half pace)","–","10 reps","Chest activation"],
+      ["Lat Stretch + Chest Opener","–","30 sec each","Hold stretch"],
+    ],
+    main: [
+      ["Barbell Bench Press (Max effort)","5","10,8,6,5,3 / 90s","Test new PR"],
+      ["Incline DB Press (Drop Set)","3","10→drop→10→drop→10 / 90s","3 drop sets"],
+      ["Cable Fly (High to Low)","4","15 reps / 45s","Constant tension"],
+      ["Dips to Failure ⟶ SUPERSET","3","To failure / 0s","Bodyweight"],
+      ["↳ Skull Crushers (EZ Bar)","3","12 reps / 60s","Superset"],
+      ["Tricep Pushdown (Drop Set)","3","15→12→10 / 60s","Reduce weight each drop"],
+    ],
+    cardio: [
+      ["Incline Treadmill Walk (10-12%)","1","15 min","Speed 5-6 km/h"],
+      ["HIIT Sprint Intervals (flat)","8","30s sprint / 30s walk","Max effort"],
+    ],
+    core: [
+      ["Dragon Flag (or V-Up)","3","10 reps / 40s",""],
+      ["Decline Sit-Ups","3","15 reps / 30s",""],
+      ["Hollow Body Hold","3","30 sec / 30s",""],
+      ["Ab Wheel Rollout","3","12 reps / 40s",""],
+    ],
+  },
+  {
+    day: 16, week: 3,
+    title: "BACK + BICEPS",
+    subtitle: "Week 3 – Max Intensity",
+    kcal: "630–740",
+    warmup: [
+      ["Treadmill Brisk Walk / Light Jog","–","5 min","RPE 4-5"],
+      ["Arm Circles","–","30 sec each","Loosen shoulders"],
+      ["Hip Rotations","–","20 reps","Both directions"],
+      ["Bodyweight Squats","–","15 reps","Full range"],
+      ["Jumping Jacks","–","30 reps","Elevate heart rate"],
+    ],
+    main: [
+      ["Deadlift (Heavy – near max)","5","6,5,4,3,3 / 2 min","PR attempt day"],
+      ["Weighted Pull-Ups","4","8,8,6,6 / 90s","Add weight belt"],
+      ["Bent-Over Barbell Row (Drop Set)","3","10→10→10 / 75s","Heavy first set"],
+      ["Reverse Grip Pulldown","3","12 reps / 60s","New exercise W3"],
+      ["Drag Curl (Barbell) ⟶ SUPERSET","3","12 reps / 0s","Elbows back"],
+      ["↳ Incline DB Curl","3","12 each / 60s","Full stretch at bottom"],
+      ["Cable Curl (Supinated grip)","3","15 reps / 45s","Constant tension"],
+    ],
+    cardio: [
+      ["Stationary Bike Warmup","1","3 min easy","Level 4"],
+      ["Bike HIIT Intervals","10","20s max / 40s easy","Level 10 / Level 4"],
+      ["Incline Treadmill Cooldown","1","5 min","8% incline"],
+    ],
+    core: [
+      ["Plank (Standard)","3","45 sec / 30s",""],
+      ["Bicycle Crunches","3","20 reps / 30s",""],
+      ["Leg Raises (hanging or lying)","3","15 reps / 30s",""],
+      ["Russian Twists (with plate)","3","20 reps / 30s",""],
+    ],
+  },
+  {
+    day: 17, week: 3,
+    title: "LEGS",
+    subtitle: "Week 3 – Lactic Acid Protocol",
+    kcal: "700–850",
+    warmup: [
+      ["Treadmill Brisk Walk / Light Jog","–","5 min","RPE 4-5"],
+      ["Arm Circles","–","30 sec each","Loosen shoulders"],
+      ["Hip Rotations","–","20 reps","Both directions"],
+      ["Bodyweight Squats","–","15 reps","Full range"],
+      ["Jumping Jacks","–","30 reps","Elevate heart rate"],
+    ],
+    main: [
+      ["Barbell Squat (Heavy + Volume)","5","10,8,6,6,20 / 2-3 min","Last set high rep burnout"],
+      ["Pause Squats (3 sec hold)","3","8 reps / 90s","New W3 stimulus"],
+      ["Leg Press (Giant Drop Set)","3","20→15→12→10 / 90s","Strip weight"],
+      ["Bulgarian Split Squat ⟶ SUPERSET","3","12 each leg / 0s","DB in hands"],
+      ["↳ Lying Leg Curl","3","15 reps / 60s","Superset"],
+      ["Smith Machine Squat (finish)","3","15 reps / 45s","Burnout set"],
+      ["Calf Raises (superset machines)","4","25 reps / 30s","Seated + standing"],
+    ],
+    cardio: [
+      ["Stair Climber (high resistance)","1","20 min","Level 8–10"],
+      ["Sprint Finisher","6","40s sprint / 20s rest","Treadmill 14–18 km/h"],
+    ],
+    core: [
+      ["Side Plank (each side)","3","30 sec / 20s",""],
+      ["Cable Crunches","3","15 reps / 30s",""],
+      ["Mountain Climbers","3","30 sec / 20s",""],
+      ["Reverse Crunches","3","15 reps / 30s",""],
+    ],
+  },
+  {
+    day: 18, week: 3,
+    title: "ACTIVE RECOVERY",
+    subtitle: "Week 3 – Deep Mobility",
+    kcal: "280–360",
+    warmup: [["Gentle movement flow","–","10 min","No intensity"]],
+    main: [
+      ["Full Body Foam Roll + Lacrosse Ball","1","15 min","Focus on hips, IT band"],
+      ["PNF Stretching (partner or door)","3","60 sec each muscle","Contract-relax method"],
+      ["Inversion Table / Hanging Decompression","3","60 sec","Spine decompression"],
+      ["Breathwork (4-7-8 technique)","5","3 rounds","Cortisol reduction"],
+    ],
+    cardio: [["Easy walk / swim / cycling","1","30–40 min","Low HR Zone 2"]],
+    core: [
+      ["Plank Variations (all 4 sides)","4","45 sec each / 15s","Front, sides, reverse"],
+      ["Slow Leg Raises","3","12 reps (4s down) / 30s","Tempo training"],
+    ],
+  },
+  {
+    day: 19, week: 3,
+    title: "SHOULDERS + ARMS",
+    subtitle: "Week 3 – Pump & Definition",
+    kcal: "600–700",
+    warmup: [
+      ["Treadmill Brisk Walk","–","5 min","Warm up"],
+      ["Shoulder Rotations","–","20 each dir","Forward & back"],
+      ["Band Pull-Aparts","–","15 reps","Or doorway stretch"],
+      ["Push-Up (half pace)","–","10 reps","Chest activation"],
+      ["Lat Stretch + Chest Opener","–","30 sec each","Hold stretch"],
+    ],
+    main: [
+      ["DB Shoulder Press (heavy)","5","10,8,8,6,6 / 75s","Extra set vs W2"],
+      ["Lateral Raise Drop Set","4","15→12→10 / 60s","3 drops per set"],
+      ["Upright Row ⟶ SUPERSET","3","12 reps / 0s","Traps + medial delt"],
+      ["↳ Rear Delt Cable Fly","3","15 reps / 60s","Face the cable"],
+      ["Barbell Curl (Drop Set) ⟶ SS","3","12→10→8 / 0s","Reduce weight"],
+      ["↳ Diamond Push-Up","3","15 reps / 60s","Superset finisher"],
+      ["Concentration Curl + Tricep Kickback","3","12 each arm / 60s","Isolation superset"],
+    ],
+    cardio: [
+      ["Rowing Machine Warmup","1","3 min","Easy pace"],
+      ["Rowing Sprints","8","250m hard / 60s rest","Max power"],
+      ["Jump Rope Finisher","3","60 sec / 30s","Keep moving"],
+    ],
+    core: [
+      ["Dragon Flag (or V-Up)","3","10 reps / 40s",""],
+      ["Decline Sit-Ups","3","15 reps / 30s",""],
+      ["Hollow Body Hold","3","30 sec / 30s",""],
+      ["Ab Wheel Rollout","3","12 reps / 40s",""],
+    ],
+  },
+  {
+    day: 20, week: 3,
+    title: "METABOLIC CONDITIONING",
+    subtitle: "Week 3 – Peak Burn",
+    kcal: "700–850",
+    warmup: [
+      ["Treadmill Brisk Walk / Light Jog","–","5 min","RPE 4-5"],
+      ["Arm Circles","–","30 sec each","Loosen shoulders"],
+      ["Hip Rotations","–","20 reps","Both directions"],
+      ["Bodyweight Squats","–","15 reps","Full range"],
+      ["Jumping Jacks","–","30 reps","Elevate heart rate"],
+    ],
+    main: [
+      ["── COMPLEX A – Barbell Only (5 Rounds) ──","–","90s rest between rounds","No dropping bar mid-complex"],
+      ["Romanian Deadlift","5","6 reps / 0s","Back flat"],
+      ["Bent-Over Row","5","6 reps / 0s","No rest"],
+      ["Hang Power Clean","5","6 reps / 0s","Explosive"],
+      ["Push Press","5","6 reps / 0s","Use leg drive"],
+      ["Front Squat","5","6 reps / 90s","Elbows high"],
+      ["AMRAP 10 min: 10 Pull-Ups + 10 Push-Ups + 10 Air Squats","AMRAP","Max rounds","Track your rounds"],
+    ],
+    cardio: [
+      ["Assault Bike Tabata","8","20s max / 10s off","Most brutal cardio tool"],
+    ],
+    core: [
+      ["Plank (Standard)","3","45 sec / 30s",""],
+      ["Bicycle Crunches","3","20 reps / 30s",""],
+      ["Leg Raises (hanging or lying)","3","15 reps / 30s",""],
+      ["Russian Twists (with plate)","3","20 reps / 30s",""],
+    ],
+  },
+  {
+    day: 21, week: 3,
+    title: "REST DAY",
+    subtitle: "Week 3 Complete – 21 Days Done!",
+    kcal: "0 (Rest)",
+    warmup: [["Optional yoga / walk","–","20 min","No intensity"]],
+    main: [
+      ["COMPLETE REST – YOU EARNED IT","–","–","3 weeks done – biggest week ahead"],
+      ["Full body measurements + photos","–","Take now","Compare to Day 1 photos"],
+      ["Supplement review","–","Check stock","Protein, creatine topped up?"],
+      ["Plan final week – peak conditioning","–","Mental prep","Last 9 days – go hard"],
+    ],
+    cardio: [["Easy walk or rest","–","Optional 20 min","Stay lightly active"]],
+    core: [["No core training today","–","–","Rest and recover fully"]],
+  },
+
+  // ── WEEK 4 ──────────────────────────────────────────────
+  {
+    day: 22, week: 4,
+    title: "CHEST + TRICEPS",
+    subtitle: "Week 4 – Shred Mode",
+    kcal: "620–720",
+    warmup: [
+      ["Treadmill Brisk Walk","–","5 min","Warm up"],
+      ["Shoulder Rotations","–","20 each dir","Forward & back"],
+      ["Band Pull-Aparts","–","15 reps","Or doorway stretch"],
+      ["Push-Up (half pace)","–","10 reps","Chest activation"],
+      ["Lat Stretch + Chest Opener","–","30 sec each","Hold stretch"],
+    ],
+    main: [
+      ["Barbell Bench Press (PR attempt)","5","8,6,5,3,3 / 90s","New personal best"],
+      ["Incline Barbell Press (new W4)","4","10,8,8,6 / 75s","Swapped from DB"],
+      ["Cable Fly (low + high alternating)","4","12 each angle / 45s","Full chest sweep"],
+      ["Dips (Weighted +10kg) ⟶ SUPERSET","4","10 reps / 0s","Heavier than W1"],
+      ["↳ Tricep Kickback (both arms DB)","4","15 reps / 60s","Superset"],
+      ["Push-Up Pyramid (10-8-6-4-2)","1","Pyramid / 30s between","Zero-rest burnout"],
+    ],
+    cardio: [
+      ["Incline Treadmill Walk (10-12%)","1","15 min","Speed 5-6 km/h"],
+      ["HIIT Sprint Intervals (flat)","8","30s sprint / 30s walk","Max effort"],
+    ],
+    core: [
+      ["Dragon Flag (or V-Up)","3","10 reps / 40s",""],
+      ["Decline Sit-Ups","3","15 reps / 30s",""],
+      ["Hollow Body Hold","3","30 sec / 30s",""],
+      ["Ab Wheel Rollout","3","12 reps / 40s",""],
+    ],
+  },
+  {
+    day: 23, week: 4,
+    title: "BACK + BICEPS",
+    subtitle: "Week 4 – Peak Size",
+    kcal: "640–760",
+    warmup: [
+      ["Treadmill Brisk Walk / Light Jog","–","5 min","RPE 4-5"],
+      ["Arm Circles","–","30 sec each","Loosen shoulders"],
+      ["Hip Rotations","–","20 reps","Both directions"],
+      ["Bodyweight Squats","–","15 reps","Full range"],
+      ["Jumping Jacks","–","30 reps","Elevate heart rate"],
+    ],
+    main: [
+      ["Deadlift (Heaviest of program)","5","5,4,3,2,1 / 2-3 min","True max effort"],
+      ["Weighted Pull-Ups (max load)","5","6,6,5,5,4 / 90s","Best pull-up day"],
+      ["DB Row (heavy) ⟶ SUPERSET","4","10 each arm / 0s","Full stretch + contraction"],
+      ["↳ Reverse Barbell Curl","4","12 reps / 60s","Brachioradialis"],
+      ["Barbell Curl (Cheat curl – controlled)","4","10 reps / 60s","Heavy, slight body english"],
+      ["Incline Curl + Peak Contraction","3","12 each arm / 45s","Hold 1 sec at top"],
+      ["Cable Curl (21s final)","2","21 reps / 90s","Massive pump finisher"],
+    ],
+    cardio: [
+      ["Stationary Bike Warmup","1","3 min easy","Level 4"],
+      ["Bike HIIT Intervals","10","20s max / 40s easy","Level 10 / Level 4"],
+      ["Incline Treadmill Cooldown","1","5 min","8% incline"],
+    ],
+    core: [
+      ["Plank (Standard)","3","45 sec / 30s",""],
+      ["Bicycle Crunches","3","20 reps / 30s",""],
+      ["Leg Raises (hanging or lying)","3","15 reps / 30s",""],
+      ["Russian Twists (with plate)","3","20 reps / 30s",""],
+    ],
+  },
+  {
+    day: 24, week: 4,
+    title: "LEGS",
+    subtitle: "Week 4 – High Volume Shred",
+    kcal: "720–880",
+    warmup: [
+      ["Treadmill Brisk Walk / Light Jog","–","5 min","RPE 4-5"],
+      ["Arm Circles","–","30 sec each","Loosen shoulders"],
+      ["Hip Rotations","–","20 reps","Both directions"],
+      ["Bodyweight Squats","–","15 reps","Full range"],
+      ["Jumping Jacks","–","30 reps","Elevate heart rate"],
+    ],
+    main: [
+      ["Barbell Squat (Heaviest + Volume)","6","8,6,5,4,15,20 / 2 min","Last 2 sets burnout"],
+      ["Leg Press (Drop Set Giant)","4","25→20→15→10 / 90s","Strip plates"],
+      ["Romanian Deadlift (heavy)","4","10 reps / 75s","Heaviest of program"],
+      ["Walking Lunges (loaded) ⟶ SS","4","24 steps / 0s","DB in hands"],
+      ["↳ Lying Leg Curl (drop set)","4","15→12 / 60s","Superset"],
+      ["Sissy Squat / Leg Extension finisher","3","20 reps / 30s","Quad burn"],
+      ["Calf Superset (seated + standing)","5","25 reps each / 30s","Peak week calf blast"],
+    ],
+    cardio: [
+      ["Stair Climber (max resistance)","1","25 min","Heaviest resistance"],
+      ["Sprint Intervals (final session)","8","30s max / 30s rest","Last full sprint day"],
+    ],
+    core: [
+      ["Side Plank (each side)","3","30 sec / 20s",""],
+      ["Cable Crunches","3","15 reps / 30s",""],
+      ["Mountain Climbers","3","30 sec / 20s",""],
+      ["Reverse Crunches","3","15 reps / 30s",""],
+    ],
+  },
+  {
+    day: 25, week: 4,
+    title: "ACTIVE RECOVERY",
+    subtitle: "Week 4 – Deload Mobility",
+    kcal: "250–350",
+    warmup: [["Gentle flow / breathing","–","10 min","Reset the body"]],
+    main: [
+      ["Foam Roll + Stretch (priority areas)","1","20 min","Soreness from legs"],
+      ["Yoga – restorative session","1","30 min","Focus on hip openers"],
+      ["Ice bath or cold shower (2 min)","1","Optional","Reduces inflammation"],
+    ],
+    cardio: [["LISS Walk (outdoor)","1","35 min","Zone 2 fat burn"]],
+    core: [
+      ["Core Activation Drills","3","Each exercise / 20s","Low intensity"],
+      ["Vacuum Exercise (stomach vacuum)","5","30 sec hold / 30s","Inner core + waist tightening"],
+    ],
+  },
+  {
+    day: 26, week: 4,
+    title: "SHOULDERS + ARMS",
+    subtitle: "Week 4 – Pump Finale",
+    kcal: "620–720",
+    warmup: [
+      ["Treadmill Brisk Walk","–","5 min","Warm up"],
+      ["Shoulder Rotations","–","20 each dir","Forward & back"],
+      ["Band Pull-Aparts","–","15 reps","Or doorway stretch"],
+      ["Push-Up (half pace)","–","10 reps","Chest activation"],
+      ["Lat Stretch + Chest Opener","–","30 sec each","Hold stretch"],
+    ],
+    main: [
+      ["DB Shoulder Press (PR day)","5","8,6,6,4,4 / 90s","Heaviest press"],
+      ["Lateral + Front Raise Superset","4","15 each / 45s","No rest between"],
+      ["Cable Face Pull","4","20 reps / 30s","High reps, lighter"],
+      ["Barbell Curl + Rope Pushdown (SS)","5","12 / 15 / 60s","Classic arm superset"],
+      ["Incline DB Curl ⟶ SUPERSET","4","12 each arm / 0s","Full stretch"],
+      ["↳ Overhead Cable Tricep Extension","4","15 reps / 60s","Superset"],
+      ["21s Curl + Dip Machine Burnout","3","21 / To failure / 75s","Final arm session"],
+    ],
+    cardio: [
+      ["Rowing Machine Warmup","1","3 min","Easy pace"],
+      ["Rowing Sprints","8","250m hard / 60s rest","Max power"],
+      ["Jump Rope Finisher","3","60 sec / 30s","Keep moving"],
+    ],
+    core: [
+      ["Dragon Flag (or V-Up)","3","10 reps / 40s",""],
+      ["Decline Sit-Ups","3","15 reps / 30s",""],
+      ["Hollow Body Hold","3","30 sec / 30s",""],
+      ["Ab Wheel Rollout","3","12 reps / 40s",""],
+    ],
+  },
+  {
+    day: 27, week: 4,
+    title: "FULL BODY POWER + HIIT",
+    subtitle: "Week 4 – Peak Performance",
+    kcal: "700–850",
+    warmup: [
+      ["Treadmill Brisk Walk / Light Jog","–","5 min","RPE 4-5"],
+      ["Arm Circles","–","30 sec each","Loosen shoulders"],
+      ["Hip Rotations","–","20 reps","Both directions"],
+      ["Bodyweight Squats","–","15 reps","Full range"],
+      ["Jumping Jacks","–","30 reps","Elevate heart rate"],
+    ],
+    main: [
+      ["── BEST OF ALL 4 WEEKS – 5 Rounds ──","–","90s rest between rounds","Combine best movements"],
+      ["Barbell Deadlift","5","5 reps heavy / 0s","Strength"],
+      ["Barbell Clean to Press","5","8 reps / 0s","Power"],
+      ["Weighted Pull-Ups","5","8 reps / 0s","Back width"],
+      ["Dips (Weighted)","5","10 reps / 0s","Chest + triceps"],
+      ["Box Jump Burpee","5","8 reps / 90s","Fat burn + power"],
+      ["TABATA FINISHER – 4 min","8","20s max / 10s rest","Sprints or jump squats"],
+    ],
+    cardio: [
+      ["Final HIIT – Treadmill","10","30s sprint / 30s rest","Give everything"],
+      ["Incline Walk Cooldown","1","10 min","Final cooldown"],
+    ],
+    core: [
+      ["Plank (Standard)","3","45 sec / 30s",""],
+      ["Bicycle Crunches","3","20 reps / 30s",""],
+      ["Leg Raises (hanging or lying)","3","15 reps / 30s",""],
+      ["Russian Twists (with plate)","3","20 reps / 30s",""],
+    ],
+  },
+  {
+    day: 28, week: 4,
+    title: "REST + REFLECT",
+    subtitle: "Week 4 – Recovery Day",
+    kcal: "0 (Rest)",
+    warmup: [["Gentle walk / stretch","–","20 min","Optional"]],
+    main: [
+      ["FULL REST","–","–","You have 2 days left – go in fresh"],
+      ["Progress photos + measurements","–","Do it now","Compare Day 1 vs Day 28"],
+      ["Reflect on strength gains","–","Check your logbook","How much heavier are you lifting?"],
+    ],
+    cardio: [["Easy walk 20 min","–","Optional","Stay lightly active"]],
+    core: [["No core training","–","–","Let it recover for finale"]],
+  },
+  {
+    day: 29, week: 4,
+    title: "UPPER BODY FINALE",
+    subtitle: "Best Workout of Your Life 🏆",
+    kcal: "650–750",
+    warmup: [
+      ["Treadmill Brisk Walk","–","5 min","Warm up"],
+      ["Shoulder Rotations","–","20 each dir","Forward & back"],
+      ["Band Pull-Aparts","–","15 reps","Or doorway stretch"],
+      ["Push-Up (half pace)","–","10 reps","Chest activation"],
+      ["Lat Stretch + Chest Opener","–","30 sec each","Hold stretch"],
+    ],
+    main: [
+      ["Barbell Bench Press (Final PR)","5","10,8,6,4,2 / 90s","Last heavy bench"],
+      ["Pull-Ups (Weighted – max load)","5","To failure each / 90s","Best pull-up ever"],
+      ["DB Shoulder Press (heavy)","4","8,6,6,4 / 75s","All out"],
+      ["Barbell Curl (heavy) ⟶ SS","4","12,10,8,8 / 0s","Biggest bicep pump"],
+      ["↳ Dips to failure","4","Max reps / 75s","Superset finisher"],
+      ["21s Bicep Curl (Final set ever)","3","21 reps / 90s","Celebrate! 🎉"],
+      ["Cable Lateral Raise + Face Pull (SS)","3","15 / 20 reps / 60s","Shoulders to finish"],
+    ],
+    cardio: [
+      ["Incline Treadmill Walk (10-12%)","1","15 min","Speed 5-6 km/h"],
+      ["HIIT Sprint Intervals (flat)","8","30s sprint / 30s walk","Max effort"],
+    ],
+    core: [
+      ["Dragon Flag (or V-Up)","3","10 reps / 40s",""],
+      ["Decline Sit-Ups","3","15 reps / 30s",""],
+      ["Hollow Body Hold","3","30 sec / 30s",""],
+      ["Ab Wheel Rollout","3","12 reps / 40s",""],
+    ],
+  },
+  {
+    day: 30, week: 4,
+    title: "LEGS + CORE BLAST — FINALE 🏆",
+    subtitle: "YOU DID IT! Celebration Day",
+    kcal: "720–880",
+    warmup: [
+      ["Treadmill Brisk Walk / Light Jog","–","5 min","RPE 4-5"],
+      ["Arm Circles","–","30 sec each","Loosen shoulders"],
+      ["Hip Rotations","–","20 reps","Both directions"],
+      ["Bodyweight Squats","–","15 reps","Full range"],
+      ["Jumping Jacks","–","30 reps","Elevate heart rate"],
+    ],
+    main: [
+      ["🏆 FINAL SQUAT SESSION","5","10,8,6,5,20 / 2 min","Leave it all in the rack"],
+      ["Romanian Deadlift (final)","4","10 reps / 75s","Perfect form"],
+      ["Leg Press (full drop set)","4","20→15→10→8 / 90s","Strip all plates"],
+      ["Walking Lunges (final march)","3","30 steps / 60s","Down the gym floor"],
+      ["Calf Raise Superset (seated+standing)","5","25 reps each / 30s","Final calf blast"],
+    ],
+    cardio: [
+      ["🔥 FINAL HIIT – Everything You've Got","12","30s sprint / 30s rest","12 rounds – best performance"],
+      ["Incline Walk (final cooldown)","1","10 min","Walk it out, you did it!"],
+    ],
+    core: [
+      ["🏆 FINAL CORE CIRCUIT – 4 Rounds","–","–","Best core workout yet"],
+      ["Plank","4","60 sec / 0s","No shaking"],
+      ["Bicycle Crunches","4","25 reps / 0s","Controlled speed"],
+      ["Leg Raises (hanging)","4","15 reps / 0s","Full ROM"],
+      ["Ab Wheel Rollout","4","12 reps / 45s","Strong finish"],
+    ],
+  },
 ];
 
-const LS_KEY_DAYS = "vishal_workout_ticks_v2";
-const LS_KEY_EX = "vishal_workout_ex_ticks_v1";
+/* ═══════════════════════════════════════════════════════════
+   STORAGE
+═══════════════════════════════════════════════════════════ */
+const SK = "vishal_shred_v2";
+const TK = "vishal_theme_v2";
+const DK = "vishal_start_v2";
 
-function getIST(){
-  const d = new Date();
-  const parts = new Intl.DateTimeFormat("en-IN",{
-    timeZone:TZ,
-    weekday:"short",
-    hour:"2-digit",
-    minute:"2-digit",
-    hour12:false
-  }).formatToParts(d);
-  const get = (type)=> (parts.find(p=>p.type===type)||{}).value;
-  const weekday = get("weekday");
-  const hour = get("hour");
-  const minute = get("minute");
-  return {
-    weekday,
-    h: Number(hour),
-    m: Number(minute),
-    str: `${hour}:${minute}`
-  };
+function loadData() {
+  try {
+    const r = localStorage.getItem(SK);
+    if (r) return JSON.parse(r);
+  } catch(e){}
+  return Array.from({length:30}, () => ({weight:"",belly:"",workout:false,calories:"",notes:""}));
+}
+function saveData() {
+  try { localStorage.setItem(SK, JSON.stringify(data)); } catch(e){}
+}
+function resetAllData() {
+  data = Array.from({length:30}, () => ({weight:"",belly:"",workout:false,calories:"",notes:""}));
+  localStorage.removeItem(DK);
+  saveData();
 }
 
-function loadJson(key){
-  try { return JSON.parse(localStorage.getItem(key)||"{}"); } catch { return {}; }
+let data = loadData();
+let activeFilter = "all";
+
+/* ═══════════════════════════════════════════════════════════
+   THEME
+═══════════════════════════════════════════════════════════ */
+function initTheme() {
+  const t = localStorage.getItem(TK) || "dark";
+  applyTheme(t, false);
 }
-function saveJson(key,obj){
-  localStorage.setItem(key, JSON.stringify(obj));
+function applyTheme(t, save=true) {
+  document.documentElement.setAttribute("data-theme", t);
+  document.getElementById("themeIco").textContent = t === "dark" ? "☀️" : "🌙";
+  if (save) localStorage.setItem(TK, t);
+}
+function toggleTheme() {
+  const cur = document.documentElement.getAttribute("data-theme");
+  applyTheme(cur === "dark" ? "light" : "dark");
 }
 
-function updateWeekProgress(){
-  const ticks = loadJson(LS_KEY_DAYS);
-  const doneCount = plan.filter(p=>p.id!=="d7" && ticks[p.id]).length;
-  document.getElementById("weekProgress").innerText = `Week: ${doneCount} / 6 days done`;
+/* ═══════════════════════════════════════════════════════════
+   STATS
+═══════════════════════════════════════════════════════════ */
+function updateStats() {
+  const done = data.filter(d => d.workout).length;
+  const kcal = data.reduce((s,d) => s + (parseFloat(d.calories)||0), 0);
+
+  let lw = "—", lb = "—";
+  for (let i=29; i>=0; i--) { if (data[i].weight) { lw = data[i].weight+"kg"; break; } }
+  for (let i=29; i>=0; i--) { if (data[i].belly)  { lb = data[i].belly+"cm"; break; } }
+
+  const pct = Math.round((done/30)*100);
+  document.getElementById("fill").style.width = pct + "%";
+  document.getElementById("pct").textContent = pct + "%";
+  document.getElementById("sDone").textContent = done;
+  document.getElementById("sLeft").textContent = 30 - done;
+  document.getElementById("sCal").textContent = Math.round(kcal).toLocaleString();
+  document.getElementById("sWt").textContent = lw;
+  document.getElementById("sBelly").textContent = lb;
 }
 
-function renderPlan(todayOnly=false){
-  const cont = document.getElementById("daysContainer");
-  const dayTicks = loadJson(LS_KEY_DAYS);
-  const exTicks = loadJson(LS_KEY_EX);
-  const ist = getIST();
-  const todayShort = ist.weekday; // "Mon" style
-  document.getElementById("clock").innerText = ist.str;
-  document.getElementById("todayLabel").innerText = `Today: ${todayShort}`;
-
-  const todayPlan = plan.find(p => p.weekDay === todayShort) || plan[0];
-  document.getElementById("todayBadge").innerText = todayPlan.short;
-  document.getElementById("todaySummary").innerText = todayPlan.label;
-  document.getElementById("todayBlocks").innerHTML = todayPlan.items
-    .map(i=>`• ${i.name} (${i.details})`).join("<br>");
-
-  // day progress (exercise level)
-  const exMap = exTicks[todayPlan.id] || {};
-  const totalEx = todayPlan.items.length;
-  const doneEx = Object.values(exMap).filter(Boolean).length;
-  const pct = totalEx ? Math.round((doneEx/totalEx)*100) : 0;
-  const inner = document.getElementById("dayProgressInner");
-  const label = document.getElementById("dayProgressLabel");
-  if(inner && label){
-    inner.style.width = pct+"%";
-    label.innerText = pct+"%";
+/* ═══════════════════════════════════════════════════════════
+   TODAY INDEX
+═══════════════════════════════════════════════════════════ */
+function getTodayIdx() {
+  let startStr = localStorage.getItem(DK);
+  if (!startStr) {
+    const now = new Date(); now.setHours(0,0,0,0);
+    localStorage.setItem(DK, now.toISOString());
+    startStr = now.toISOString();
   }
+  const start = new Date(startStr); start.setHours(0,0,0,0);
+  const now = new Date(); now.setHours(0,0,0,0);
+  const diff = Math.floor((now - start)/(864e5));
+  return Math.min(Math.max(diff,0), 29);
+}
 
-  cont.innerHTML = "";
-  plan.forEach(dayPlan => {
-    if(todayOnly && dayPlan.weekDay !== todayShort) return;
-    const done = !!dayTicks[dayPlan.id];
-    const isToday = dayPlan.weekDay === todayShort;
-    const exMapDay = exTicks[dayPlan.id] || {};
-    const totalItems = dayPlan.items.length;
-    const doneItems = Object.values(exMapDay).filter(Boolean).length;
+/* ═══════════════════════════════════════════════════════════
+   BUILD EXERCISE TABLE ROWS
+═══════════════════════════════════════════════════════════ */
+function buildRows(rows, sectionIcon) {
+  return rows.map(r => {
+    const [name, sets, repsRest, note] = r;
+    const isSect = name.startsWith("──") || name.startsWith("CIRCUIT") || name.startsWith("COMPLEX") || name.startsWith("GIANT") || name.startsWith("AMRAP") || name.startsWith("TABATA") || name.startsWith("FINISHER") || name.startsWith("🏆") || name.startsWith("🔥");
+    if (isSect) {
+      return `<tr class="sect-row"><td colspan="4">${name}</td></tr>`;
+    }
+    const setsHtml = sets && sets !== "–" ? `<span class="ex-badge">${sets}</span>` : "";
+    const repsHtml = repsRest || "";
+    return `<tr>
+      <td>${name}</td>
+      <td>${setsHtml}</td>
+      <td>${repsHtml}</td>
+      <td>${note || ""}</td>
+    </tr>`;
+  }).join("");
+}
 
-    const div = document.createElement("div");
-    div.className = "day-card";
-    div.innerHTML = `
-      <div class="day-header">
-        <div>
-          <div class="day-name">${dayPlan.label}</div>
-          <div class="day-label">${isToday ? "Today" : "Recommended day: "+dayPlan.weekDay}</div>
-        </div>
-        <div style="text-align:right;">
-          ${isToday ? '<span class="chip-today">Today</span>' : ""}
-          <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">
-            ${doneItems}/${totalItems} exercises done
-          </div>
-        </div>
+/* ═══════════════════════════════════════════════════════════
+   RENDER
+═══════════════════════════════════════════════════════════ */
+function render() {
+  const grid = document.getElementById("grid");
+  const todayIdx = getTodayIdx();
+  grid.innerHTML = "";
+
+  let lastWeek = 0;
+
+  PLAN.forEach((plan, i) => {
+    const d = data[i];
+    const wk = plan.week;
+
+    // Week header
+    if (wk !== lastWeek) {
+      lastWeek = wk;
+      const wkLabels = ["","Foundation","Build Phase","Intensity Phase","Peak Shred 🏆"];
+      const wh = document.createElement("div");
+      wh.className = "wk-head";
+      wh.dataset.week = wk;
+      wh.innerHTML = `<span class="wk-lbl">WEEK ${wk}</span><span class="wk-sub">— ${wkLabels[wk]}</span><div class="wk-line"></div>`;
+      grid.appendChild(wh);
+    }
+
+    const isToday = i === todayIdx;
+    const isDone  = !!d.workout;
+
+    // Card
+    const card = document.createElement("div");
+    card.className = "card" + (isDone ? " done" : "") + (isToday ? " today" : "");
+    card.id = `c${i}`;
+    card.dataset.week = wk;
+    card.dataset.day  = i;
+    card.style.animationDelay = Math.min(i * 0.025, 0.3) + "s";
+
+    const todayTag = isToday ? `<span class="today-tag">TODAY</span>` : "";
+
+    card.innerHTML = `
+      <!-- Header -->
+      <div class="ch">
+        <span class="day-badge">DAY ${plan.day}</span>
+        ${todayTag}
+        <span class="day-focus">${plan.title}</span>
+        <div class="dot"></div>
       </div>
-      <div>
-        ${dayPlan.items.map((item,idx)=>`
-          <div class="work-item">
-            <span><input type="checkbox" data-ex="1" data-day="${dayPlan.id}" data-index="${idx}" ${exMapDay[idx]?"checked":""}></span>
-            <span>
-              <div class="work-title">${item.name}</div>
-              <div class="work-meta">${item.details}</div>
-              <div class="work-target">${item.target}</div>
-            </span>
-          </div>
-        `).join("")}
-      </div>
-      <div class="check-row">
-        <label>
-          <input type="checkbox" data-daydone="${dayPlan.id}" ${done?"checked":""}>
-          Mark entire day as done
+
+      <!-- Body -->
+      <div class="cb">
+
+        <!-- Workout type subtitle -->
+        <div style="font-size:11px;color:var(--txt2);margin-bottom:10px;font-style:italic">${plan.subtitle} &nbsp;·&nbsp; <span style="font-family:'JetBrains Mono',monospace;color:var(--fire);font-size:10px;font-weight:700;">~${plan.kcal} kcal</span></div>
+
+        <!-- Workout done checkbox -->
+        <label class="wcheck ${isDone ? 'ticked' : ''}" id="wc${i}">
+          <input type="checkbox" id="chk${i}" ${isDone ? "checked" : ""} aria-label="Workout completed day ${plan.day}"/>
+          <span class="wcheck-lbl">💪 Workout Completed</span>
         </label>
-        <span class="done-text">${done ? "✅ Logged!" : ""}</span>
+
+        <!-- Workout plan expander -->
+        <button class="expand-btn" id="expBtn${i}" aria-expanded="false">
+          <span>📋 View Full Workout Plan</span>
+          <span class="expand-arrow">▼</span>
+        </button>
+
+        <!-- Detail panel with tabs -->
+        <div class="workout-detail" id="det${i}">
+          <div class="dtabs">
+            <button class="dtab active" data-tab="wu" data-idx="${i}">🔥 Warm-Up</button>
+            <button class="dtab" data-tab="mn" data-idx="${i}">💪 Main</button>
+            <button class="dtab" data-tab="cd" data-idx="${i}">🏃 Cardio</button>
+            <button class="dtab" data-tab="co" data-idx="${i}">🔲 Core</button>
+          </div>
+
+          <div class="dtab-panel active" id="p-wu-${i}">
+            <div class="detail-section">
+              <div class="detail-section-title">Warm-Up (5–10 min)</div>
+              <table class="ex-table"><tbody>${buildRows(plan.warmup)}</tbody></table>
+            </div>
+          </div>
+          <div class="dtab-panel" id="p-mn-${i}">
+            <div class="detail-section">
+              <div class="detail-section-title">Main Workout</div>
+              <table class="ex-table"><tbody>${buildRows(plan.main)}</tbody></table>
+            </div>
+          </div>
+          <div class="dtab-panel" id="p-cd-${i}">
+            <div class="detail-section">
+              <div class="detail-section-title">Cardio / HIIT</div>
+              <table class="ex-table"><tbody>${buildRows(plan.cardio)}</tbody></table>
+            </div>
+          </div>
+          <div class="dtab-panel" id="p-co-${i}">
+            <div class="detail-section">
+              <div class="detail-section-title">Core / Abs Circuit</div>
+              <table class="ex-table"><tbody>${buildRows(plan.core)}</tbody></table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tracking inputs -->
+        <div class="inp-grid">
+          <div class="field">
+            <label for="wt${i}">WEIGHT (kg)</label>
+            <input type="number" id="wt${i}" placeholder="e.g. 78.5" value="${d.weight||''}" step="0.1" min="30" max="300" aria-label="Weight for day ${plan.day}"/>
+          </div>
+          <div class="field">
+            <label for="bl${i}">BELLY (cm)</label>
+            <input type="number" id="bl${i}" placeholder="e.g. 92" value="${d.belly||''}" step="0.5" min="50" max="200" aria-label="Belly for day ${plan.day}"/>
+          </div>
+          <div class="field">
+            <label for="ca${i}">KCAL BURNED</label>
+            <input type="number" id="ca${i}" placeholder="e.g. 620" value="${d.calories||''}" step="10" min="0" max="3000" aria-label="Calories for day ${plan.day}"/>
+          </div>
+          <div class="field" style="justify-content:flex-end;">
+            <!-- layout spacer -->
+          </div>
+          <div class="field field-full">
+            <label for="nt${i}">NOTES</label>
+            <textarea id="nt${i}" placeholder="How was the session? Energy, PRs, mood…" aria-label="Notes for day ${plan.day}">${d.notes||''}</textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="cf">
+        <span class="saved-msg" id="sm${i}">✓ Saved!</span>
+        <button class="btn btn-fire btn-sm" id="sv${i}" data-i="${i}">Save Day ${plan.day}</button>
       </div>
     `;
-    cont.appendChild(div);
+
+    grid.appendChild(card);
   });
 
-  // exercise-level listeners
-  cont.querySelectorAll("input[data-ex='1']").forEach(chk=>{
-    chk.addEventListener("change",(e)=>{
-      const dayId = e.target.dataset.day;
-      const idx = e.target.dataset.index;
-      const map = loadJson(LS_KEY_EX);
-      map[dayId] = map[dayId] || {};
-      map[dayId][idx] = e.target.checked;
-      saveJson(LS_KEY_EX,map);
-      renderPlan(todayOnly);
-    });
-  });
+  // Attach listeners
+  attachListeners();
+  applyFilter(activeFilter);
+  updateStats();
 
-  // day-level listeners
-  cont.querySelectorAll("input[data-daydone]").forEach(chk=>{
-    chk.addEventListener("change",(e)=>{
-      const id = e.target.dataset.daydone;
-      const map = loadJson(LS_KEY_DAYS);
-      map[id] = e.target.checked;
-      saveJson(LS_KEY_DAYS,map);
-      updateWeekProgress();
-      renderPlan(todayOnly);
-    });
-  });
-
-  // Weekly split on right
-  const w = document.getElementById("weekSplit");
-  w.innerHTML = plan.map(p=>{
-    const ticks = loadJson(LS_KEY_DAYS);
-    const done = !!ticks[p.id];
-    return `
-    <div class="week-card">
-      <b>${p.weekDay}</b>
-      <div>${p.short}</div>
-      <div style="margin-top:4px;font-size:11px;color:${done?"#16a34a":"var(--text-muted)"};">
-        ${done ? "✅ Done" : "Pending"}
-      </div>
-    </div>`;
-  }).join("");
-  updateWeekProgress();
+  // Scroll to today
+  const tc = document.getElementById(`c${todayIdx}`);
+  if (tc) setTimeout(() => tc.scrollIntoView({behavior:"smooth", block:"center"}), 400);
 }
 
-// Tabs
-document.querySelectorAll(".tab-link").forEach(btn=>{
-  btn.addEventListener("click",()=>{
-    document.querySelectorAll(".tab-link").forEach(b=>b.setAttribute("aria-selected","false"));
-    btn.setAttribute("aria-selected","true");
-    document.querySelectorAll(".tab-content").forEach(s=>s.classList.remove("active"));
-    document.getElementById(btn.dataset.tab).classList.add("active");
+/* ═══════════════════════════════════════════════════════════
+   LISTENERS
+═══════════════════════════════════════════════════════════ */
+function attachListeners() {
+  for (let i=0; i<30; i++) {
+    // Save button
+    document.getElementById(`sv${i}`)?.addEventListener("click", () => save(i));
+
+    // Checkbox
+    document.getElementById(`chk${i}`)?.addEventListener("change", e => {
+      data[i].workout = e.target.checked;
+      const card = document.getElementById(`c${i}`);
+      const wc   = document.getElementById(`wc${i}`);
+      card?.classList.toggle("done", e.target.checked);
+      wc?.classList.toggle("ticked", e.target.checked);
+    });
+
+    // Enter to save
+    ["wt","bl","ca"].forEach(f => {
+      document.getElementById(`${f}${i}`)?.addEventListener("keydown", e => {
+        if (e.key === "Enter") save(i);
+      });
+    });
+
+    // Expand button
+    const expBtn = document.getElementById(`expBtn${i}`);
+    const det    = document.getElementById(`det${i}`);
+    expBtn?.addEventListener("click", () => {
+      const open = det.classList.toggle("open");
+      expBtn.classList.toggle("open", open);
+      expBtn.setAttribute("aria-expanded", open);
+      expBtn.querySelector("span:first-child").textContent = open ? "📋 Hide Workout Plan" : "📋 View Full Workout Plan";
+    });
+
+    // Detail tabs
+    document.querySelectorAll(`.dtab[data-idx="${i}"]`).forEach(tab => {
+      tab.addEventListener("click", () => {
+        const key = tab.dataset.tab;
+        document.querySelectorAll(`.dtab[data-idx="${i}"]`).forEach(t => t.classList.remove("active"));
+        document.querySelectorAll(`[id^="p-"][id$="-${i}"]`).forEach(p => p.classList.remove("active"));
+        tab.classList.add("active");
+        document.getElementById(`p-${key}-${i}`)?.classList.add("active");
+      });
+    });
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SAVE
+═══════════════════════════════════════════════════════════ */
+function save(i) {
+  data[i].weight   = document.getElementById(`wt${i}`)?.value.trim() || "";
+  data[i].belly    = document.getElementById(`bl${i}`)?.value.trim() || "";
+  data[i].calories = document.getElementById(`ca${i}`)?.value.trim() || "";
+  data[i].notes    = document.getElementById(`nt${i}`)?.value.trim() || "";
+  data[i].workout  = document.getElementById(`chk${i}`)?.checked || false;
+  saveData();
+
+  // Update card classes
+  document.getElementById(`c${i}`)?.classList.toggle("done", data[i].workout);
+
+  // Flash feedback
+  const sm = document.getElementById(`sm${i}`);
+  sm?.classList.add("show");
+  setTimeout(() => sm?.classList.remove("show"), 2400);
+
+  updateStats();
+  toast(`✓ Day ${i+1} saved!`, "ok");
+}
+
+/* ═══════════════════════════════════════════════════════════
+   FILTER
+═══════════════════════════════════════════════════════════ */
+function applyFilter(f) {
+  activeFilter = f;
+
+  document.querySelectorAll(".card").forEach(card => {
+    const idx  = parseInt(card.dataset.day);
+    const week = parseInt(card.dataset.week);
+    const done = data[idx]?.workout || false;
+    let show = true;
+    if      (f === "w1")   show = week === 1;
+    else if (f === "w2")   show = week === 2;
+    else if (f === "w3")   show = week === 3;
+    else if (f === "w4")   show = week === 4;
+    else if (f === "done") show = done;
+    else if (f === "todo") show = !done;
+    card.classList.toggle("hidden", !show);
   });
+
+  document.querySelectorAll(".wk-head").forEach(wh => {
+    const wk = parseInt(wh.dataset.week);
+    const cards = document.querySelectorAll(`.card[data-week="${wk}"]`);
+    const anyVisible = Array.from(cards).some(c => !c.classList.contains("hidden"));
+    wh.classList.toggle("hidden", !anyVisible);
+  });
+
+  document.querySelectorAll(".fpill").forEach(btn => {
+    btn.classList.toggle("on", btn.dataset.f === f);
+  });
+}
+
+/* ═══════════════════════════════════════════════════════════
+   EXPORT JSON
+═══════════════════════════════════════════════════════════ */
+function exportJSON() {
+  const out = {
+    meta: {
+      name: "Vishal Panchamukhi – 30-Day Belly Fat Shred",
+      exportedAt: new Date().toISOString(),
+      completedDays: data.filter(d => d.workout).length,
+      totalCalories: data.reduce((s,d) => s+(parseFloat(d.calories)||0), 0),
+      startDate: localStorage.getItem(DK) || "Not set",
+    },
+    days: data.map((d,i) => ({
+      day: i+1,
+      week: PLAN[i].week,
+      focus: PLAN[i].title,
+      subtitle: PLAN[i].subtitle,
+      estKcal: PLAN[i].kcal,
+      ...d,
+    }))
+  };
+  const blob = new Blob([JSON.stringify(out, null, 2)], {type:"application/json"});
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement("a");
+  a.href     = url;
+  a.download = `vishal-shred-progress-${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  toast("📁 Progress exported!", "info");
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TOAST
+═══════════════════════════════════════════════════════════ */
+let toastT = null;
+function toast(msg, type="info") {
+  const el = document.getElementById("toast");
+  el.textContent = msg;
+  el.className = "show " + type;
+  clearTimeout(toastT);
+  toastT = setTimeout(() => el.className = "", 2800);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   MODAL
+═══════════════════════════════════════════════════════════ */
+const modal = document.getElementById("modal");
+const openModal  = () => modal.classList.add("open");
+const closeModal = () => modal.classList.remove("open");
+
+/* ═══════════════════════════════════════════════════════════
+   WIRE CONTROLS
+═══════════════════════════════════════════════════════════ */
+document.getElementById("themeBtn").addEventListener("click", toggleTheme);
+document.getElementById("dlBtn").addEventListener("click", exportJSON);
+document.getElementById("dlBtnM").addEventListener("click", exportJSON);
+document.getElementById("resetBtn").addEventListener("click", openModal);
+document.getElementById("resetBtnM").addEventListener("click", openModal);
+document.getElementById("cancelBtn").addEventListener("click", closeModal);
+document.getElementById("confirmBtn").addEventListener("click", () => {
+  resetAllData();
+  closeModal();
+  render();
+  toast("↺ All data cleared.", "err");
+});
+modal.addEventListener("click", e => { if (e.target === modal) closeModal(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+
+document.querySelectorAll(".fpill").forEach(btn => {
+  btn.addEventListener("click", () => applyFilter(btn.dataset.f));
 });
 
-let todayMode = true;
-document.getElementById("btnTodayView").addEventListener("click",()=>{
-  todayMode = !todayMode;
-  document.getElementById("btnTodayView").innerText = todayMode ? "Today View" : "All Days View";
-  renderPlan(todayMode);
-});
-
-document.getElementById("btnResetTicks").addEventListener("click",()=>{
-  if(!confirm("Clear all 'done' marks (days + exercises)?")) return;
-  localStorage.removeItem(LS_KEY_DAYS);
-  localStorage.removeItem(LS_KEY_EX);
-  renderPlan(todayMode);
-});
-
-// init
-renderPlan(true);
-setInterval(()=>renderPlan(todayMode),30000);
+/* ═══════════════════════════════════════════════════════════
+   BOOT
+═══════════════════════════════════════════════════════════ */
+initTheme();
+render();
 </script>
 </body>
 </html>
